@@ -1,0 +1,96 @@
+/* ═══ PROJECTS ═══ */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.project-card {
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-top: 2px solid transparent;
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.project-card:hover {
+  transform: translateY(-3px);
+}
+
+/* ── Header ── */
+.project-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.project-icon {
+  font-size: 22px;
+  line-height: 1;
+}
+.project-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+
+/* ── Description ── */
+.project-description {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.75;
+  flex: 1;
+}
+
+/* ── Tags ── */
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.project-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--muted);
+  letter-spacing: 0.3px;
+}
+
+/* ── Footer link ── */
+.project-footer {
+  padding-top: 4px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+.project-github-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  padding: 6px 0;
+  transition: opacity 0.2s, gap 0.2s;
+  opacity: 0.75;
+}
+.project-github-link:hover {
+  opacity: 1;
+  gap: 12px;
+}
+.project-github-arrow {
+  font-size: 14px;
+  transition: transform 0.2s;
+}
+.project-github-link:hover .project-github-arrow {
+  transform: translateX(3px);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .projects-grid { grid-template-columns: 1fr; }
+}

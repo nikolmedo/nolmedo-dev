@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="1.4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="glow-soft">
+      <feGaussianBlur stdDeviation="0.8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="32" height="32" rx="5" fill="#060610"/>
+
+  <!-- Subtle border -->
+  <rect width="32" height="32" rx="5" fill="none" stroke="#39FF14" stroke-width="0.6" opacity="0.25"/>
+
+  <!-- Corner PCB traces (top-left cyan, bottom-right green) -->
+  <g filter="url(#glow-soft)">
+    <path d="M0 7 H4 L6 5 H9"    stroke="#00E5FF" stroke-width="0.7" fill="none" opacity="0.6"/>
+    <path d="M32 25 H28 L26 27 H23" stroke="#39FF14" stroke-width="0.7" fill="none" opacity="0.6"/>
+    <circle cx="9"  cy="5"  r="1.2" fill="#00E5FF" opacity="0.7"/>
+    <circle cx="23" cy="27" r="1.2" fill="#39FF14"  opacity="0.7"/>
+  </g>
+
+  <!-- < / > with neon green glow -->
+  <g filter="url(#glow)" stroke="#39FF14" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <polyline points="11,9 6,16 11,23"/>
+    <line x1="14.5" y1="23" x2="18.5" y2="9"/>
+    <polyline points="22,9 27,16 22,23"/>
+  </g>
+</svg>

@@ -1,0 +1,78 @@
+/* ═══ HERO ═══ */
+.hero-section {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 24px 60px;
+}
+
+.hero-content {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hero-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero-panel {
+  padding: 60px 56px;
+  max-width: 680px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero-corner-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.hero-greeting {
+  font-size: 15px;
+  color: var(--muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  font-weight: 400;
+}
+.hero-name {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(36px, 6vw, 56px);
+  font-weight: 800;
+  letter-spacing: 4px;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+.hero-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: clamp(11px, 1.8vw, 15px);
+  font-weight: 500;
+  color: var(--green);
+  letter-spacing: 3px;
+  margin-bottom: 20px;
+}
+.hero-tagline {
+  font-size: 15px;
+  color: var(--muted);
+  margin-bottom: 36px;
+  line-height: 1.7;
+}
+.hero-buttons {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .hero-panel { padding: 40px 28px; }
+}
