@@ -26,13 +26,18 @@ export default function Navbar({ activeSection }: Props) {
     <nav className={`navbar ${scrolled ? "navbar-scrolled" : ""}`}>
       <div className="navbar-inner">
 
-        <button className="nav-logo" onClick={() => scrollTo("hero")}>
+        <button className="nav-logo" onClick={() => scrollTo("hero")} aria-label="Home">
           <span style={{ color: COLORS.neonGreen }}>{"<"}</span>
           nolmedo
           <span style={{ color: COLORS.neonGreen }}>{"/>"}</span>
         </button>
 
-        <button className="mobile-toggle" onClick={() => setMobileOpen(!mobileOpen)}>
+        <button 
+          className="mobile-toggle" 
+          onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label={mobileOpen ? "Close menu" : "Open menu"}
+          aria-expanded={mobileOpen}
+        >
           <span /><span /><span />
         </button>
 
