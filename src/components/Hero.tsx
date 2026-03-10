@@ -44,6 +44,7 @@ export default function Hero() {
           </p>
 
           <div className="hero-buttons">
+            <a className="btn-secondary" href="https://github.com/nikolmedo" target="_blank" rel="noopener noreferrer">GitHub</a>
             <button className="btn-primary"   onClick={() => scrollTo("experience")}>Experience</button>
             <button className="btn-secondary" onClick={() => scrollTo("contact")}>Contact</button>
           </div>

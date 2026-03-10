@@ -87,6 +87,7 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
+  justify-items: stretch;
 }
 .education-card {
   padding: 28px 28px 28px 40px;
@@ -124,4 +125,11 @@
   .timeline        { padding-left: 32px; }
   .timeline-node   { left: -26px; width: 12px; height: 12px; }
   .timeline-card   { padding: 20px; }
+}
+@media (min-width: 769px) {
+  .education-grid > :last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    max-width: calc(50% - 10px);
+    justify-self: center;
+  }
 }

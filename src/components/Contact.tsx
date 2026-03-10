@@ -61,6 +61,12 @@ function BusinessCard() {
               </a>
             </div>
             <div className="bcard-row">
+              <a className="bcard-link" href="https://github.com/nolmedo" target="_blank" rel="noopener noreferrer">
+                <span className="bcard-icon">⚙</span>&nbsp;
+                <span>github.com/nolmedo</span>
+              </a>
+            </div>
+            <div className="bcard-row">
               <a className="bcard-link" href="https://nolmedo.dev" target="_blank" rel="noopener noreferrer">
                 <span className="bcard-icon">⊕</span>&nbsp;
                 <span>nolmedo.dev</span>

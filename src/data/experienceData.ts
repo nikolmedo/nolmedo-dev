@@ -22,7 +22,8 @@ export const experienceData: ExperienceEntry[] = [
     highlights: [
       "Built and implemented key functionalities for web applications with React",
       "Designed accessible interfaces in collaboration with cross-functional teams, ensuring optimal UX for diverse audiences",
-      "Optimized web applications for speed, scalability, and security",
+      "Collaborated on the deployment and implementation of the Cloud Builder, Manager & Installer SDK, enhancing provisioning speed and scalability, reducing up to 70,000 hours quarterly in client instance configuration",
+      "Redesigned the application's core navigation interface, accelerating task completion by 70% and enhancing overall user experience",
       "Engineered dashboards for effective data visualization and actionable insights",
       "Performed unit testing and resolved issues to ensure code quality and maintainability",
     ],
@@ -56,9 +57,14 @@ export const experienceData: ExperienceEntry[] = [
 export const educationData: EducationEntry[] = [
   {
     degree: "Master's Degree — Developing with AI",
-    school: "University of Isabel I, Spain",
+    school: "Universidad Isabel I, Spain",
     period: "2026 (ongoing)",
     detail: "AI architecture, LLMs, RAG systems, LangChain, advanced TypeScript & Python",
+  },
+  {
+    degree: "Diploma - React JS",
+    school: "Coderhouse, Argentina",
+    period: "2020",
   },
   {
     degree: "Technical Degree — Senior Programming",
@@ -66,13 +72,13 @@ export const educationData: EducationEntry[] = [
     period: "2015 — 2017",
   },
   {
-    degree: "Course - React JS",
-    school: "Coderhouse, Argentina",
-    period: "2020",
-  },
-  {
-    degree: "Course - Android Advanced Programming",
+    degree: "Diploma - Android Advanced Programming",
     school: "Universidad Tecnológica Nacional, Argentina",
     period: "2015",
+  },
+  {
+    degree: "Bachelor of Science - Software Engineering (incomplete)",
+    school: "Universidad Nacional de la Matanza, Argentina",
+    period: "2012 - 2015",
   },
 ];
