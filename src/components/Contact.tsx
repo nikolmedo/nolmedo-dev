@@ -2,13 +2,15 @@ import "../styles/contact.css";
 import { COLORS } from "../constants/colors";
 import GlassPanel from "./GlassPanel";
 import SectionTitle from "./SectionTitle";
+import { useReveal } from "../hooks/useReveal";
 
 export default function Contact() {
+  const ref = useReveal();
   return (
     <section id="contact" className="section contact-section">
       <SectionTitle label="Get in Touch" color={COLORS.cyan} />
 
-      <div className="contact-grid">
+      <div ref={ref} className="contact-grid reveal">
         <BusinessCard />
       </div>
 

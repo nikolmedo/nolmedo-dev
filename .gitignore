@@ -2,5 +2,7 @@
 .idea/
 .claude/
 .distributions/
+.agents/
 node_modules/
 dist/
+skills-lock.json

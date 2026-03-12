@@ -11,10 +11,13 @@
   flex-direction: column;
   gap: 16px;
   border-top: 2px solid transparent;
-  transition: transform 0.25s, box-shadow 0.25s;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s;
 }
 .project-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-5px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1),
+              0 16px 48px rgba(0, 0, 0, 0.5),
+              0 0 32px color-mix(in srgb, var(--project-color, #00e5ff) 20%, transparent);
 }
 
 /* ── Header ── */
@@ -58,6 +61,12 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
   color: var(--muted);
   letter-spacing: 0.3px;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.project-card:hover .project-tag {
+  color: color-mix(in srgb, var(--project-color, #00e5ff) 70%, var(--muted));
+  border-color: color-mix(in srgb, var(--project-color, #00e5ff) 25%, transparent);
+  background: color-mix(in srgb, var(--project-color, #00e5ff) 8%, rgba(255,255,255,0.03));
 }
 
 /* ── Footer link ── */

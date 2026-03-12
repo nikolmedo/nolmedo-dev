@@ -1,20 +1,23 @@
+import React from "react";
 import "../styles/projects.css";
 import { COLORS } from "../constants/colors";
 import { projectsData } from "../data/projectsData";
 import GlassPanel from "./GlassPanel";
 import SectionTitle from "./SectionTitle";
+import { useReveal } from "../hooks/useReveal";
 
 export default function Projects() {
+  const ref = useReveal();
   return (
     <section id="projects" className="section">
       <SectionTitle label="Projects" color={COLORS.neonGreen} />
 
-      <div className="projects-grid">
+      <div ref={ref} className="projects-grid reveal">
         {projectsData.map((project) => (
           <GlassPanel
             key={project.name}
             className="project-card"
-            style={{ borderTopColor: project.color }}
+            style={{ borderTopColor: project.color, "--project-color": project.color } as React.CSSProperties}
           >
             <div className="project-header">
               <span className="project-icon" style={{ color: project.color }}>

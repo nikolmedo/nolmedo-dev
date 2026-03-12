@@ -1,15 +1,18 @@
 import "../styles/experience.css";
 import { COLORS } from "../constants/colors";
 import { experienceData, educationData } from "../data/experienceData";
+import { useReveal } from "../hooks/useReveal";
 import GlassPanel from "./GlassPanel";
 import SectionTitle from "./SectionTitle";
 
 export default function Experience() {
+  const timelineRef = useReveal();
+  const educationRef = useReveal();
   return (
     <section id="experience" className="section">
       <SectionTitle label="Experience" color={COLORS.purple} />
 
-      <div className="timeline">
+      <div ref={timelineRef} className="timeline reveal">
         <div className="timeline-line" />
 
         {experienceData.map((job, i) => (
@@ -34,7 +37,7 @@ export default function Experience() {
 
       <SectionTitle label="Education" color={COLORS.neonGreen} />
 
-      <div className="education-grid">
+      <div ref={educationRef} className="education-grid reveal">
         {educationData.map((ed, i) => (
           <GlassPanel key={i} className="education-card">
             <div
