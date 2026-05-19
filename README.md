@@ -18,10 +18,12 @@
 
 A modern, interactive portfolio with a cyberpunk-inspired aesthetic. Highlights:
 
-- **Animated PCB Background** — dynamic Printed Circuit Board canvas rendered in real time
-- **Performance Optimized** — lazy loading on all major sections for fast initial load
-- **Fully Responsive** — adaptive layout for desktop, tablet, and mobile
-- **Accessible** — ARIA labels, keyboard navigation, and semantic HTML throughout
+- **🤖 WebMCP Interoperability** — supports the Web Model Context Protocol, allowing AI agents to programmatically scroll, retrieve tech/projects/experience data, change themes, and trigger animations.
+- **📄 llm.txt Integration** — developer-focused machine-readable information file at [/llm.txt](public/llm.txt) for LLM and WebMCP agent discovery.
+- **⚡ Interactive PCB Background** — animated circuit board canvas rendered in real time, reacting to theme changes and physical clicks on nodes.
+- **🔍 Tech Stack Interactive Filtering** — click on skill categories to focus specific items and blur other groups.
+- **✨ Spotlight Hover Effect** — cursor-tracking glow effect on glassmorphic panels.
+- **🚀 Performance & Accessibility** — lazy loading, semantic HTML, and fast response times.
 
 ---
 

@@ -1,0 +1,37 @@
+# Nicolás Olmedo - Senior Software Engineer (Frontend)
+
+Nicolás Olmedo is a Senior Frontend Engineer specializing in high-performance web applications, interactive interfaces, hardware/IoT integrations, and modern frontend technologies.
+
+This portfolio is fully interactive and features WebMCP (Web Model Context Protocol) capabilities, allowing AI agents to browse, read experience details, change the theme, and trigger background board animations.
+
+## WebMCP AI Agent Tools
+AI agents can interact with this website using the following WebMCP tools (exposed via `navigator.modelContext` and `window.webmcp` in the browser console):
+
+- `scrollToSection({ section })`: Smooth scrolls the page to a given section (`hero`, `about`, `tech`, `projects`, `experience`, `contact`).
+- `getTechStack()`: Returns the full list of technologies Nicolás specializes in, grouped by categories (Frontend, Languages, Backend/DB, Hardware/IoT, Tools/VCS).
+- `getProjects()`: Returns a list of projects developed by Nicolás with detailed descriptions, links, and tags.
+- `getExperience()`: Returns Nicolás's work experience history and educational background.
+- `changeTheme({ theme })`: Changes the site's color scheme in real time (`default`, `cyberpunk`, `matrix`, `synthwave`, `glacier`).
+- `triggerPCBEvent({ type })`: Dispatches an animation event to the background PCB board (`burst`, `scan`).
+
+## Skills & Technologies
+- **Frontend Core**: React, TypeScript, HTML5, CSS3, JavaScript (ES6+).
+- **Libraries & Tooling**: Vite, Redux, TailwindCSS, CSS Variables.
+- **Hardware & IoT**: C/C++, ESP32/Arduino, PCB Design, IoT Integrations.
+- **VCS & Tools**: Git, GitHub, Docker, NPM/Node.js.
+
+## Key Projects
+- **PCB Design & IoT Controller**: Interactive controller dashboard for custom-designed PCBs and embedded hardware.
+- **Industrial Automation Dashboard**: Real-time monitoring and analytics frontend for manufacturing assembly lines.
+- **Microservices Orchestrator UI**: Central management console for containerized microservices.
+
+## Experience & Education
+- **Senior Software Engineer** (Frontend focus, 2021 - Present).
+- **Frontend Developer** (2018 - 2021).
+- **B.S. in Computer Engineering**.
+
+## Contact & Links
+- **Email**: nikolmedo@gmail.com
+- **LinkedIn**: https://www.linkedin.com/in/nolmedo
+- **GitHub**: https://github.com/nolmedo
+- **Website**: https://nolmedo.dev

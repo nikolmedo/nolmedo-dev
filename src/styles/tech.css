@@ -50,3 +50,24 @@
   border-radius: 50%;
   flex-shrink: 0;
 }
+
+/* Interactive Category Hover & Filter States */
+.tech-category-label {
+  padding: 4px 10px;
+  border-radius: 6px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: inline-flex !important;
+}
+.tech-category-label:hover {
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateX(4px);
+}
+.tech-category-dimmed {
+  filter: grayscale(0.6) blur(0.3px);
+  transform: scale(0.98);
+}
+.tech-category-selected .tech-category-label {
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
