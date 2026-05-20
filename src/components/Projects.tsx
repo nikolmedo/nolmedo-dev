@@ -5,9 +5,11 @@ import { projectsData } from "../data/projectsData";
 import GlassPanel from "./GlassPanel";
 import SectionTitle from "./SectionTitle";
 import { useReveal } from "../hooks/useReveal";
+import { useFeedback } from "../hooks/useFeedback";
 
 export default function Projects() {
   const ref = useReveal();
+  const { triggerClick } = useFeedback();
   return (
     <section id="projects" className="section">
       <SectionTitle label="Projects" color={COLORS.neonGreen} />
@@ -41,6 +43,10 @@ export default function Projects() {
                 rel="noopener noreferrer"
                 className="project-github-link"
                 style={{ color: project.color }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  triggerClick();
+                }}
               >
                 <span>View on GitHub</span>
                 <span className="project-github-arrow">→</span>

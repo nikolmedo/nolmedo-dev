@@ -21,8 +21,12 @@ A modern, interactive portfolio with a cyberpunk-inspired aesthetic. Highlights:
 - **🤖 WebMCP Interoperability** — supports the Web Model Context Protocol, allowing AI agents to programmatically scroll, retrieve tech/projects/experience data, change themes, and trigger animations.
 - **📄 llm.txt Integration** — developer-focused machine-readable information file at [/llm.txt](public/llm.txt) for LLM and WebMCP agent discovery.
 - **⚡ Interactive PCB Background** — animated circuit board canvas rendered in real time, reacting to theme changes and physical clicks on nodes.
-- **🔍 Tech Stack Interactive Filtering** — click on skill categories to focus specific items and blur other groups.
-- **✨ Spotlight Hover Effect** — cursor-tracking glow effect on glassmorphic panels.
+- **🔍 Tech Stack Interactive Filtering** — click on skill categories to focus specific items and trigger a synthesized physical "galactic hum" (lightsaber beat) using the Web Audio API.
+- **🔊 Sensory Feedback System** — real-time synthesized interactive tones for button and link clicks, avoiding chiptune noise through carefully calibrated attack and decay envelopes.
+- **🔕 Persistent Mute Control** — toggle audio settings via Navbar button with state persistence in `localStorage`.
+- **📳 Haptic Feedback** — subtle 10ms micro-vibrations utilizing the Web `Vibration API` on mobile devices for click confirmation.
+- **🎨 Premium Visual & Hover Effects** — dynamic hover translation, custom glow overlays using unique accent variables on Education cards, and scale micro-animations on timeline nodes.
+- **📱 Optimized Mobile Cyber-Grid** — auto-densified 45px grid pattern combined with a dynamic radial ambient glow (`mobileAmbientGlow`) for visually rich mobile backgrounds.
 - **🚀 Performance & Accessibility** — lazy loading, semantic HTML, and fast response times.
 
 ---

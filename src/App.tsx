@@ -57,10 +57,15 @@ export default function NolmedoDev() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+
+
   useWebMCP(setTheme);
 
   return (
     <main className="nolmedo-root" data-theme={theme}>
+      {/* Cyber-Grid background container */}
+      <div className="cyber-grid" />
+
       <div className="scroll-progress-bar" />
       <PCBBackground />
       <Navbar activeSection={activeSection} />

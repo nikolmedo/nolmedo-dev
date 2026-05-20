@@ -1,13 +1,13 @@
-import { type ReactNode, type CSSProperties, useRef } from "react";
+import { type ReactNode, type CSSProperties, useRef, type HTMLAttributes } from "react";
 
-interface Props {
+interface Props extends HTMLAttributes<HTMLDivElement> {
   children:   ReactNode;
   className?: string;
   style?:     CSSProperties;
   id?:        string;
 }
 
-export default function GlassPanel({ children, className = "", style = {}, id }: Props) {
+export default function GlassPanel({ children, className = "", style = {}, id, ...rest }: Props) {
   const panelRef = useRef<HTMLDivElement>(null);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -18,6 +18,11 @@ export default function GlassPanel({ children, className = "", style = {}, id }:
     const y = e.clientY - rect.top;
     el.style.setProperty("--mouse-x", `${x}px`);
     el.style.setProperty("--mouse-y", `${y}px`);
+    
+    // Call parent onMouseMove if present
+    if (rest.onMouseMove) {
+      rest.onMouseMove(e);
+    }
   };
 
   return (
@@ -26,6 +31,7 @@ export default function GlassPanel({ children, className = "", style = {}, id }:
       id={id}
       className={`glass-panel ${className}`}
       style={style}
+      {...rest}
       onMouseMove={handleMouseMove}
     >
       {children}

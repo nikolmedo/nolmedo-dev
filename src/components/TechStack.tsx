@@ -5,12 +5,15 @@ import { techData } from "../data/techData";
 import GlassPanel from "./GlassPanel";
 import SectionTitle from "./SectionTitle";
 import { useReveal } from "../hooks/useReveal";
+import { useFeedback } from "../hooks/useFeedback";
 
 export default function TechStack() {
   const ref = useReveal();
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const { playGalacticHover } = useFeedback();
 
   const toggleCategory = (catName: string) => {
+    playGalacticHover();
     setActiveCategory(prev => (prev === catName ? null : catName));
   };
 

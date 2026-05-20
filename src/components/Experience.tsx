@@ -38,17 +38,25 @@ export default function Experience() {
       <SectionTitle label="Education" color={COLORS.neonGreen} />
 
       <div ref={educationRef} className="education-grid reveal">
-        {educationData.map((ed, i) => (
-          <GlassPanel key={i} className="education-card">
-            <div
-              className="edu-node"
-              style={{ background: COLORS.neonGreen, boxShadow: `0 0 8px ${COLORS.neonGreen}` }}
-            />
-            <h3 className="edu-degree">{ed.degree}</h3>
-            <p className="edu-school">{ed.school} · {ed.period}</p>
-            <p className="edu-detail">{ed.detail}</p>
-          </GlassPanel>
-        ))}
+        {educationData.map((ed, i) => {
+          const colors = [COLORS.neonGreen, COLORS.cyan, COLORS.purple, "#FF2A85", "#FF9F00"];
+          const color = colors[i % colors.length];
+          return (
+            <GlassPanel
+              key={i}
+              className="education-card"
+              style={{ "--card-color": color } as React.CSSProperties}
+            >
+              <div
+                className="edu-node"
+                style={{ background: color, boxShadow: `0 0 8px ${color}` }}
+              />
+              <h3 className="edu-degree">{ed.degree}</h3>
+              <p className="edu-school">{ed.school} · {ed.period}</p>
+              <p className="edu-detail">{ed.detail}</p>
+            </GlassPanel>
+          );
+        })}
       </div>
     </section>
   );

@@ -2,12 +2,14 @@ import { useState, useEffect } from "react";
 import "../styles/hero.css";
 import { COLORS } from "../constants/colors";
 import GlassPanel from "./GlassPanel";
+import { useFeedback } from "../hooks/useFeedback";
 
 const scrollTo = (id: string) =>
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
 export default function Hero() {
   const [visible, setVisible] = useState(false);
+  const { triggerClick } = useFeedback();
 
   useEffect(() => {
     const timer = setTimeout(() => setVisible(true), 200);
@@ -44,9 +46,33 @@ export default function Hero() {
           </p>
 
           <div className="hero-buttons">
-            <a className="btn-secondary" href="https://github.com/nikolmedo" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <button className="btn-primary"   onClick={() => scrollTo("experience")}>Experience</button>
-            <button className="btn-secondary" onClick={() => scrollTo("contact")}>Contact</button>
+            <a 
+              className="btn-secondary" 
+              href="https://github.com/nikolmedo" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              onClick={triggerClick}
+            >
+              GitHub
+            </a>
+            <button 
+              className="btn-primary"   
+              onClick={() => {
+                triggerClick();
+                scrollTo("experience");
+              }}
+            >
+              Experience
+            </button>
+            <button 
+              className="btn-secondary" 
+              onClick={() => {
+                triggerClick();
+                scrollTo("contact");
+              }}
+            >
+              Contact
+            </button>
           </div>
 
         </GlassPanel>

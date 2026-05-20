@@ -3,6 +3,7 @@ import { COLORS } from "../constants/colors";
 import GlassPanel from "./GlassPanel";
 import SectionTitle from "./SectionTitle";
 import { useReveal } from "../hooks/useReveal";
+import { useFeedback } from "../hooks/useFeedback";
 
 export default function Contact() {
   const ref = useReveal();
@@ -22,6 +23,8 @@ export default function Contact() {
 }
 
 function BusinessCard() {
+  const { triggerClick } = useFeedback();
+
   return (
     <div className="bcard-wrap">
       <GlassPanel className="bcard">
@@ -51,25 +54,25 @@ function BusinessCard() {
           <p className="bcard-role">SENIOR SOFTWARE ENGINEER — FRONTEND</p>
           <div className="bcard-info">
             <div className="bcard-row">
-              <a className="bcard-link" href="mailto:nikolmedo@gmail.com">
+              <a className="bcard-link" href="mailto:nikolmedo@gmail.com" onClick={triggerClick}>
                 <span className="bcard-icon">✉</span>&nbsp;
                 <span>nikolmedo@gmail.com</span>
               </a>
             </div>
             <div className="bcard-row">
-              <a className="bcard-link" href="https://www.linkedin.com/in/nolmedo" target="_blank" rel="noopener noreferrer">
+              <a className="bcard-link" href="https://www.linkedin.com/in/nolmedo" target="_blank" rel="noopener noreferrer" onClick={triggerClick}>
                 <span className="bcard-icon">in</span>&nbsp;
                 <span>/in/nolmedo</span>
               </a>
             </div>
             <div className="bcard-row">
-              <a className="bcard-link" href="https://github.com/nolmedo" target="_blank" rel="noopener noreferrer">
+              <a className="bcard-link" href="https://github.com/nolmedo" target="_blank" rel="noopener noreferrer" onClick={triggerClick}>
                 <span className="bcard-icon">⚙</span>&nbsp;
                 <span>github.com/nolmedo</span>
               </a>
             </div>
             <div className="bcard-row">
-              <a className="bcard-link" href="https://nolmedo.dev" target="_blank" rel="noopener noreferrer">
+              <a className="bcard-link" href="https://nolmedo.dev" target="_blank" rel="noopener noreferrer" onClick={triggerClick}>
                 <span className="bcard-icon">⊕</span>&nbsp;
                 <span>nolmedo.dev</span>
               </a>
