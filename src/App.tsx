@@ -67,7 +67,7 @@ export default function NolmedoDev() {
       <div className="cyber-grid" />
 
       <div className="scroll-progress-bar" />
-      <PCBBackground />
+      <PCBBackground theme={theme} />
       <Navbar activeSection={activeSection} />
       <Hero />
       <Suspense fallback={<div style={{ minHeight: "100vh" }} />}>

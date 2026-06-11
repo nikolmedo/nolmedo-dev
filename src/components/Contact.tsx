@@ -66,9 +66,9 @@ function BusinessCard() {
               </a>
             </div>
             <div className="bcard-row">
-              <a className="bcard-link" href="https://github.com/nolmedo" target="_blank" rel="noopener noreferrer" onClick={triggerClick}>
+              <a className="bcard-link" href="https://github.com/nikolmedo" target="_blank" rel="noopener noreferrer" onClick={triggerClick}>
                 <span className="bcard-icon">⚙</span>&nbsp;
-                <span>github.com/nolmedo</span>
+                <span>github.com/nikolmedo</span>
               </a>
             </div>
             <div className="bcard-row">
