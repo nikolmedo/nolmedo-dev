@@ -49,7 +49,7 @@ function BusinessCard() {
 
         <div className="bcard-content">
           <h3 className="bcard-name">NICOLAS OLMEDO</h3>
-          <p className="bcard-role">SENIOR SOFTWARE ENGINEER · FRONTEND</p>
+          <p className="bcard-role">SENIOR FRONTEND ENGINEER</p>
           <div className="bcard-info">
             <div className="bcard-row">
               <a className="bcard-link" href="mailto:nikolmedo@gmail.com" aria-label="Email Nicolas Olmedo" onClick={triggerClick}>

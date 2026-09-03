@@ -86,7 +86,7 @@ export default function NolmedoDev() {
         </main>
       </SectionObserverContext.Provider>
       <footer className="footer">
-        <p>© {new Date().getFullYear()} Nicolas Olmedo · Built with React</p>
+        <p>© {new Date().getFullYear()} Nicolas Olmedo · Built with React & TypeScript</p>
       </footer>
     </div>
   );

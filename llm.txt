@@ -1,6 +1,6 @@
-# Nicolas Olmedo - Senior Software Engineer (Frontend)
+# Nicolas Olmedo - Senior Frontend Engineer
 
-Nicolas Olmedo is a Senior Frontend Engineer with 12+ years of experience building
+Nicolas Olmedo is a Senior Frontend Engineer with 13+ years of experience building
 high-performance web applications with React and TypeScript, currently at Medallia and
 pursuing a Master's degree in Developing with AI. He also works on AI integrations,
 home automation, and hardware/IoT projects.
@@ -14,24 +14,24 @@ AI agents can interact with this website using the following WebMCP tools (expos
 `navigator.modelContext` and `window.webmcp` in the browser console):
 
 - `scrollToSection({ section })`: Smooth scrolls the page to a given section (`hero`, `about`, `tech`, `projects`, `experience`, `contact`).
-- `getTechStack()`: Returns the full list of technologies grouped by category (Core, Backend & Frameworks, Tools & AI, Cloud & DevOps, Hardware/IoT).
+- `getTechStack()`: Returns the full list of technologies grouped by category (Core, Backend, Tools & AI, Cloud & DevOps, Hardware / IoT).
 - `getProjects()`: Returns the list of featured projects with descriptions, links, and tags.
 - `getExperience()`: Returns the work experience history and educational background.
 - `changeTheme({ theme })`: Changes the site's color scheme in real time (`default`, `cyberpunk`, `matrix`, `synthwave`, `glacier`).
 - `triggerPCBEvent({ type })`: Dispatches an animation event to the background PCB board (`burst` = pulse storm, `scan` = sweep).
 
 ## Skills & Technologies
-- Core: React, TypeScript, JavaScript, HTML/CSS, GraphQL, Node.js.
-- Backend & Frameworks: Java, Spring, Hibernate, Angular, Ionic, Python.
-- Tools & AI: GitHub Copilot, Gemini, OpenAI, Anthropic Claude, Ollama/Llama, n8n, DeepSeek.
+- Core: React, Next.js, TypeScript, JavaScript, HTML/CSS, GraphQL, Node.js, Angular, Ionic.
+- Backend: Java, Spring, Python.
+- Tools & AI: Copilot, Gemini, OpenAI, Anthropic, Ollama/Llama, n8n, DeepSeek.
 - Cloud & DevOps: AWS, Google Cloud, Firebase, CI/CD, Docker, Git.
-- Hardware & IoT: Home Assistant, ESP32, Raspberry Pi, ESPHome, 3D Printing.
+- Hardware / IoT: Home Assistant, ESP32, Raspberry Pi, ESPHome, 3D Printing.
 
 ## Featured Projects
-- **AIOversight** (https://github.com/nikolmedo/AIOversight): Desktop tray app that monitors AI coding agents in real time. Notifies when an agent finishes or needs approval and tracks quota and spend across Anthropic, OpenAI, Copilot, and Cursor. Local-first, encrypted credentials, no cloud, no telemetry. Built with Electron and TypeScript.
-- **PixelPotion** (https://github.com/nikolmedo/PixelPotion): Raspberry Pi camera system that transforms photos into artistic styles (Pixar 3D, anime, watercolor, cyberpunk) at the press of a physical button. Powered by Google Gemini AI, delivered via Telegram.
-- **ClaudePulse** (https://github.com/nikolmedo/ClaudePulse): Home Assistant custom integration that monitors Claude.ai usage metrics in a smart home dashboard. 10 sensor entities, automatic updates every 2 minutes.
-- **GenderReveal** (https://github.com/nikolmedo/GenderReveal): Web app for synchronized gender reveal events. Guests share a countdown link and see the answer at the same second, with the secret kept server-side and clock drift corrected across devices. Anonymous voting, custom two-color palette, bilingual English/Spanish. Built with Next.js and Turso.
+- **GenderReveal** (https://github.com/nikolmedo/GenderReveal): Web app for synchronized gender reveal events. Guests open a shared countdown link and learn the answer at the exact same second, with the secret kept server-side until reveal time and clock drift corrected across devices. Anonymous voting, custom two-color palette, bilingual English/Spanish interface. Tags: TypeScript, Next.js, React, Turso, SQLite, Vercel.
+- **AIOversight** (https://github.com/nikolmedo/AIOversight): Desktop tray app that acts as a control tower for AI coding agents. Notifies the instant an agent finishes or needs approval, and tracks quota and spend across Anthropic, OpenAI, Copilot, and Cursor. Local-first: encrypted credentials, no cloud, no telemetry. Tags: TypeScript, Electron, Claude Code, Anthropic, OpenAI.
+- **PixelPotion** (https://github.com/nikolmedo/PixelPotion): Raspberry Pi camera system that transforms photos into artistic styles (Pixar 3D, anime, watercolor, oil painting, cyberpunk) at the press of a physical button. Powered by Google Gemini AI and delivered instantly via Telegram. Tags: Python, Raspberry Pi, Gemini, Telegram API, IoT.
+- **ClaudePulse** (https://github.com/nikolmedo/ClaudePulse): Home Assistant custom integration that monitors Claude.ai usage metrics directly in a Home Assistant dashboard. Tracks session and weekly consumption with 10 sensor entities and automatic updates every two minutes. Tags: Python, Home Assistant, HACS, YAML, Anthropic.
 
 ## Experience
 - Senior Software Engineer, Medallia, Pleasanton, CA (July 2021 - Present).
@@ -39,8 +39,11 @@ AI agents can interact with this website using the following WebMCP tools (expos
 - Java & Mobile Developer, FactorIT, Buenos Aires, Argentina (June 2013 - June 2016).
 
 ## Education
-- Master's Degree in Developing with AI, Universidad Isabel I, Spain (2026, ongoing).
-- Technical Degree in Senior Programming, Universidad Tecnologica Nacional, Argentina.
+- Master's Degree in Developing with AI, Universidad Isabel I, Spain (2026, in progress).
+- Diploma - React, Coderhouse, Argentina (2020).
+- Higher Technical Degree in Programming, Universidad Tecnológica Nacional, Argentina (2015 - 2017).
+- Diploma - Android Advanced Programming, Universidad Tecnológica Nacional, Argentina (2015).
+- Bachelor of Science - Software Engineering (incomplete), Universidad Nacional de la Matanza, Argentina (2012 - 2015).
 
 ## Contact & Links
 - Email: nikolmedo@gmail.com

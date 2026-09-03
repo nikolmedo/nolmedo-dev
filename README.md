@@ -2,7 +2,7 @@
 
 # nolmedo.dev
 
-### Nicolas Olmedo · Senior Software Engineer · Frontend
+### Nicolas Olmedo · Senior Frontend Engineer
 
 [![React](https://img.shields.io/badge/React-18.3-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
@@ -103,7 +103,7 @@ never requires touching components.
 
 ## About Me
 
-Senior Frontend Engineer with 12+ years of experience building high-performance web
+Senior Frontend Engineer with 13+ years of experience building high-performance web
 applications with React & TypeScript. Currently at Medallia, pursuing a Master's
 degree in Developing with AI.
 
@@ -145,10 +145,10 @@ degree in Developing with AI.
 
 | Project | Description | Tags |
 |---------|-------------|------|
-| [AIOversight](https://github.com/nikolmedo/AIOversight) | Desktop tray app that monitors AI coding agents in real time: instant notifications when an agent finishes or needs approval, plus quota and spend tracking across Anthropic, OpenAI, Copilot, and Cursor. Local-first, no cloud, no telemetry. | `TypeScript` `Electron` `Claude Code` `OpenAI` |
-| [PixelPotion](https://github.com/nikolmedo/PixelPotion) | Raspberry Pi camera that transforms photos into artistic styles (Pixar 3D, anime, watercolor, cyberpunk) at the press of a physical button. Powered by Google Gemini, delivered via Telegram. | `Python` `Raspberry Pi` `Gemini AI` `IoT` |
-| [ClaudePulse](https://github.com/nikolmedo/ClaudePulse) | Home Assistant custom integration that monitors Claude.ai usage metrics in your smart home dashboard. 10 sensor entities, automatic updates every 2 minutes. | `Python` `Home Assistant` `HACS` `Claude API` |
 | [GenderReveal](https://github.com/nikolmedo/GenderReveal) | Web app for synchronized gender reveal events: everyone opens the same countdown link and learns the answer at the same second, with the secret kept server-side and clock drift corrected across devices. Anonymous voting and a bilingual interface. | `TypeScript` `Next.js` `Turso` `Vercel` |
+| [AIOversight](https://github.com/nikolmedo/AIOversight) | Desktop tray app that monitors AI coding agents in real time: instant notifications when an agent finishes or needs approval, plus quota and spend tracking across Anthropic, OpenAI, Copilot, and Cursor. Local-first, no cloud, no telemetry. | `TypeScript` `Electron` `Claude Code` `OpenAI` |
+| [PixelPotion](https://github.com/nikolmedo/PixelPotion) | Raspberry Pi camera that transforms photos into artistic styles (Pixar 3D, anime, watercolor, oil painting, cyberpunk) at the press of a physical button. Powered by Gemini, delivered via Telegram. | `Python` `Raspberry Pi` `Gemini` `IoT` |
+| [ClaudePulse](https://github.com/nikolmedo/ClaudePulse) | Home Assistant custom integration that monitors Claude.ai usage metrics in a Home Assistant dashboard. 10 sensor entities, automatic updates every 2 minutes. | `Python` `Home Assistant` `HACS` `Anthropic` |
 
 ## Contact
 

@@ -10,12 +10,12 @@ export const techData: TechCategory[] = [
   {
     category: "Core",
     color:    COLORS.cyan,
-    items:    ["React", "TypeScript", "JavaScript", "HTML/CSS", "GraphQL", "Node.js"],
+    items:    ["React", "Next.js", "TypeScript", "JavaScript", "HTML/CSS", "GraphQL", "Node.js", "Angular", "Ionic"],
   },
   {
-    category: "Backend & Frameworks",
+    category: "Backend",
     color:    COLORS.purple,
-    items:    ["Java", "Spring", "Hibernate", "Angular", "Ionic", "Python"],
+    items:    ["Java", "Spring", "Python"],
   },
   {
     category: "Tools & AI",

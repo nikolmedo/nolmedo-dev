@@ -25,7 +25,6 @@ export const experienceData: ExperienceEntry[] = [
       "Worked on the Cloud Builder, Manager & Installer SDK, cutting up to 70,000 hours quarterly from client instance configuration",
       "Redesigned the application's core navigation interface, accelerating task completion by 70%",
       "Built data-visualization dashboards",
-      "Wrote unit tests and resolved production defects",
     ],
   },
   {
@@ -58,16 +57,16 @@ export const educationData: EducationEntry[] = [
   {
     degree: "Master's Degree in Developing with AI",
     school: "Universidad Isabel I, Spain",
-    period: "2026 (ongoing)",
+    period: "2026 (in progress)",
     detail: "AI architecture, LLMs, RAG systems, LangChain, advanced TypeScript & Python",
   },
   {
-    degree: "Diploma - React JS",
+    degree: "Diploma - React",
     school: "Coderhouse, Argentina",
     period: "2020",
   },
   {
-    degree: "Technical Degree in Senior Programming",
+    degree: "Higher Technical Degree in Programming",
     school: "Universidad Tecnológica Nacional, Argentina",
     period: "2015 - 2017",
   },
