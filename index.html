@@ -1,24 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WZHW5V6HQE"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-WZHW5V6HQE');
-    </script>
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-WZZKWSKZ');</script>
-    <!-- End Google Tag Manager -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>html{background:#060610;color-scheme:dark}</style>
 
     <!-- ═══ Primary SEO ═══ -->
     <title>Nicolas Olmedo | Senior Frontend Engineer · React · TypeScript · AI</title>
@@ -32,18 +17,24 @@
 
     <!-- ═══ Open Graph (LinkedIn, Slack, WhatsApp, etc.) ═══ -->
     <meta property="og:type"         content="profile" />
+    <meta property="og:site_name"    content="nolmedo.dev" />
     <meta property="og:url"          content="https://nolmedo.dev" />
     <meta property="og:title"        content="Nicolas Olmedo | Senior Frontend Engineer" />
     <meta property="og:description"  content="12+ years building high-performance interfaces with React & TypeScript. AI-enhanced workflows. Currently at Medallia and pursuing a Master's in Developing with AI." />
     <meta property="og:locale"       content="en_US" />
+    <meta property="og:image"        content="https://nolmedo.dev/og.png" />
+    <meta property="og:image:width"  content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt"    content="Nicolas Olmedo, Senior Frontend Engineer. React, TypeScript, AI." />
     <meta property="profile:first_name" content="Nicolas" />
     <meta property="profile:last_name"  content="Olmedo" />
     <meta property="profile:username"   content="nolmedo" />
 
     <!-- ═══ Twitter / X Card ═══ -->
-    <meta name="twitter:card"        content="summary" />
+    <meta name="twitter:card"        content="summary_large_image" />
     <meta name="twitter:title"       content="Nicolas Olmedo | Senior Frontend Engineer" />
     <meta name="twitter:description" content="12+ years in React & TypeScript. AI-enhanced development. Currently at Medallia. nolmedo.dev" />
+    <meta name="twitter:image"       content="https://nolmedo.dev/og.png" />
 
     <!-- ═══ Structured Data: Schema.org Person (AI & search crawlers) ═══ -->
     <script type="application/ld+json">
@@ -107,5 +98,28 @@
     <!-- End Google Tag Manager (noscript) -->
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Analytics: deferred until window load so it never competes with first paint -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      window.addEventListener('load', function () {
+        // Google tag (gtag.js)
+        var g = document.createElement('script');
+        g.async = true;
+        g.src = 'https://www.googletagmanager.com/gtag/js?id=G-WZHW5V6HQE';
+        document.head.appendChild(g);
+        gtag('js', new Date());
+        gtag('config', 'G-WZHW5V6HQE');
+
+        // Google Tag Manager
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+        'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+        })(window,document,'script','dataLayer','GTM-WZZKWSKZ');
+        // End Google Tag Manager
+      });
+    </script>
   </body>
 </html>
