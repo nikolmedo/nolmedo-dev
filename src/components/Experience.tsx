@@ -41,7 +41,7 @@ export default function Experience() {
 
       <div ref={educationRef} className="education-grid reveal">
         {educationData.map((ed, i) => {
-          const colors = [COLORS.neonGreen, COLORS.cyan, COLORS.purple, "#FF2A85", "#FF9F00"];
+          const colors = [COLORS.purple, COLORS.cyan, COLORS.neonGreen, COLORS.amber];
           const color = colors[i % colors.length];
           return (
             <GlassPanel

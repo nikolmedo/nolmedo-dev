@@ -34,7 +34,7 @@ Single-page app, all sections rendered in [`src/App.tsx`](src/App.tsx):
 ## Conventions
 
 - **Themes**: 5 themes (`default`, `cyberpunk`, `matrix`, `synthwave`, `glacier`) defined
-  as CSS variables (`--cyan`, `--purple`, `--green`, `--bg`, `--text`, `--muted`) on
+  as CSS variables (`--cyan`, `--purple`, `--green`, `--amber`, `--bg`, `--text`, `--muted`) on
   `.nolmedo-root[data-theme=...]` in `global.css`. The navbar `ThemePicker` dropdown (its
   trigger shows the active palette) selects the theme and `App.tsx` persists it under the
   `theme` key in `localStorage`. Never hardcode
