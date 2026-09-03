@@ -148,6 +148,7 @@ degree in Developing with AI.
 | [AIOversight](https://github.com/nikolmedo/AIOversight) | Desktop tray app that monitors AI coding agents in real time: instant notifications when an agent finishes or needs approval, plus quota and spend tracking across Anthropic, OpenAI, Copilot, and Cursor. Local-first, no cloud, no telemetry. | `TypeScript` `Electron` `Claude Code` `OpenAI` |
 | [PixelPotion](https://github.com/nikolmedo/PixelPotion) | Raspberry Pi camera that transforms photos into artistic styles (Pixar 3D, anime, watercolor, cyberpunk) at the press of a physical button. Powered by Google Gemini, delivered via Telegram. | `Python` `Raspberry Pi` `Gemini AI` `IoT` |
 | [ClaudePulse](https://github.com/nikolmedo/ClaudePulse) | Home Assistant custom integration that monitors Claude.ai usage metrics in your smart home dashboard. 10 sensor entities, automatic updates every 2 minutes. | `Python` `Home Assistant` `HACS` `Claude API` |
+| [GenderReveal](https://github.com/nikolmedo/GenderReveal) | Web app for synchronized gender reveal events: everyone opens the same countdown link and learns the answer at the same second, with the secret kept server-side and clock drift corrected across devices. Anonymous voting and a bilingual interface. | `TypeScript` `Next.js` `Turso` `Vercel` |
 
 ## Contact
 

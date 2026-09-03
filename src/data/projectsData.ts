@@ -37,4 +37,13 @@ export const projectsData: Project[] = [
     tags:   ["Python", "Home Assistant", "HACS", "YAML", "Claude API"],
     github: "https://github.com/nikolmedo/ClaudePulse",
   },
+  {
+    name:  "GenderReveal",
+    icon:  "◐",
+    color: COLORS.purple,
+    description:
+      "A web app for synchronized gender reveal events. Guests open a shared countdown link and learn the answer at the exact same second, with the secret kept server-side until reveal time and clock drift corrected across devices. Includes anonymous voting, a custom two-color palette, and a bilingual English/Spanish interface.",
+    tags:   ["TypeScript", "Next.js", "React", "Turso", "SQLite", "Vercel"],
+    github: "https://github.com/nikolmedo/GenderReveal",
+  },
 ];
