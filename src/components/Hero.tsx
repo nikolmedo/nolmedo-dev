@@ -37,6 +37,7 @@ export default function Hero() {
             <circle cx="500" cy="380" r="3"  style={{ fill: COLORS.cyan }}      opacity="0.7" />
           </svg>
 
+          <p className="hero-greeting">Hello, I'm</p>
           <h1 id="hero-heading" className="hero-name">NICOLAS OLMEDO</h1>
           <h2 className="hero-title">SENIOR FRONTEND ENGINEER</h2>
           <p className="hero-tagline">

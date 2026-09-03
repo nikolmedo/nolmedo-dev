@@ -47,6 +47,8 @@ Single-page app, all sections rendered in [`src/App.tsx`](src/App.tsx):
   explicit approval; bundle size is a feature.
 - **Motion**: every animation must respect `prefers-reduced-motion` and avoid blocking
   interaction. Background effects stay subtle (low alpha, no flashing).
+- **Typography**: system stacks only (`--font-sans`, `--font-mono` in `global.css`); do not
+  add web fonts.
 - **Language**: all code, comments, UI copy, and docs are written in English.
 
 ## PCB Background (`PCBBackground.tsx`)

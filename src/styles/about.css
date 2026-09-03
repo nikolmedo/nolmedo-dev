@@ -25,7 +25,7 @@
   margin-bottom: 16px;
 }
 .about-icon {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 20px;
   font-weight: 600;
 }

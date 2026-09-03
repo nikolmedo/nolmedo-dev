@@ -54,7 +54,7 @@
   margin-bottom: 4px;
 }
 .bcard-role {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 12px;
   color: var(--green);
   letter-spacing: 2px;

@@ -12,7 +12,7 @@
   border: none;
   color: inherit;
   cursor: pointer;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: var(--font-mono);
   font-size: 13px;
   font-weight: 500;
   letter-spacing: 1.5px;
