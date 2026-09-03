@@ -1,6 +1,7 @@
 /* ═══ CSS VARIABLES & THEMES ═══ */
 .nolmedo-root,
-.nolmedo-root[data-theme="default"] {
+.nolmedo-root[data-theme="default"],
+.theme-swatch[data-theme="default"] {
   --green: #39ff14;
   --cyan: #00e5ff;
   --purple: #b44aff;
@@ -8,7 +9,8 @@
   --text: #e8e8f0;
   --muted: #8888aa;
 }
-.nolmedo-root[data-theme="cyberpunk"] {
+.nolmedo-root[data-theme="cyberpunk"],
+.theme-swatch[data-theme="cyberpunk"] {
   --green: #ffe600;
   --cyan: #00f0ff;
   --purple: #ff0055;
@@ -16,7 +18,8 @@
   --text: #f0f0f5;
   --muted: #9f8aa6;
 }
-.nolmedo-root[data-theme="matrix"] {
+.nolmedo-root[data-theme="matrix"],
+.theme-swatch[data-theme="matrix"] {
   --green: #00ff66;
   --cyan: #33ff33;
   --purple: #008f11;
@@ -24,7 +27,8 @@
   --text: #e0ffe0;
   --muted: #5e8f5e;
 }
-.nolmedo-root[data-theme="synthwave"] {
+.nolmedo-root[data-theme="synthwave"],
+.theme-swatch[data-theme="synthwave"] {
   --green: #ff6c00;
   --cyan: #ff007c;
   --purple: #7000ff;
@@ -32,7 +36,8 @@
   --text: #ffe0f5;
   --muted: #a684ab;
 }
-.nolmedo-root[data-theme="glacier"] {
+.nolmedo-root[data-theme="glacier"],
+.theme-swatch[data-theme="glacier"] {
   --green: #ffffff;
   --cyan: #00d4ff;
   --purple: #0066ff;
@@ -174,9 +179,9 @@
   border-radius: 10px;
   border: 1.5px solid var(--green);
   color: var(--green);
-  background: rgba(57, 255, 20, 0.06);
+  background: color-mix(in srgb, var(--green) 6%, transparent);
   cursor: pointer;
-  transition: background 0.3s, box-shadow 0.3s;
+  transition: background-color 0.6s, border-color 0.6s, color 0.6s, box-shadow 0.6s;
   letter-spacing: 0.5px;
   position: relative;
   overflow: hidden;
@@ -192,13 +197,13 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(57, 255, 20, 0.12), transparent);
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--green) 12%, transparent), transparent);
   transform: translateX(-100%);
   transition: transform 0.45s ease;
 }
 .btn-primary:hover {
-  background: rgba(57, 255, 20, 0.13);
-  box-shadow: 0 0 24px rgba(57, 255, 20, 0.18); /* unslop-ignore: neon glow is the PCB design language */
+  background: color-mix(in srgb, var(--green) 13%, transparent);
+  box-shadow: 0 0 24px color-mix(in srgb, var(--green) 18%, transparent); /* unslop-ignore: neon glow is the PCB design language */
 }
 .btn-primary:hover::after { transform: translateX(100%); }
 
@@ -212,7 +217,7 @@
   color: var(--text);
   background: rgba(255, 255, 255, 0.04);
   cursor: pointer;
-  transition: background 0.3s, border-color 0.3s;
+  transition: background-color 0.6s, border-color 0.6s, color 0.6s, box-shadow 0.6s;
   letter-spacing: 0.5px;
   position: relative;
   overflow: hidden;

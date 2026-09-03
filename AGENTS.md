@@ -20,21 +20,25 @@ Single-page app, all sections rendered in [`src/App.tsx`](src/App.tsx):
 
 | Path | Responsibility |
 |------|----------------|
-| `src/App.tsx` | Theme state (`data-theme` attr), section IntersectionObserver, scroll progress CSS var |
+| `src/App.tsx` | Theme state (`data-theme` attr) + `localStorage` persistence, hosts the section IntersectionObserver via `SectionObserverContext`, scroll progress CSS var |
 | `src/components/` | One component per page section + shared UI (`GlassPanel`, `SectionTitle`) |
 | `src/components/PCBBackground.tsx` | Procedural canvas circuit-board background (see below) |
 | `src/data/*.ts` | All content (experience, projects, tech, nav links) as typed data. Edit content here, never in components |
 | `src/hooks/useWebMCP.ts` | WebMCP tool registration (`navigator.modelContext` + `window.webmcp` console helper) |
 | `src/hooks/useFeedback.ts` + `src/utils/feedbackManager.ts` | Web Audio synthesized click sounds + Vibration API haptics, mute state in `localStorage` |
 | `src/hooks/useReveal.ts` | Scroll-reveal via IntersectionObserver (`.reveal` / `.revealed` classes) |
+| `src/hooks/useSectionRef.ts` | Registers a section element with the nav observer owned by `App.tsx` |
+| `src/hooks/useScrollProgress.ts` | Single passive, rAF-coalesced scroll subscriber shared by `App` and `Navbar` |
 | `src/styles/` | One CSS file per component, imported by that component; `global.css` holds themes, reset, shared UI |
 
 ## Conventions
 
 - **Themes**: 5 themes (`default`, `cyberpunk`, `matrix`, `synthwave`, `glacier`) defined
   as CSS variables (`--cyan`, `--purple`, `--green`, `--bg`, `--text`, `--muted`) on
-  `.nolmedo-root[data-theme=...]` in `global.css`. Never hardcode colors in components;
-  use the CSS variables (or read them at runtime, as the canvas background does).
+  `.nolmedo-root[data-theme=...]` in `global.css`. The navbar `ThemeSwitcher` selects the
+  theme and `App.tsx` persists it under the `theme` key in `localStorage`. Never hardcode
+  colors in components; use the CSS variables (or read them at runtime, as the canvas
+  background does).
 - **Styling**: plain CSS files, one per component, kebab-case class names. No CSS-in-JS,
   no Tailwind.
 - **Code splitting**: below-the-fold sections are `lazy()`-loaded in `App.tsx`. Keep new

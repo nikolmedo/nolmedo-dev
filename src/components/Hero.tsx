@@ -22,19 +22,19 @@ export default function Hero() {
 
           {/* Decorative corner traces */}
           <svg className="hero-corner-svg" viewBox="0 0 600 400" fill="none">
-            <path d="M0 0 H80 L100 20"    stroke={COLORS.cyan}      strokeWidth="1.5" opacity="0.6" />
-            <path d="M0 20 V80"            stroke={COLORS.cyan}      strokeWidth="1.5" opacity="0.4" />
-            <circle cx="100" cy="20" r="3" fill={COLORS.cyan}        opacity="0.8" />
+            <path d="M0 0 H80 L100 20"    style={{ stroke: COLORS.cyan }}      strokeWidth="1.5" opacity="0.6" />
+            <path d="M0 20 V80"            style={{ stroke: COLORS.cyan }}      strokeWidth="1.5" opacity="0.4" />
+            <circle cx="100" cy="20" r="3" style={{ fill: COLORS.cyan }}        opacity="0.8" />
 
-            <path d="M600 0 H520 L500 20"  stroke={COLORS.purple}    strokeWidth="1.5" opacity="0.6" />
-            <path d="M600 20 V80"           stroke={COLORS.purple}    strokeWidth="1.5" opacity="0.4" />
-            <circle cx="500" cy="20" r="3" fill={COLORS.purple}      opacity="0.8" />
+            <path d="M600 0 H520 L500 20"  style={{ stroke: COLORS.purple }}    strokeWidth="1.5" opacity="0.6" />
+            <path d="M600 20 V80"           style={{ stroke: COLORS.purple }}    strokeWidth="1.5" opacity="0.4" />
+            <circle cx="500" cy="20" r="3" style={{ fill: COLORS.purple }}      opacity="0.8" />
 
-            <path d="M0 400 H80 L100 380"   stroke={COLORS.neonGreen} strokeWidth="1.5" opacity="0.5" />
-            <circle cx="100" cy="380" r="3"  fill={COLORS.neonGreen}  opacity="0.7" />
+            <path d="M0 400 H80 L100 380"   style={{ stroke: COLORS.neonGreen }} strokeWidth="1.5" opacity="0.5" />
+            <circle cx="100" cy="380" r="3"  style={{ fill: COLORS.neonGreen }}  opacity="0.7" />
 
-            <path d="M600 400 H520 L500 380" stroke={COLORS.cyan}    strokeWidth="1.5" opacity="0.5" />
-            <circle cx="500" cy="380" r="3"  fill={COLORS.cyan}      opacity="0.7" />
+            <path d="M600 400 H520 L500 380" style={{ stroke: COLORS.cyan }}    strokeWidth="1.5" opacity="0.5" />
+            <circle cx="500" cy="380" r="3"  style={{ fill: COLORS.cyan }}      opacity="0.7" />
           </svg>
 
           <h1 id="hero-heading" className="hero-name">NICOLAS OLMEDO</h1>

@@ -8,6 +8,7 @@ import Hero          from "./components/Hero";
 import { useWebMCP } from "./hooks/useWebMCP";
 import { useScrollProgress } from "./hooks/useScrollProgress";
 import { SectionObserverContext } from "./hooks/useSectionRef";
+import { THEMES } from "./data/themes";
 
 const About      = lazy(() => import("./components/About"));
 const TechStack  = lazy(() => import("./components/TechStack"));
@@ -19,9 +20,19 @@ const sectionFallback = (
   <div className="section-fallback" role="status" aria-label="Loading section" />
 );
 
+const readStoredTheme = () => {
+  try {
+    const stored = localStorage.getItem("theme");
+    return stored && THEMES.some((t) => t.id === stored) ? stored : "default";
+  } catch {
+    return "default";
+  }
+};
+
 export default function NolmedoDev() {
   const [activeSection, setActiveSection] = useState("hero");
-  const [theme, setTheme] = useState("default");
+  const [theme, setTheme] = useState(readStoredTheme);
+  const rootRef = useRef<HTMLDivElement>(null);
   const sectionsRef = useRef(new Set<Element>());
   const observerRef = useRef<IntersectionObserver | null>(null);
   const hashHandledRef = useRef(false);
@@ -60,10 +71,22 @@ export default function NolmedoDev() {
     document.documentElement.style.setProperty("--scroll-progress", String(progress));
   });
 
+  // Persist the theme and keep the browser chrome color in sync with --bg
+  useEffect(() => {
+    try {
+      localStorage.setItem("theme", theme);
+    } catch {
+      // Storage can be blocked; the theme still applies for this session
+    }
+    if (!rootRef.current) return;
+    const bg = getComputedStyle(rootRef.current).getPropertyValue("--bg").trim();
+    document.querySelector('meta[name="theme-color"]')?.setAttribute("content", bg);
+  }, [theme]);
+
   useWebMCP(setTheme);
 
   return (
-    <div className="nolmedo-root" data-theme={theme}>
+    <div ref={rootRef} className="nolmedo-root" data-theme={theme}>
       <a className="skip-link sr-only" href="#main">Skip to content</a>
 
       {/* Cyber-Grid background container */}
@@ -72,7 +95,7 @@ export default function NolmedoDev() {
       <div className="scroll-progress-bar" />
       <PCBBackground theme={theme} />
       <header>
-        <Navbar activeSection={activeSection} />
+        <Navbar activeSection={activeSection} theme={theme} onThemeChange={setTheme} />
       </header>
       <SectionObserverContext.Provider value={observe}>
         <main id="main">

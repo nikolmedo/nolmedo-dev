@@ -2,15 +2,69 @@ import { useState, useEffect, useRef } from "react";
 import "../styles/navbar.css";
 import { COLORS } from "../constants/colors";
 import { navLinks } from "../data/navLinks";
+import { THEMES } from "../data/themes";
 import { useFeedback } from "../hooks/useFeedback";
 import { scrollToId } from "../utils/scrollToId";
 import { useScrollProgress } from "../hooks/useScrollProgress";
 
 interface Props {
   activeSection: string;
+  theme: string;
+  onThemeChange: (theme: string) => void;
 }
 
-export default function Navbar({ activeSection }: Props) {
+interface ThemeSwitcherProps {
+  theme: string;
+  onThemeChange: (theme: string) => void;
+  className: string;
+}
+
+function ThemeSwitcher({ theme, onThemeChange, className }: ThemeSwitcherProps) {
+  const { triggerClick } = useFeedback();
+
+  const select = (id: string) => {
+    triggerClick();
+    onThemeChange(id);
+  };
+
+  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    const step =
+      e.key === "ArrowRight" || e.key === "ArrowDown" ? 1 :
+      e.key === "ArrowLeft"  || e.key === "ArrowUp"   ? -1 : 0;
+    if (step === 0) return;
+    e.preventDefault();
+    const current = THEMES.findIndex((t) => t.id === theme);
+    const nextIndex = (current + step + THEMES.length) % THEMES.length;
+    select(THEMES[nextIndex].id);
+    const buttons = e.currentTarget.querySelectorAll<HTMLButtonElement>("[role='radio']");
+    buttons[nextIndex]?.focus();
+  };
+
+  return (
+    <div
+      className={`theme-switcher ${className}`}
+      role="radiogroup"
+      aria-label="Color theme"
+      onKeyDown={onKeyDown}
+    >
+      {THEMES.map((t) => (
+        <button
+          key={t.id}
+          type="button"
+          role="radio"
+          aria-checked={theme === t.id}
+          aria-label={t.label}
+          className="theme-swatch"
+          data-theme={t.id}
+          tabIndex={theme === t.id ? 0 : -1}
+          onClick={() => select(t.id)}
+        />
+      ))}
+    </div>
+  );
+}
+
+export default function Navbar({ activeSection, theme, onThemeChange }: Props) {
   const [scrolled, setScrolled]     = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
@@ -81,9 +135,11 @@ export default function Navbar({ activeSection }: Props) {
               </a>
             );
           })}
+          <ThemeSwitcher theme={theme} onThemeChange={onThemeChange} className="theme-switcher-mobile" />
         </div>
 
         <div className="nav-right">
+          <ThemeSwitcher theme={theme} onThemeChange={onThemeChange} className="theme-switcher-desktop" />
           <button
             className={`mute-toggle ${soundEnabled ? "sound-active" : "sound-muted"}`}
             onClick={toggleSound}
