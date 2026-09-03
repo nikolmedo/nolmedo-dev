@@ -35,8 +35,9 @@ Single-page app, all sections rendered in [`src/App.tsx`](src/App.tsx):
 
 - **Themes**: 5 themes (`default`, `cyberpunk`, `matrix`, `synthwave`, `glacier`) defined
   as CSS variables (`--cyan`, `--purple`, `--green`, `--bg`, `--text`, `--muted`) on
-  `.nolmedo-root[data-theme=...]` in `global.css`. The navbar `ThemeSwitcher` selects the
-  theme and `App.tsx` persists it under the `theme` key in `localStorage`. Never hardcode
+  `.nolmedo-root[data-theme=...]` in `global.css`. The navbar `ThemePicker` dropdown (its
+  trigger shows the active palette) selects the theme and `App.tsx` persists it under the
+  `theme` key in `localStorage`. Never hardcode
   colors in components; use the CSS variables (or read them at runtime, as the canvas
   background does).
 - **Styling**: plain CSS files, one per component, kebab-case class names. No CSS-in-JS,

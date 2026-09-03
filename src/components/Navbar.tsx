@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useId } from "react";
 import "../styles/navbar.css";
 import { COLORS } from "../constants/colors";
 import { navLinks } from "../data/navLinks";
@@ -15,53 +15,127 @@ interface Props {
   onThemeChange: (theme: string) => void;
 }
 
-interface ThemeSwitcherProps {
+interface ThemePickerProps {
   theme: string;
   onThemeChange: (theme: string) => void;
   className: string;
 }
 
-function ThemeSwitcher({ theme, onThemeChange, className }: ThemeSwitcherProps) {
+function ThemePicker({ theme, onThemeChange, className }: ThemePickerProps) {
   const { triggerClick } = useFeedback();
+  const [open, setOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const listRef = useRef<HTMLUListElement>(null);
+  const listId = useId();
+
+  const selectedIndex = Math.max(0, THEMES.findIndex((t) => t.id === theme));
+  const currentLabel = THEMES[selectedIndex].label;
+  const optionId = (id: string) => `${listId}-${id}`;
+
+  const openAt = (index: number) => {
+    setActiveIndex(index);
+    setOpen(true);
+  };
+
+  const close = (refocus: boolean) => {
+    setOpen(false);
+    if (refocus) triggerRef.current?.focus();
+  };
 
   const select = (id: string) => {
     triggerClick();
     onThemeChange(id);
+    close(true);
   };
 
-  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    const step =
-      e.key === "ArrowRight" || e.key === "ArrowDown" ? 1 :
-      e.key === "ArrowLeft"  || e.key === "ArrowUp"   ? -1 : 0;
-    if (step === 0) return;
+  useEffect(() => {
+    if (!open) return;
+    listRef.current?.focus();
+    const onPointerDown = (e: PointerEvent) => {
+      if (!rootRef.current?.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => document.removeEventListener("pointerdown", onPointerDown);
+  }, [open]);
+
+  useEffect(() => {
+    if (open) setActiveIndex(selectedIndex);
+  }, [selectedIndex]);
+
+  const onTriggerKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+    if (e.key === "ArrowDown") openAt(selectedIndex);
+    else if (e.key === "ArrowUp") openAt(THEMES.length - 1);
+    else return;
     e.preventDefault();
-    const current = THEMES.findIndex((t) => t.id === theme);
-    const nextIndex = (current + step + THEMES.length) % THEMES.length;
-    select(THEMES[nextIndex].id);
-    const buttons = e.currentTarget.querySelectorAll<HTMLButtonElement>("[role='radio']");
-    buttons[nextIndex]?.focus();
+  };
+
+  const onListKeyDown = (e: React.KeyboardEvent<HTMLUListElement>) => {
+    const last = THEMES.length - 1;
+    switch (e.key) {
+      case "ArrowDown": setActiveIndex((i) => (i === last ? 0 : i + 1)); break;
+      case "ArrowUp":   setActiveIndex((i) => (i === 0 ? last : i - 1)); break;
+      case "Home":      setActiveIndex(0); break;
+      case "End":       setActiveIndex(last); break;
+      case "Enter":     select(THEMES[activeIndex].id); break;
+      case " ":         break;
+      case "Escape":    e.stopPropagation(); close(true); break;
+      case "Tab":       setOpen(false); return;
+      default:          return;
+    }
+    e.preventDefault();
+  };
+
+  const onListKeyUp = (e: React.KeyboardEvent<HTMLUListElement>) => {
+    if (e.key !== " ") return;
+    e.preventDefault();
+    select(THEMES[activeIndex].id);
   };
 
   return (
-    <div
-      className={`theme-switcher ${className}`}
-      role="radiogroup"
-      aria-label="Color theme"
-      onKeyDown={onKeyDown}
-    >
-      {THEMES.map((t) => (
-        <button
-          key={t.id}
-          type="button"
-          role="radio"
-          aria-checked={theme === t.id}
-          aria-label={t.label}
-          className="theme-swatch"
-          data-theme={t.id}
-          tabIndex={theme === t.id ? 0 : -1}
-          onClick={() => select(t.id)}
-        />
-      ))}
+    <div ref={rootRef} className={`theme-picker ${className}`}>
+      <button
+        ref={triggerRef}
+        type="button"
+        className="theme-picker-trigger"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-controls={listId}
+        aria-label={`Color theme: ${currentLabel}`}
+        onClick={() => (open ? close(false) : openAt(selectedIndex))}
+        onKeyDown={onTriggerKeyDown}
+      >
+        <span className="theme-swatch" data-theme={theme} />
+        <span className="theme-picker-chevron" />
+      </button>
+      <ul
+        ref={listRef}
+        id={listId}
+        role="listbox"
+        aria-label="Color theme"
+        aria-activedescendant={open ? optionId(THEMES[activeIndex].id) : undefined}
+        tabIndex={-1}
+        className={`theme-picker-list ${open ? "theme-picker-list-open" : ""}`}
+        onKeyDown={onListKeyDown}
+        onKeyUp={onListKeyUp}
+      >
+        {THEMES.map((t, i) => (
+          <li
+            key={t.id}
+            id={optionId(t.id)}
+            role="option"
+            aria-selected={theme === t.id}
+            data-theme={t.id}
+            className={`theme-picker-option ${i === activeIndex ? "theme-picker-option-active" : ""}`}
+            onMouseEnter={() => setActiveIndex(i)}
+            onClick={() => select(t.id)}
+          >
+            <span className="theme-swatch" data-theme={t.id} />
+            {t.label}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
@@ -139,12 +213,12 @@ export default function Navbar({ activeSection, theme, onThemeChange }: Props) {
               </a>
             );
           })}
-          <ThemeSwitcher theme={theme} onThemeChange={onThemeChange} className="theme-switcher-mobile" />
+          <ThemePicker theme={theme} onThemeChange={onThemeChange} className="theme-picker-mobile" />
         </div>
 
         <div className="nav-right">
-          <ThemeSwitcher theme={theme} onThemeChange={onThemeChange} className="theme-switcher-desktop" />
-          <button
+          <ThemePicker theme={theme} onThemeChange={onThemeChange} className="theme-picker-desktop" />
+          <button 
             className={`mute-toggle ${soundEnabled ? "sound-active" : "sound-muted"}`}
             onClick={toggleSound}
             aria-label={soundEnabled ? "Mute sounds" : "Unmute sounds"}

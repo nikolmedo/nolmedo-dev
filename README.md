@@ -23,7 +23,7 @@ real time, synthesized audio feedback, haptics, and five switchable neon themes.
 | ⚡ **Procedural PCB background** | Canvas-rendered circuit board generated per viewport: traces with 45° routing, pads, and vias. Pulses flow along traces, clicks send ripples through the network, and scrolling feeds energy into the board. |
 | 🤖 **WebMCP interoperability** | Implements the Web Model Context Protocol so AI agents can scroll the page, read tech/projects/experience data, switch themes, and trigger animations programmatically. |
 | 📄 **llm.txt** | Machine-readable site description at [`/llm.txt`](public/llm.txt) for LLM and agent discovery. |
-| 🎨 **Five live themes** | `default`, `cyberpunk`, `matrix`, `synthwave`, `glacier`, all driven by CSS variables and cross-faded in real time (background included). The switcher lives in the navbar and the choice persists in `localStorage`. |
+| 🎨 **Five live themes** | `default`, `cyberpunk`, `matrix`, `synthwave`, `glacier`, all driven by CSS variables and cross-faded in real time (background included). The navbar picker is a dropdown whose trigger shows the active palette, and the choice persists in `localStorage`. |
 | 🔊 **Synthesized audio feedback** | Web Audio API tones with calibrated attack/decay envelopes for clicks and category filters, plus a persistent mute toggle (`localStorage`). |
 | 📳 **Haptic feedback** | 10 ms micro-vibrations via the Vibration API on mobile. |
 | 📱 **Mobile-first background** | Board density, pulse count, and effects adapt to viewport size; touch ripples replace hover physics; ambient glow keeps small screens rich. |

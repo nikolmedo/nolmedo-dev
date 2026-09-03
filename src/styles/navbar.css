@@ -59,43 +59,110 @@
   box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--green) 18%, transparent);
 }
 
-.theme-switcher {
+.theme-picker {
+  position: relative;
+}
+.theme-picker-trigger {
   display: flex;
   align-items: center;
-}
-.theme-swatch {
-  width: 28px;
+  justify-content: center;
+  gap: 6px;
+  min-width: 44px;
   height: 44px;
-  display: grid;
-  place-items: center;
+  padding: 0 6px;
   background: none;
   border: none;
-  padding: 0;
+  color: var(--muted);
   cursor: pointer;
 }
-.theme-swatch::before {
-  content: '';
+.theme-swatch {
+  flex-shrink: 0;
   width: 18px;
   height: 18px;
   border-radius: 50%;
-  background: var(--cyan);
-  border: 2px solid var(--purple);
+  background: conic-gradient(var(--cyan) 0 120deg, var(--purple) 120deg 240deg, var(--green) 240deg 360deg);
+  border: 2px solid color-mix(in srgb, var(--text) 30%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--bg) 50%, transparent);
   transition: box-shadow 0.25s, transform 0.25s;
 }
-.theme-swatch:hover::before {
+.theme-picker-trigger:hover .theme-swatch {
   transform: scale(1.15);
 }
-.theme-swatch[aria-checked="true"]::before {
-  box-shadow: 0 0 0 2px var(--green);
+.theme-picker-chevron {
+  width: 6px;
+  height: 6px;
+  margin-bottom: 3px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.18s ease, margin-bottom 0.18s ease;
 }
-.nolmedo-root .theme-swatch:focus-visible {
+.theme-picker-trigger[aria-expanded="true"] .theme-picker-chevron {
+  margin-bottom: -3px;
+  transform: rotate(-135deg);
+}
+.nolmedo-root .theme-picker-trigger:focus-visible {
   outline: 2px solid var(--green);
   outline-offset: -4px;
   border-radius: 8px;
 }
+
+.theme-picker-list {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  z-index: 10;
+  min-width: 180px;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  background: color-mix(in srgb, var(--bg) 92%, transparent);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  opacity: 0;
+  transform: translateY(-6px);
+  visibility: hidden;
+  transition: opacity 0.18s cubic-bezier(0.3, 0, 1, 1),
+              transform 0.18s cubic-bezier(0.3, 0, 1, 1),
+              visibility 0s linear 0.18s;
+}
+.theme-picker-list-open {
+  opacity: 1;
+  transform: none;
+  visibility: visible;
+  transition: opacity 0.18s cubic-bezier(0.2, 0, 0, 1),
+              transform 0.18s cubic-bezier(0.2, 0, 0, 1),
+              visibility 0s;
+}
+.theme-picker-list:focus {
+  outline: none;
+}
+.theme-picker-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--text);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.theme-picker-option:hover,
+.theme-picker-option-active {
+  background: color-mix(in srgb, var(--cyan) 10%, transparent);
+}
+.theme-picker-option[aria-selected="true"] .theme-swatch {
+  box-shadow: 0 0 0 2px var(--green), inset 0 0 0 1px color-mix(in srgb, var(--bg) 50%, transparent);
+}
 @media (prefers-reduced-motion: reduce) {
-  .theme-swatch::before { transition: none; }
-  .theme-swatch:hover::before { transform: none; }
+  .theme-swatch,
+  .theme-picker-chevron,
+  .theme-picker-list { transition: none; }
+  .theme-picker-trigger:hover .theme-swatch { transform: none; }
 }
 
 .mobile-toggle {
@@ -137,14 +204,22 @@
   .nav-links-open { display: flex; }
   .nav-link       { padding: 12px 16px; }
   .mobile-toggle  { display: flex; }
-  .theme-switcher-desktop { display: none; }
-  .theme-switcher-mobile {
-    justify-content: center;
+  .theme-picker-desktop { display: none; }
+  .theme-picker-mobile {
     margin-top: 8px;
     padding-top: 8px;
     border-top: 1px solid rgba(255, 255, 255, 0.08);
   }
-  .theme-switcher-mobile .theme-swatch { width: 44px; }
+  .theme-picker-mobile .theme-picker-trigger { width: 100%; }
+  .theme-picker-mobile .theme-picker-list {
+    position: static;
+    display: none;
+    width: 100%;
+    min-width: 0;
+    margin-top: 8px;
+    transform: none;
+  }
+  .theme-picker-mobile .theme-picker-list-open { display: block; }
 }
 
 @media (min-width: 769px) {
@@ -154,7 +229,7 @@
   .nav-right {
     margin-left: 16px;
   }
-  .theme-switcher-mobile { display: none; }
+  .theme-picker-mobile { display: none; }
 }
 
 .nav-right {
