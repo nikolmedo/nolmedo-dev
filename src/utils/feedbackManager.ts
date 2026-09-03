@@ -20,29 +20,58 @@ export function getTheme(): string {
   return root?.getAttribute('data-theme') || 'default';
 }
 
-// Persisted settings helpers
-export function isSoundEnabled(): boolean {
+// Persisted settings (opt-in: absent key means disabled)
+function readSetting(key: string): boolean {
   if (typeof window === 'undefined') return false;
-  const val = localStorage.getItem('feedback_sound_enabled');
-  // Default to true if not set
-  return val === null ? true : val === 'true';
+  try {
+    return localStorage.getItem(key) === 'true';
+  } catch {
+    return false;
+  }
+}
+
+let soundEnabled = readSetting('feedback_sound_enabled');
+const vibrateEnabled = readSetting('feedback_vibrate_enabled');
+const soundListeners = new Set<() => void>();
+
+export function isSoundEnabled(): boolean {
+  return soundEnabled;
 }
 
 export function setSoundEnabled(enabled: boolean) {
   if (typeof window === 'undefined') return;
-  localStorage.setItem('feedback_sound_enabled', String(enabled));
+  try {
+    localStorage.setItem('feedback_sound_enabled', String(enabled));
+  } catch {
+    // Storage can be blocked; keep the in-memory setting for this session
+  }
+  soundEnabled = enabled;
+  soundListeners.forEach((listener) => listener());
 }
 
-export function isVibrateEnabled(): boolean {
-  if (typeof window === 'undefined') return false;
-  const val = localStorage.getItem('feedback_vibrate_enabled');
-  // Default to true if not set
-  return val === null ? true : val === 'true';
+export function subscribeSoundEnabled(listener: () => void) {
+  soundListeners.add(listener);
+  return () => {
+    soundListeners.delete(listener);
+  };
 }
 
-export function setVibrateEnabled(enabled: boolean) {
-  if (typeof window === 'undefined') return;
-  localStorage.setItem('feedback_vibrate_enabled', String(enabled));
+function canVibrate(): boolean {
+  return (
+    vibrateEnabled &&
+    typeof navigator !== 'undefined' &&
+    typeof navigator.vibrate === 'function' &&
+    window.matchMedia('(hover: none) and (pointer: coarse)').matches
+  );
+}
+
+function vibrate() {
+  if (!canVibrate()) return;
+  try {
+    navigator.vibrate(10);
+  } catch (err) {
+    // Safe fallback if browser security blocks vibration
+  }
 }
 
 interface SoundParams {
@@ -94,57 +123,23 @@ function playSynthTone(params: SoundParams) {
   }
 }
 
-// Sound presets for theme coordinates
-const THEME_PRESETS: Record<string, {
-  hover: SoundParams;
-  click: SoundParams;
-  scroll: SoundParams;
-}> = {
-  default: {
-    hover: { frequencyStart: 280, duration: 0.05, type: 'sine', gainValue: 0.015 },
-    click: { frequencyStart: 600, frequencyEnd: 300, duration: 0.08, type: 'triangle', gainValue: 0.025, ramp: 'exponential' },
-    scroll: { frequencyStart: 120, duration: 0.04, type: 'sine', gainValue: 0.02 }
-  },
-  cyberpunk: {
-    hover: { frequencyStart: 380, duration: 0.04, type: 'triangle', gainValue: 0.01 },
-    click: { frequencyStart: 1100, frequencyEnd: 220, duration: 0.1, type: 'sawtooth', gainValue: 0.012, ramp: 'exponential' },
-    scroll: { frequencyStart: 90, duration: 0.05, type: 'triangle', gainValue: 0.015 }
-  },
-  matrix: {
-    hover: { frequencyStart: 340, duration: 0.04, type: 'sine', gainValue: 0.012 },
-    click: { frequencyStart: 900, frequencyEnd: 450, duration: 0.08, type: 'sine', gainValue: 0.02, ramp: 'linear' },
-    scroll: { frequencyStart: 80, duration: 0.04, type: 'sine', gainValue: 0.015 }
-  },
-  synthwave: {
-    hover: { frequencyStart: 200, duration: 0.07, type: 'triangle', gainValue: 0.02 },
-    click: { frequencyStart: 440, frequencyEnd: 220, duration: 0.12, type: 'triangle', gainValue: 0.03, ramp: 'exponential' },
-    scroll: { frequencyStart: 95, duration: 0.06, type: 'triangle', gainValue: 0.02 }
-  },
-  glacier: {
-    hover: { frequencyStart: 580, duration: 0.05, type: 'sine', gainValue: 0.008 },
-    click: { frequencyStart: 1400, frequencyEnd: 700, duration: 0.1, type: 'sine', gainValue: 0.018, ramp: 'exponential' },
-    scroll: { frequencyStart: 200, duration: 0.05, type: 'sine', gainValue: 0.012 }
-  }
+// Click sound presets per theme
+const THEME_PRESETS: Record<string, SoundParams> = {
+  default: { frequencyStart: 600, frequencyEnd: 300, duration: 0.08, type: 'triangle', gainValue: 0.025, ramp: 'exponential' },
+  cyberpunk: { frequencyStart: 1100, frequencyEnd: 220, duration: 0.1, type: 'sawtooth', gainValue: 0.012, ramp: 'exponential' },
+  matrix: { frequencyStart: 900, frequencyEnd: 450, duration: 0.08, type: 'sine', gainValue: 0.02, ramp: 'linear' },
+  synthwave: { frequencyStart: 440, frequencyEnd: 220, duration: 0.12, type: 'triangle', gainValue: 0.03, ramp: 'exponential' },
+  glacier: { frequencyStart: 1400, frequencyEnd: 700, duration: 0.1, type: 'sine', gainValue: 0.018, ramp: 'exponential' }
 };
 
-function getPreset(theme: string) {
+function getPreset(theme: string): SoundParams {
   return THEME_PRESETS[theme] || THEME_PRESETS.default;
 }
 
 // Trigger Click Sound & Haptic Vibration
 export function triggerClick() {
-  const theme = getTheme();
-  const preset = getPreset(theme);
-
-  playSynthTone(preset.click);
-
-  if (isVibrateEnabled() && typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function') {
-    try {
-      navigator.vibrate(10);
-    } catch (err) {
-      // Safe fallback if browser security blocks vibration
-    }
-  }
+  playSynthTone(getPreset(getTheme()));
+  vibrate();
 }
 
 let lastGalacticHoverTime = 0;
@@ -152,21 +147,13 @@ let lastGalacticHoverTime = 0;
 // Galactic hover sound effect - Spaceship hum / Lightsaber whoosh (throttled to 150ms)
 // Synthesized using two detuned triangle wave oscillators to create a beating effect
 export function playGalacticHover() {
-  const soundEnabled = isSoundEnabled();
-  const vibrateEnabled = isVibrateEnabled();
   if (!soundEnabled && !vibrateEnabled) return;
 
   const now = Date.now();
   if (now - lastGalacticHoverTime < 150) return;
   lastGalacticHoverTime = now;
 
-  if (isVibrateEnabled() && typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function') {
-    try {
-      navigator.vibrate(10);
-    } catch (err) {
-      // Safe fallback if browser security blocks vibration
-    }
-  }
+  vibrate();
 
   if (!soundEnabled) return;
 
@@ -213,4 +200,3 @@ export function playGalacticHover() {
     console.warn('Failed to play galactic hover sound feedback:', err);
   }
 }
-
