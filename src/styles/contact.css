@@ -4,7 +4,6 @@
 }
 .contact-grid {
   display: grid;
-  /* grid-template-columns: 1fr 1fr; */
   gap: 28px;
   align-items: start;
 }
@@ -19,12 +18,10 @@
   padding: 40px 36px;
   width: 100%;
   max-width: 460px;
-  aspect-ratio: 5 / 3;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
-  overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.1);
   transition: border-color 0.4s, box-shadow 0.4s;
 }
@@ -55,7 +52,7 @@
 }
 .bcard-role {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
+  font-size: 12px;
   color: var(--green);
   letter-spacing: 2px;
   margin-bottom: 20px;
@@ -90,6 +87,6 @@
 }
 
 /* ── Responsive ── */
-@media (max-width: 768px) {
-  .contact-grid { grid-template-columns: 1fr; }
+@media (min-width: 600px) {
+  .bcard { aspect-ratio: 5 / 3; }
 }

@@ -6,9 +6,11 @@ import GlassPanel from "./GlassPanel";
 import SectionTitle from "./SectionTitle";
 import { useReveal } from "../hooks/useReveal";
 import { useFeedback } from "../hooks/useFeedback";
+import { useSectionRef } from "../hooks/useSectionRef";
 
 export default function TechStack() {
   const ref = useReveal();
+  const sectionRef = useSectionRef();
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const { playGalacticHover } = useFeedback();
 
@@ -18,8 +20,8 @@ export default function TechStack() {
   };
 
   return (
-    <section id="tech" className="section">
-      <SectionTitle label="Tech Stack" color={COLORS.cyan} />
+    <section ref={sectionRef} id="tech" className="section" aria-labelledby="tech-title">
+      <SectionTitle id="tech-title" label="Tech Stack" color={COLORS.cyan} />
 
       <div ref={ref} className="tech-categories reveal">
         {techData.map((cat) => {
@@ -30,25 +32,26 @@ export default function TechStack() {
             <div 
               key={cat.category} 
               className={`tech-category ${isDimmed ? "tech-category-dimmed" : ""} ${isSelected ? "tech-category-selected" : ""}`}
-              style={{ opacity: isDimmed ? 0.35 : 1, transition: "all 0.4s ease" }}
             >
 
-              <h3 
-                className="tech-category-label" 
-                style={{ color: cat.color, cursor: "pointer", display: "inline-flex", alignItems: "center" }}
-                onClick={() => toggleCategory(cat.category)}
-              >
-                <span 
-                  className="tech-node" 
-                  style={{ 
-                    background: cat.color, 
-                    boxShadow: isSelected ? `0 0 16px ${cat.color}` : `0 0 8px ${cat.color}`,
-                    transform: isSelected ? "scale(1.3)" : "scale(1)",
-                    transition: "all 0.3s ease"
-                  }} 
-                />
-                {cat.category}
-                {isSelected && <span style={{ fontSize: "11px", marginLeft: "8px", opacity: 0.7 }}>(active)</span>}
+              <h3 style={{ color: cat.color }}>
+                <button
+                  type="button"
+                  className="tech-category-label"
+                  aria-pressed={isSelected}
+                  onClick={() => toggleCategory(cat.category)}
+                >
+                  <span
+                    className="tech-node"
+                    style={{
+                      background: cat.color,
+                      boxShadow: isSelected ? `0 0 16px ${cat.color}` : `0 0 8px ${cat.color}`,
+                      transform: isSelected ? "scale(1.3)" : "scale(1)",
+                      transition: "all 0.3s ease"
+                    }}
+                  />
+                  {cat.category}
+                </button>
               </h3>
 
               <div className="tech-grid">

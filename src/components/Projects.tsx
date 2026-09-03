@@ -6,13 +6,15 @@ import GlassPanel from "./GlassPanel";
 import SectionTitle from "./SectionTitle";
 import { useReveal } from "../hooks/useReveal";
 import { useFeedback } from "../hooks/useFeedback";
+import { useSectionRef } from "../hooks/useSectionRef";
 
 export default function Projects() {
   const ref = useReveal();
   const { triggerClick } = useFeedback();
+  const sectionRef = useSectionRef();
   return (
-    <section id="projects" className="section">
-      <SectionTitle label="Projects" color={COLORS.neonGreen} />
+    <section ref={sectionRef} id="projects" className="section" aria-labelledby="projects-title">
+      <SectionTitle id="projects-title" label="Projects" color={COLORS.neonGreen} />
 
       <div ref={ref} className="projects-grid reveal">
         {projectsData.map((project) => (
@@ -22,7 +24,7 @@ export default function Projects() {
             style={{ borderTopColor: project.color, "--project-color": project.color } as React.CSSProperties}
           >
             <div className="project-header">
-              <span className="project-icon" style={{ color: project.color }}>
+              <span className="project-icon" style={{ color: project.color }} aria-hidden="true">
                 {project.icon}
               </span>
               <h3 className="project-name">{project.name}</h3>

@@ -3,13 +3,19 @@ import "../styles/hero.css";
 import { COLORS } from "../constants/colors";
 import GlassPanel from "./GlassPanel";
 import { useFeedback } from "../hooks/useFeedback";
-
-const scrollTo = (id: string) =>
-  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+import { useSectionRef } from "../hooks/useSectionRef";
+import { scrollToId } from "../utils/scrollToId";
 
 export default function Hero() {
   const [visible, setVisible] = useState(false);
   const { triggerClick } = useFeedback();
+  const sectionRef = useSectionRef();
+
+  const handleScrollClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    triggerClick();
+    scrollToId(id);
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => setVisible(true), 200);
@@ -17,7 +23,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section id="hero" className="hero-section">
+    <section ref={sectionRef} id="hero" className="hero-section" aria-labelledby="hero-heading">
       <div className={`hero-content ${visible ? "hero-visible" : ""}`}>
         <GlassPanel className="hero-panel">
 
@@ -39,7 +45,7 @@ export default function Hero() {
           </svg>
 
           <p className="hero-greeting">Hello, I'm</p>
-          <h1 className="hero-name">NICOLAS OLMEDO</h1>
+          <h1 id="hero-heading" className="hero-name">NICOLAS OLMEDO</h1>
           <h2 className="hero-title">SENIOR SOFTWARE ENGINEER · FRONTEND</h2>
           <p className="hero-tagline">
             Building polished interfaces · AI-enhanced workflows
@@ -55,24 +61,20 @@ export default function Hero() {
             >
               GitHub
             </a>
-            <button 
-              className="btn-primary"   
-              onClick={() => {
-                triggerClick();
-                scrollTo("experience");
-              }}
+            <a
+              className="btn-primary"
+              href="#experience"
+              onClick={(e) => handleScrollClick(e, "experience")}
             >
               Experience
-            </button>
-            <button 
-              className="btn-secondary" 
-              onClick={() => {
-                triggerClick();
-                scrollTo("contact");
-              }}
+            </a>
+            <a
+              className="btn-secondary"
+              href="#contact"
+              onClick={(e) => handleScrollClick(e, "contact")}
             >
               Contact
-            </button>
+            </a>
           </div>
 
         </GlassPanel>

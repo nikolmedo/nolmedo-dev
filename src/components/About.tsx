@@ -4,6 +4,7 @@ import { COLORS } from "../constants/colors";
 import GlassPanel from "./GlassPanel";
 import SectionTitle from "./SectionTitle";
 import { useReveal } from "../hooks/useReveal";
+import { useSectionRef } from "../hooks/useSectionRef";
 
 interface AboutCard {
   icon:  string;
@@ -41,9 +42,10 @@ const cards: AboutCard[] = [
 
 export default function About() {
   const ref = useReveal();
+  const sectionRef = useSectionRef();
   return (
-    <section id="about" className="section">
-      <SectionTitle label="About Me" color={COLORS.neonGreen} />
+    <section ref={sectionRef} id="about" className="section" aria-labelledby="about-title">
+      <SectionTitle id="about-title" label="About Me" color={COLORS.neonGreen} />
 
       <div ref={ref} className="about-grid reveal">
         {cards.map((card) => (
@@ -53,7 +55,7 @@ export default function About() {
             style={{ "--card-color": card.color } as React.CSSProperties}
           >
             <div className="about-icon-row">
-              <span className="about-icon" style={{ color: card.color }}>{card.icon}</span>
+              <span className="about-icon" style={{ color: card.color }} aria-hidden="true">{card.icon}</span>
               <h3 className="about-card-title">{card.title}</h3>
             </div>
             <p>{card.text}</p>

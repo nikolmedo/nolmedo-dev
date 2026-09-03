@@ -234,6 +234,8 @@
 
 /* ═══ FOOTER ═══ */
 .footer {
+  position: relative;
+  z-index: 1;
   text-align: center;
   padding: 48px 0 24px;
   font-size: 12px;
@@ -251,6 +253,45 @@
 a {
   color: inherit;
   text-decoration: none;
+}
+
+/* ═══ ACCESSIBILITY ═══ */
+.nolmedo-root :is(a, button):focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+.skip-link:focus {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 10px 16px;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+  background: var(--bg);
+  color: var(--text);
+  border-radius: 8px;
+  z-index: 1001;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nolmedo-root .reveal { opacity: 1; transform: none; transition: none; }
+  .nolmedo-root .hero-content { transition: none; opacity: 1; transform: none; }
+  .nolmedo-root .hero-title::after, .nolmedo-root .timeline-node, .nolmedo-root .cyber-grid::after { animation: none; }
+  .nolmedo-root :is(.glass-panel, .project-card, .tech-chip, .timeline-card, .about-card, .education-card, .btn-primary, .btn-secondary) { transition: none; }
+  .nolmedo-root :is(.project-card, .tech-chip, .timeline-card, .about-card, .education-card, .tech-category-label, .mute-toggle):hover { transform: none; }
 }
 
 /* ═══ SCROLL REVEAL ═══ */

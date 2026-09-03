@@ -2,15 +2,17 @@ import "../styles/experience.css";
 import { COLORS } from "../constants/colors";
 import { experienceData, educationData } from "../data/experienceData";
 import { useReveal } from "../hooks/useReveal";
+import { useSectionRef } from "../hooks/useSectionRef";
 import GlassPanel from "./GlassPanel";
 import SectionTitle from "./SectionTitle";
 
 export default function Experience() {
   const timelineRef = useReveal();
   const educationRef = useReveal();
+  const sectionRef = useSectionRef();
   return (
-    <section id="experience" className="section">
-      <SectionTitle label="Experience" color={COLORS.purple} />
+    <section ref={sectionRef} id="experience" className="section" aria-labelledby="experience-title">
+      <SectionTitle id="experience-title" label="Experience" color={COLORS.purple} />
 
       <div ref={timelineRef} className="timeline reveal">
         <div className="timeline-line" />
@@ -53,7 +55,7 @@ export default function Experience() {
               />
               <h3 className="edu-degree">{ed.degree}</h3>
               <p className="edu-school">{ed.school} · {ed.period}</p>
-              <p className="edu-detail">{ed.detail}</p>
+              {ed.detail && <p className="edu-detail">{ed.detail}</p>}
             </GlassPanel>
           );
         })}

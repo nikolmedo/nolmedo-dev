@@ -4,20 +4,18 @@ import GlassPanel from "./GlassPanel";
 import SectionTitle from "./SectionTitle";
 import { useReveal } from "../hooks/useReveal";
 import { useFeedback } from "../hooks/useFeedback";
+import { useSectionRef } from "../hooks/useSectionRef";
 
 export default function Contact() {
   const ref = useReveal();
+  const sectionRef = useSectionRef();
   return (
-    <section id="contact" className="section contact-section">
-      <SectionTitle label="Get in Touch" color={COLORS.cyan} />
+    <section ref={sectionRef} id="contact" className="section contact-section" aria-labelledby="contact-title">
+      <SectionTitle id="contact-title" label="Get in Touch" color={COLORS.cyan} />
 
       <div ref={ref} className="contact-grid reveal">
         <BusinessCard />
       </div>
-
-      <footer className="footer">
-        <p>© {new Date().getFullYear()} Nicolas Olmedo · Built with React</p>
-      </footer>
     </section>
   );
 }
@@ -54,26 +52,26 @@ function BusinessCard() {
           <p className="bcard-role">SENIOR SOFTWARE ENGINEER · FRONTEND</p>
           <div className="bcard-info">
             <div className="bcard-row">
-              <a className="bcard-link" href="mailto:nikolmedo@gmail.com" onClick={triggerClick}>
-                <span className="bcard-icon">@</span>&nbsp;
+              <a className="bcard-link" href="mailto:nikolmedo@gmail.com" aria-label="Email Nicolas Olmedo" onClick={triggerClick}>
+                <span className="bcard-icon" aria-hidden="true">@</span>&nbsp;
                 <span>nikolmedo@gmail.com</span>
               </a>
             </div>
             <div className="bcard-row">
-              <a className="bcard-link" href="https://www.linkedin.com/in/nolmedo" target="_blank" rel="noopener noreferrer" onClick={triggerClick}>
-                <span className="bcard-icon">in</span>&nbsp;
+              <a className="bcard-link" href="https://www.linkedin.com/in/nolmedo" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile" onClick={triggerClick}>
+                <span className="bcard-icon" aria-hidden="true">in</span>&nbsp;
                 <span>/in/nolmedo</span>
               </a>
             </div>
             <div className="bcard-row">
-              <a className="bcard-link" href="https://github.com/nikolmedo" target="_blank" rel="noopener noreferrer" onClick={triggerClick}>
-                <span className="bcard-icon">gh</span>&nbsp;
+              <a className="bcard-link" href="https://github.com/nikolmedo" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile" onClick={triggerClick}>
+                <span className="bcard-icon" aria-hidden="true">gh</span>&nbsp;
                 <span>github.com/nikolmedo</span>
               </a>
             </div>
             <div className="bcard-row">
-              <a className="bcard-link" href="https://nolmedo.dev" target="_blank" rel="noopener noreferrer" onClick={triggerClick}>
-                <span className="bcard-icon">⊕</span>&nbsp;
+              <a className="bcard-link" href="https://nolmedo.dev" target="_blank" rel="noopener noreferrer" aria-label="nolmedo.dev website" onClick={triggerClick}>
+                <span className="bcard-icon" aria-hidden="true">⊕</span>&nbsp;
                 <span>nolmedo.dev</span>
               </a>
             </div>

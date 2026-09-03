@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "../styles/navbar.css";
 import { COLORS } from "../constants/colors";
 import { navLinks } from "../data/navLinks";
 import { useFeedback } from "../hooks/useFeedback";
+import { scrollToId } from "../utils/scrollToId";
 
 interface Props {
   activeSection: string;
@@ -11,6 +12,7 @@ interface Props {
 export default function Navbar({ activeSection }: Props) {
   const [scrolled, setScrolled]     = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
   const { soundEnabled, toggleSound, triggerClick } = useFeedback();
 
   useEffect(() => {
@@ -19,8 +21,19 @@ export default function Navbar({ activeSection }: Props) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      setMobileOpen(false);
+      toggleRef.current?.focus();
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [mobileOpen]);
+
   const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    scrollToId(id);
     setMobileOpen(false);
   };
 
@@ -29,13 +42,14 @@ export default function Navbar({ activeSection }: Props) {
     scrollTo("hero");
   };
 
-  const handleNavLinkClick = (id: string) => {
+  const handleNavLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
     triggerClick();
     scrollTo(id);
   };
 
   return (
-    <nav className={`navbar ${scrolled ? "navbar-scrolled" : ""}`}>
+    <nav className={`navbar ${scrolled ? "navbar-scrolled" : ""}`} aria-label="Main">
       <div className="navbar-inner">
 
         <button 
@@ -48,16 +62,21 @@ export default function Navbar({ activeSection }: Props) {
           <span style={{ color: COLORS.neonGreen }}>{"/>"}</span>
         </button>
 
-        <div className={`nav-links ${mobileOpen ? "nav-links-open" : ""}`}>
-          {navLinks.map((link) => (
-            <button
-              key={link.id}
-              className={`nav-link ${activeSection === link.id ? "nav-link-active" : ""}`}
-              onClick={() => handleNavLinkClick(link.id)}
-            >
-              {link.label}
-            </button>
-          ))}
+        <div id="nav-menu" className={`nav-links ${mobileOpen ? "nav-links-open" : ""}`}>
+          {navLinks.map((link) => {
+            const active = activeSection === link.id;
+            return (
+              <a
+                key={link.id}
+                href={`#${link.id}`}
+                className={`nav-link ${active ? "nav-link-active" : ""}`}
+                aria-current={active ? "true" : undefined}
+                onClick={(e) => handleNavLinkClick(e, link.id)}
+              >
+                {link.label}
+              </a>
+            );
+          })}
         </div>
 
         <div className="nav-right">
@@ -79,8 +98,12 @@ export default function Navbar({ activeSection }: Props) {
               </svg>
             )}
           </button>
+          <span className="sr-only" aria-live="polite">
+            {soundEnabled ? "Sound on" : "Sound off"}
+          </span>
 
           <button 
+            ref={toggleRef}
             className="mobile-toggle" 
             onClick={() => {
               triggerClick();
@@ -88,6 +111,7 @@ export default function Navbar({ activeSection }: Props) {
             }}
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
+            aria-controls="nav-menu"
           >
             <span /><span /><span />
           </button>
@@ -97,4 +121,3 @@ export default function Navbar({ activeSection }: Props) {
     </nav>
   );
 }
-

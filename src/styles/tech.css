@@ -4,7 +4,14 @@
   flex-direction: column;
   gap: 32px;
 }
+.tech-category {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
 .tech-category-label {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
   font-family: 'JetBrains Mono', monospace;
   font-size: 13px;
   font-weight: 500;
@@ -63,7 +70,7 @@
   transform: translateX(4px);
 }
 .tech-category-dimmed {
-  filter: grayscale(0.6) blur(0.3px);
+  opacity: 0.45;
   transform: scale(0.98);
 }
 .tech-category-selected .tech-category-label {

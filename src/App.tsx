@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import "./styles/global.css";
 
 import { lazy, Suspense } from "react";
@@ -6,6 +6,7 @@ import PCBBackground from "./components/PCBBackground";
 import Navbar        from "./components/Navbar";
 import Hero          from "./components/Hero";
 import { useWebMCP } from "./hooks/useWebMCP";
+import { SectionObserverContext } from "./hooks/useSectionRef";
 
 const About      = lazy(() => import("./components/About"));
 const TechStack  = lazy(() => import("./components/TechStack"));
@@ -13,18 +14,16 @@ const Projects   = lazy(() => import("./components/Projects"));
 const Experience = lazy(() => import("./components/Experience"));
 const Contact    = lazy(() => import("./components/Contact"));
 
-const SECTION_IDS = [
-  "hero",
-  "about",
-  "tech",
-  "projects",
-  "experience",
-  "contact",
-];
-
 export default function NolmedoDev() {
   const [activeSection, setActiveSection] = useState("hero");
   const [theme, setTheme] = useState("default");
+  const sectionsRef = useRef(new Set<Element>());
+  const observerRef = useRef<IntersectionObserver | null>(null);
+
+  const observe = useCallback((el: Element) => {
+    sectionsRef.current.add(el);
+    observerRef.current?.observe(el);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -36,12 +35,13 @@ export default function NolmedoDev() {
       { rootMargin: "-40% 0px -55% 0px" },
     );
 
-    SECTION_IDS.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
+    sectionsRef.current.forEach((el) => observer.observe(el));
+    observerRef.current = observer;
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      observerRef.current = null;
+    };
   }, []);
 
   // Update scroll progress bar Custom Property
@@ -62,21 +62,32 @@ export default function NolmedoDev() {
   useWebMCP(setTheme);
 
   return (
-    <main className="nolmedo-root" data-theme={theme}>
+    <div className="nolmedo-root" data-theme={theme}>
+      <a className="skip-link sr-only" href="#main">Skip to content</a>
+
       {/* Cyber-Grid background container */}
       <div className="cyber-grid" />
 
       <div className="scroll-progress-bar" />
       <PCBBackground theme={theme} />
-      <Navbar activeSection={activeSection} />
-      <Hero />
-      <Suspense fallback={<div style={{ minHeight: "100vh" }} />}>
-        <About />
-        <TechStack />
-        <Projects />
-        <Experience />
-        <Contact />
-      </Suspense>
-    </main>
+      <header>
+        <Navbar activeSection={activeSection} />
+      </header>
+      <SectionObserverContext.Provider value={observe}>
+        <main id="main">
+          <Hero />
+          <Suspense fallback={<div style={{ minHeight: "100vh" }} />}>
+            <About />
+            <TechStack />
+            <Projects />
+            <Experience />
+            <Contact />
+          </Suspense>
+        </main>
+      </SectionObserverContext.Provider>
+      <footer className="footer">
+        <p>© {new Date().getFullYear()} Nicolas Olmedo · Built with React</p>
+      </footer>
+    </div>
   );
 }
