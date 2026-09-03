@@ -5,6 +5,14 @@
   gap: 24px;
 }
 
+/* An odd card left alone in the last row spans both columns, centered
+   and sized like a single column (50% minus half the gap). */
+.projects-grid > .project-card:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+  width: calc(50% - 12px);
+  justify-self: center;
+}
+
 .project-card {
   padding: 32px 28px;
   display: flex;
@@ -102,4 +110,5 @@
 /* ── Responsive ── */
 @media (max-width: 768px) {
   .projects-grid { grid-template-columns: 1fr; }
+  .projects-grid > .project-card:last-child:nth-child(odd) { width: 100%; }
 }

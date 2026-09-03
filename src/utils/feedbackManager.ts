@@ -59,14 +59,12 @@ function playSynthTone(params: SoundParams) {
 
   try {
     const ctx = getAudioContext();
-    
-    // Create nodes
+
     const osc = ctx.createOscillator();
     const gainNode = ctx.createGain();
 
     osc.type = params.type || 'sine';
-    
-    // Set frequency
+
     osc.frequency.setValueAtTime(params.frequencyStart, ctx.currentTime);
     if (params.frequencyEnd) {
       if (params.ramp === 'exponential') {
@@ -80,11 +78,9 @@ function playSynthTone(params: SoundParams) {
     gainNode.gain.setValueAtTime(params.gainValue, ctx.currentTime);
     gainNode.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + params.duration);
 
-    // Connections
     osc.connect(gainNode);
     gainNode.connect(ctx.destination);
 
-    // Play
     osc.start();
     osc.stop(ctx.currentTime + params.duration);
 
@@ -139,11 +135,9 @@ function getPreset(theme: string) {
 export function triggerClick() {
   const theme = getTheme();
   const preset = getPreset(theme);
-  
-  // Play sound
+
   playSynthTone(preset.click);
 
-  // Trigger mobile haptic feedback safely
   if (isVibrateEnabled() && typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function') {
     try {
       navigator.vibrate(10);
@@ -166,7 +160,6 @@ export function playGalacticHover() {
   if (now - lastGalacticHoverTime < 150) return;
   lastGalacticHoverTime = now;
 
-  // Trigger mobile haptic feedback safely
   if (isVibrateEnabled() && typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function') {
     try {
       navigator.vibrate(10);
@@ -183,7 +176,6 @@ export function playGalacticHover() {
     const fadeInDuration = 0.06;
     const gainValue = 0.025;
 
-    // Create two oscillators and a gain node
     const osc1 = ctx.createOscillator();
     const osc2 = ctx.createOscillator();
     const gainNode = ctx.createGain();
@@ -202,12 +194,10 @@ export function playGalacticHover() {
     gainNode.gain.linearRampToValueAtTime(gainValue, t + fadeInDuration);
     gainNode.gain.exponentialRampToValueAtTime(0.0001, t + duration);
 
-    // Connect nodes
     osc1.connect(gainNode);
     osc2.connect(gainNode);
     gainNode.connect(ctx.destination);
 
-    // Start and stop
     osc1.start(t);
     osc2.start(t);
     osc1.stop(t + duration);

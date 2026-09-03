@@ -21,27 +21,28 @@ AI agents can interact with this website using the following WebMCP tools (expos
 - `triggerPCBEvent({ type })`: Dispatches an animation event to the background PCB board (`burst` = pulse storm, `scan` = sweep).
 
 ## Skills & Technologies
-- **Core**: React, TypeScript, JavaScript, HTML/CSS, GraphQL, Node.js.
-- **Backend & Frameworks**: Java, Spring, Hibernate, Angular, Ionic, Python.
-- **Tools & AI**: GitHub Copilot, Gemini, OpenAI, Anthropic Claude, Ollama/Llama, n8n, DeepSeek.
-- **Cloud & DevOps**: AWS, Google Cloud, Firebase, CI/CD, Docker, Git.
-- **Hardware & IoT**: Home Assistant, ESP32, Raspberry Pi, ESPHome, 3D Printing.
+- Core: React, TypeScript, JavaScript, HTML/CSS, GraphQL, Node.js.
+- Backend & Frameworks: Java, Spring, Hibernate, Angular, Ionic, Python.
+- Tools & AI: GitHub Copilot, Gemini, OpenAI, Anthropic Claude, Ollama/Llama, n8n, DeepSeek.
+- Cloud & DevOps: AWS, Google Cloud, Firebase, CI/CD, Docker, Git.
+- Hardware & IoT: Home Assistant, ESP32, Raspberry Pi, ESPHome, 3D Printing.
 
 ## Featured Projects
+- **AIOversight** (https://github.com/nikolmedo/AIOversight): Desktop tray app that monitors AI coding agents in real time. Notifies when an agent finishes or needs approval and tracks quota and spend across Anthropic, OpenAI, Copilot, and Cursor. Local-first, encrypted credentials, no cloud, no telemetry. Built with Electron and TypeScript.
 - **PixelPotion** (https://github.com/nikolmedo/PixelPotion): Raspberry Pi camera system that transforms photos into artistic styles (Pixar 3D, anime, watercolor, cyberpunk) at the press of a physical button. Powered by Google Gemini AI, delivered via Telegram.
 - **ClaudePulse** (https://github.com/nikolmedo/ClaudePulse): Home Assistant custom integration that monitors Claude.ai usage metrics in a smart home dashboard. 10 sensor entities, automatic updates every 2 minutes.
 
 ## Experience
-- **Senior Software Engineer** — Medallia, Pleasanton, CA (July 2021 - Present).
-- **Principal Software Architect** — FactorIT, Buenos Aires, Argentina (January 2016 - June 2021).
-- **Java & Mobile Developer** — FactorIT, Buenos Aires, Argentina (June 2013 - June 2016).
+- Senior Software Engineer, Medallia, Pleasanton, CA (July 2021 - Present).
+- Principal Software Architect, FactorIT, Buenos Aires, Argentina (January 2016 - June 2021).
+- Java & Mobile Developer, FactorIT, Buenos Aires, Argentina (June 2013 - June 2016).
 
 ## Education
-- **Master's Degree — Developing with AI**, Universidad Isabel I, Spain (2026, ongoing).
-- **Technical Degree — Senior Programming**, Universidad Tecnologica Nacional, Argentina.
+- Master's Degree in Developing with AI, Universidad Isabel I, Spain (2026, ongoing).
+- Technical Degree in Senior Programming, Universidad Tecnologica Nacional, Argentina.
 
 ## Contact & Links
-- **Email**: nikolmedo@gmail.com
-- **LinkedIn**: https://www.linkedin.com/in/nolmedo
-- **GitHub**: https://github.com/nikolmedo
-- **Website**: https://nolmedo.dev
+- Email: nikolmedo@gmail.com
+- LinkedIn: https://www.linkedin.com/in/nolmedo
+- GitHub: https://github.com/nikolmedo
+- Website: https://nolmedo.dev

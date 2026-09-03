@@ -98,9 +98,9 @@ export function useWebMCP(
         tools.forEach((tool) => {
           nav.modelContext.registerTool(tool);
         });
-        console.log("🚀 WebMCP registered successfully with navigator.modelContext");
+        console.log("[WebMCP] Tools registered with navigator.modelContext");
       } catch (err) {
-        console.warn("⚠️ Error registering WebMCP:", err);
+        console.warn("[WebMCP] Failed to register tools:", err);
       }
     }
 
@@ -117,7 +117,7 @@ export function useWebMCP(
     (window as any).webmcp = webmcpHelper;
     
     console.log(
-      "%c🤖 WebMCP Interoperability Active %c\nYou can test it from the console using %cwindow.webmcp%c. Example:\n  %cawait window.webmcp.changeTheme({ theme: 'cyberpunk' })\n  %cawait window.webmcp.triggerPCBEvent({ type: 'burst' })",
+      "%cWebMCP Interoperability Active %c\nYou can test it from the console using %cwindow.webmcp%c. Example:\n  %cawait window.webmcp.changeTheme({ theme: 'cyberpunk' })\n  %cawait window.webmcp.triggerPCBEvent({ type: 'burst' })",
       "background: #00e5ff; color: #000; padding: 4px 8px; border-radius: 4px; font-weight: bold;",
       "color: inherit;",
       "color: #39ff14; font-family: monospace; font-weight: bold;",
@@ -131,7 +131,9 @@ export function useWebMCP(
         tools.forEach((tool) => {
           try {
             nav.modelContext.unregisterTool(tool.name);
-          } catch (e) {}
+          } catch {
+            // best-effort cleanup: the tool may already be gone on unmount
+          }
         });
       }
       delete (window as any).webmcp;

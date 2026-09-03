@@ -5,9 +5,9 @@ conventions, and the WebMCP/llm.txt contract.
 
 Quick reminders:
 
-- Verify with `npx tsc --noEmit && npm run build` — the build script does not type-check.
+- Verify with `npx tsc --noEmit && npm run build` (the build script does not type-check).
 - Content changes go in `src/data/*.ts`, never inside components.
-- Never hardcode colors — use the theme CSS variables (`--cyan`, `--purple`, `--green`, …).
+- Never hardcode colors; use the theme CSS variables (`--cyan`, `--purple`, `--green`, etc).
 - Keep `useWebMCP.ts`, `public/llm.txt`, root `llm.txt`, and `README.md` in sync when
   tools, themes, or section IDs change.
 - All code, comments, UI copy, and documentation are written in English.

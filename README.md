@@ -2,7 +2,7 @@
 
 # nolmedo.dev
 
-### Nicolas Olmedo — Senior Software Engineer · Frontend
+### Nicolas Olmedo · Senior Software Engineer · Frontend
 
 [![React](https://img.shields.io/badge/React-18.3-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
@@ -16,45 +16,39 @@ real time, synthesized audio feedback, haptics, and five switchable neon themes.
 
 </div>
 
----
-
-## ✨ Highlights
+## Highlights
 
 | Area | What it does |
 |------|--------------|
 | ⚡ **Procedural PCB background** | Canvas-rendered circuit board generated per viewport: traces with 45° routing, pads, and vias. Pulses flow along traces, clicks send ripples through the network, and scrolling feeds energy into the board. |
 | 🤖 **WebMCP interoperability** | Implements the Web Model Context Protocol so AI agents can scroll the page, read tech/projects/experience data, switch themes, and trigger animations programmatically. |
 | 📄 **llm.txt** | Machine-readable site description at [`/llm.txt`](public/llm.txt) for LLM and agent discovery. |
-| 🎨 **Five live themes** | `default`, `cyberpunk`, `matrix`, `synthwave`, `glacier` — all driven by CSS variables, cross-faded in real time (background included). |
+| 🎨 **Five live themes** | `default`, `cyberpunk`, `matrix`, `synthwave`, `glacier`, all driven by CSS variables and cross-faded in real time (background included). |
 | 🔊 **Synthesized audio feedback** | Web Audio API tones with calibrated attack/decay envelopes for clicks and category filters, plus a persistent mute toggle (`localStorage`). |
 | 📳 **Haptic feedback** | 10 ms micro-vibrations via the Vibration API on mobile. |
 | 📱 **Mobile-first background** | Board density, pulse count, and effects adapt to viewport size; touch ripples replace hover physics; ambient glow keeps small screens rich. |
 | 🚀 **Performance & a11y** | Lazy-loaded sections, ~46 kB gzipped vendor chunk, semantic HTML, `prefers-reduced-motion` support, animations paused on hidden tabs. |
 
----
+## The PCB Background
 
-## ⚡ The PCB Background
-
-The background is not a static asset — it is a small physics-flavored simulation
+The background is a small physics-flavored simulation, not a static asset
 ([`src/components/PCBBackground.tsx`](src/components/PCBBackground.tsx)):
 
-- **Procedural layout** — traces, pads, and vias are generated for the exact
-  viewport, so mobile gets a properly dense board instead of a cropped desktop one.
-- **Living circuit** — data pulses travel along traces with glowing tails; traces
-  breathe; pads flicker.
-- **Real interaction** — every click/tap emits an expanding ripple that excites nearby
-  pads and fires pulses from the closest traces. On desktop, the pointer acts as a
-  flashlight revealing the circuitry underneath.
-- **Scroll energy** — scroll velocity charges the board (brighter traces, faster
-  pulses) and drives a two-layer parallax for depth.
-- **Theme-aware** — colors are read from the active theme's CSS variables and
-  cross-faded on theme change.
-- **Respectful** — honors `prefers-reduced-motion` with a static render and pauses
-  the loop when the tab is hidden.
+- Traces, pads, and vias are generated procedurally for the exact viewport, so mobile
+  gets a properly dense board instead of a cropped desktop one.
+- The circuit is alive: data pulses travel along traces with glowing tails, traces
+  breathe, pads flicker.
+- Every click or tap emits an expanding ripple that excites nearby pads and fires
+  pulses from the closest traces. On desktop, the pointer acts as a flashlight
+  revealing the circuitry underneath.
+- Scroll velocity charges the board (brighter traces, faster pulses) and drives a
+  two-layer parallax for depth.
+- Colors are read from the active theme's CSS variables and cross-faded on theme
+  change.
+- It honors `prefers-reduced-motion` with a static render and pauses the loop when
+  the tab is hidden.
 
----
-
-## 🤖 Built for AI Agents
+## Built for AI Agents
 
 The site registers WebMCP tools on `navigator.modelContext` and exposes a console
 helper at `window.webmcp`. Try it in the browser DevTools on [nolmedo.dev](https://nolmedo.dev):
@@ -74,9 +68,7 @@ await window.webmcp.getProjects();
 | `changeTheme({ theme })` | Switches between the five color themes in real time |
 | `triggerPCBEvent({ type })` | Fires a `burst` (pulse storm) or `scan` (sweep) on the background |
 
----
-
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
 git clone https://github.com/nikolmedo/nolmedo-dev.git
@@ -91,9 +83,7 @@ npm run dev       # http://localhost:5173
 | `npm run build` | Production build to `dist/` |
 | `npm run preview` | Serve the production build locally |
 
----
-
-## 🧱 Project Structure
+## Project Structure
 
 ```
 src/
@@ -108,26 +98,24 @@ src/
 └── utils/                   # Web Audio feedback manager
 ```
 
-Content lives in `src/data/*.ts` — updating experience, projects, or the tech stack
+Content lives in `src/data/*.ts`, so updating experience, projects, or the tech stack
 never requires touching components.
 
----
-
-## 👋 About Me
+## About Me
 
 Senior Frontend Engineer with 12+ years of experience building high-performance web
 applications with React & TypeScript. Currently at Medallia, pursuing a Master's
 degree in Developing with AI.
 
-### 💼 Experience
+### Experience
 
 | Period | Role | Company |
 |--------|------|---------|
-| Jul 2021 — Present | Senior Software Engineer | Medallia · Pleasanton, CA |
-| Jan 2016 — Jun 2021 | Principal Software Architect | FactorIT · Buenos Aires, AR |
-| Jun 2013 — Jun 2016 | Java & Mobile Developer | FactorIT · Buenos Aires, AR |
+| Jul 2021 - Present | Senior Software Engineer | Medallia · Pleasanton, CA |
+| Jan 2016 - Jun 2021 | Principal Software Architect | FactorIT · Buenos Aires, AR |
+| Jun 2013 - Jun 2016 | Java & Mobile Developer | FactorIT · Buenos Aires, AR |
 
-### 🛠️ Tech Stack
+### Tech Stack
 
 ![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
@@ -153,23 +141,20 @@ degree in Developing with AI.
 ![Raspberry Pi](https://img.shields.io/badge/Raspberry_Pi-A22846?style=flat-square&logo=raspberry-pi&logoColor=white)
 ![ESP32](https://img.shields.io/badge/ESP32-000000?style=flat-square&logo=espressif&logoColor=white)
 
-### 🧪 Featured Projects
+### Featured Projects
 
 | Project | Description | Tags |
 |---------|-------------|------|
-| [◈ PixelPotion](https://github.com/nikolmedo/PixelPotion) | Raspberry Pi camera that transforms photos into artistic styles (Pixar 3D, anime, watercolor, cyberpunk) at the press of a physical button. Powered by Google Gemini, delivered via Telegram. | `Python` `Raspberry Pi` `Gemini AI` `IoT` |
-| [⚡ ClaudePulse](https://github.com/nikolmedo/ClaudePulse) | Home Assistant custom integration that monitors Claude.ai usage metrics in your smart home dashboard. 10 sensor entities, automatic updates every 2 minutes. | `Python` `Home Assistant` `HACS` `Claude API` |
+| [AIOversight](https://github.com/nikolmedo/AIOversight) | Desktop tray app that monitors AI coding agents in real time: instant notifications when an agent finishes or needs approval, plus quota and spend tracking across Anthropic, OpenAI, Copilot, and Cursor. Local-first, no cloud, no telemetry. | `TypeScript` `Electron` `Claude Code` `OpenAI` |
+| [PixelPotion](https://github.com/nikolmedo/PixelPotion) | Raspberry Pi camera that transforms photos into artistic styles (Pixar 3D, anime, watercolor, cyberpunk) at the press of a physical button. Powered by Google Gemini, delivered via Telegram. | `Python` `Raspberry Pi` `Gemini AI` `IoT` |
+| [ClaudePulse](https://github.com/nikolmedo/ClaudePulse) | Home Assistant custom integration that monitors Claude.ai usage metrics in your smart home dashboard. 10 sensor entities, automatic updates every 2 minutes. | `Python` `Home Assistant` `HACS` `Claude API` |
 
----
-
-## 📬 Contact
+## Contact
 
 [![Website](https://img.shields.io/badge/nolmedo.dev-0A0A0F?style=for-the-badge&logo=google-chrome&logoColor=00FFFF)](https://nolmedo.dev)
 [![Email](https://img.shields.io/badge/nikolmedo@gmail.com-0A0A0F?style=for-the-badge&logo=gmail&logoColor=EA4335)](mailto:nikolmedo@gmail.com)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A0A0F?style=for-the-badge&logo=linkedin&logoColor=0A66C2)](https://www.linkedin.com/in/nolmedo)
 [![GitHub](https://img.shields.io/badge/GitHub-0A0A0F?style=for-the-badge&logo=github&logoColor=white)](https://github.com/nikolmedo)
-
----
 
 <div align="center">
 

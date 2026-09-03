@@ -79,7 +79,7 @@ const mixRgb = (a: RGB, b: RGB, t: number): RGB => [
 const rgba = (c: RGB, a: number) =>
   `rgba(${c[0] | 0},${c[1] | 0},${c[2] | 0},${a})`;
 
-/** Random weighted palette index — cyan dominant, purple/green accents. */
+/** Random weighted palette index: cyan dominant, purple/green accents. */
 function pickColor(): number {
   const r = Math.random();
   return r < 0.45 ? 0 : r < 0.75 ? 1 : 2;
@@ -87,7 +87,7 @@ function pickColor(): number {
 
 /**
  * Generates one trace path: horizontal runs joined by 45° jogs, snapped to a
- * grid — the classic PCB routing style. Vertical traces swap axes.
+ * grid, the classic PCB routing style. Vertical traces swap axes.
  */
 function makePath(
   span: number,
@@ -282,7 +282,7 @@ export default function PCBBackground({ theme }: { theme: string }) {
     const pulses: Pulse[] = [];
     const ripples: Ripple[] = [];
     const pointer = { x: 0, y: 0, has: false };
-    let energy = 0; // 0..1.5 — scroll / burst excitement
+    let energy = 0; // 0..1.5, scroll / burst excitement
     let progress = 0; // scroll progress 0..1 for parallax
     let spawnIn = 0.5; // seconds until next pulse spawn
     const maxPulses = () => (mobile ? 4 : 8);
@@ -574,7 +574,7 @@ export default function PCBBackground({ theme }: { theme: string }) {
         document.documentElement.scrollHeight - window.innerHeight;
       const y = window.scrollY;
       progress = maxScroll > 0 ? y / maxScroll : 0;
-      // Scroll velocity feeds energy — board "wakes up" while you move
+      // Scroll velocity feeds energy so the board "wakes up" while you move
       energy = Math.min(1.2, energy + Math.abs(y - lastScrollY) * 0.0012);
       lastScrollY = y;
     };

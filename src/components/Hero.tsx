@@ -40,7 +40,7 @@ export default function Hero() {
 
           <p className="hero-greeting">Hello, I'm</p>
           <h1 className="hero-name">NICOLAS OLMEDO</h1>
-          <h2 className="hero-title">SENIOR SOFTWARE ENGINEER — FRONTEND</h2>
+          <h2 className="hero-title">SENIOR SOFTWARE ENGINEER · FRONTEND</h2>
           <p className="hero-tagline">
             Building polished interfaces · AI-enhanced workflows
           </p>

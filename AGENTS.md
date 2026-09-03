@@ -1,4 +1,4 @@
-# AGENTS.md — Guide for AI Coding Agents
+# AGENTS.md: Guide for AI Coding Agents
 
 Personal portfolio site for Nicolas Olmedo ([nolmedo.dev](https://nolmedo.dev)).
 React 18 + TypeScript + Vite, no router, no state library, no test framework.
@@ -9,7 +9,7 @@ React 18 + TypeScript + Vite, no router, no state library, no test framework.
 npm run dev        # Vite dev server (http://localhost:5173)
 npm run build      # Production build to dist/ (dist/ is gitignored)
 npm run preview    # Serve the production build
-npx tsc --noEmit   # Type-check (build does NOT run tsc — always run this before committing)
+npx tsc --noEmit   # Type-check (build does NOT run tsc; always run this before committing)
 ```
 
 There are no tests or linters configured. Verification = `npx tsc --noEmit` + `npm run build`.
@@ -23,7 +23,7 @@ Single-page app, all sections rendered in [`src/App.tsx`](src/App.tsx):
 | `src/App.tsx` | Theme state (`data-theme` attr), section IntersectionObserver, scroll progress CSS var |
 | `src/components/` | One component per page section + shared UI (`GlassPanel`, `SectionTitle`) |
 | `src/components/PCBBackground.tsx` | Procedural canvas circuit-board background (see below) |
-| `src/data/*.ts` | All content (experience, projects, tech, nav links) as typed data — edit content here, never in components |
+| `src/data/*.ts` | All content (experience, projects, tech, nav links) as typed data. Edit content here, never in components |
 | `src/hooks/useWebMCP.ts` | WebMCP tool registration (`navigator.modelContext` + `window.webmcp` console helper) |
 | `src/hooks/useFeedback.ts` + `src/utils/feedbackManager.ts` | Web Audio synthesized click sounds + Vibration API haptics, mute state in `localStorage` |
 | `src/hooks/useReveal.ts` | Scroll-reveal via IntersectionObserver (`.reveal` / `.revealed` classes) |
@@ -33,14 +33,14 @@ Single-page app, all sections rendered in [`src/App.tsx`](src/App.tsx):
 
 - **Themes**: 5 themes (`default`, `cyberpunk`, `matrix`, `synthwave`, `glacier`) defined
   as CSS variables (`--cyan`, `--purple`, `--green`, `--bg`, `--text`, `--muted`) on
-  `.nolmedo-root[data-theme=...]` in `global.css`. Never hardcode colors in components —
+  `.nolmedo-root[data-theme=...]` in `global.css`. Never hardcode colors in components;
   use the CSS variables (or read them at runtime, as the canvas background does).
 - **Styling**: plain CSS files, one per component, kebab-case class names. No CSS-in-JS,
   no Tailwind.
 - **Code splitting**: below-the-fold sections are `lazy()`-loaded in `App.tsx`. Keep new
   heavy components lazy.
 - **Dependencies**: only `react` + `react-dom`. Do not add runtime dependencies without
-  explicit approval — bundle size is a feature.
+  explicit approval; bundle size is a feature.
 - **Motion**: every animation must respect `prefers-reduced-motion` and avoid blocking
   interaction. Background effects stay subtle (low alpha, no flashing).
 - **Language**: all code, comments, UI copy, and docs are written in English.

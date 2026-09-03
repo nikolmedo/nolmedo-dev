@@ -51,11 +51,11 @@ function BusinessCard() {
 
         <div className="bcard-content">
           <h3 className="bcard-name">NICOLAS OLMEDO</h3>
-          <p className="bcard-role">SENIOR SOFTWARE ENGINEER — FRONTEND</p>
+          <p className="bcard-role">SENIOR SOFTWARE ENGINEER · FRONTEND</p>
           <div className="bcard-info">
             <div className="bcard-row">
               <a className="bcard-link" href="mailto:nikolmedo@gmail.com" onClick={triggerClick}>
-                <span className="bcard-icon">✉</span>&nbsp;
+                <span className="bcard-icon">@</span>&nbsp;
                 <span>nikolmedo@gmail.com</span>
               </a>
             </div>
@@ -67,7 +67,7 @@ function BusinessCard() {
             </div>
             <div className="bcard-row">
               <a className="bcard-link" href="https://github.com/nikolmedo" target="_blank" rel="noopener noreferrer" onClick={triggerClick}>
-                <span className="bcard-icon">⚙</span>&nbsp;
+                <span className="bcard-icon">gh</span>&nbsp;
                 <span>github.com/nikolmedo</span>
               </a>
             </div>
