@@ -6,6 +6,7 @@ import PCBBackground from "./components/PCBBackground";
 import Navbar        from "./components/Navbar";
 import Hero          from "./components/Hero";
 import { useWebMCP } from "./hooks/useWebMCP";
+import { useScrollProgress } from "./hooks/useScrollProgress";
 import { SectionObserverContext } from "./hooks/useSectionRef";
 
 const About      = lazy(() => import("./components/About"));
@@ -14,15 +15,26 @@ const Projects   = lazy(() => import("./components/Projects"));
 const Experience = lazy(() => import("./components/Experience"));
 const Contact    = lazy(() => import("./components/Contact"));
 
+const sectionFallback = (
+  <div className="section-fallback" role="status" aria-label="Loading section" />
+);
+
 export default function NolmedoDev() {
   const [activeSection, setActiveSection] = useState("hero");
   const [theme, setTheme] = useState("default");
   const sectionsRef = useRef(new Set<Element>());
   const observerRef = useRef<IntersectionObserver | null>(null);
+  const hashHandledRef = useRef(false);
 
+  // Lazy sections mount late; the one matching the URL hash is scrolled into view once on cold load.
   const observe = useCallback((el: Element) => {
     sectionsRef.current.add(el);
     observerRef.current?.observe(el);
+
+    if (!hashHandledRef.current && location.hash === `#${el.id}`) {
+      hashHandledRef.current = true;
+      el.scrollIntoView({ behavior: "auto" });
+    }
   }, []);
 
   useEffect(() => {
@@ -44,20 +56,9 @@ export default function NolmedoDev() {
     };
   }, []);
 
-  // Update scroll progress bar Custom Property
-  useEffect(() => {
-    const handleScroll = () => {
-      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (totalHeight <= 0) return;
-      const progress = (window.scrollY / totalHeight) * 100;
-      document.documentElement.style.setProperty("--scroll-progress", `${progress}%`);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-
+  useScrollProgress((progress) => {
+    document.documentElement.style.setProperty("--scroll-progress", String(progress));
+  });
 
   useWebMCP(setTheme);
 
@@ -76,11 +77,19 @@ export default function NolmedoDev() {
       <SectionObserverContext.Provider value={observe}>
         <main id="main">
           <Hero />
-          <Suspense fallback={<div style={{ minHeight: "100vh" }} />}>
+          <Suspense fallback={sectionFallback}>
             <About />
+          </Suspense>
+          <Suspense fallback={sectionFallback}>
             <TechStack />
+          </Suspense>
+          <Suspense fallback={sectionFallback}>
             <Projects />
+          </Suspense>
+          <Suspense fallback={sectionFallback}>
             <Experience />
+          </Suspense>
+          <Suspense fallback={sectionFallback}>
             <Contact />
           </Suspense>
         </main>

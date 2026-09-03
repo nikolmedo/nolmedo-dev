@@ -59,6 +59,7 @@ type RGB = [number, number, number];
 const GRID = 8;
 const PARALLAX_EXTRA = 200; // board is taller than viewport by this much
 const LAYER_SHIFT = [100, 200]; // max parallax offset per layer
+const POINTER_IDLE_MS = 2500; // pointer counts as gone after this long without moving
 
 const snap = (v: number) => Math.round(v / GRID) * GRID;
 const rand = (a: number, b: number) => a + Math.random() * (b - a);
@@ -247,24 +248,18 @@ export default function PCBBackground({ theme }: { theme: string }) {
     let mobile = w < 768;
     let board = buildBoard(w, h, mobile);
 
-    // Theme palette with cross-fade on change
-    let palFrom: RGB[] = [
-      [0, 229, 255],
-      [180, 74, 255],
-      [57, 255, 20],
-    ];
-    let palTo: RGB[] = palFrom;
-    let palT = 1; // 0..1 fade progress
-    let palette: RGB[] = palFrom;
-
     const readPalette = (): RGB[] => {
-      const root = canvas.parentElement;
-      if (!root) return palTo;
-      const cs = getComputedStyle(root);
+      const cs = getComputedStyle(canvas.parentElement ?? canvas);
       return ["--cyan", "--purple", "--green"].map((v) =>
         hexToRgb(cs.getPropertyValue(v) || "#00e5ff"),
       );
     };
+
+    // Theme palette with cross-fade on change
+    let palette: RGB[] = readPalette();
+    let palFrom: RGB[] = palette;
+    let palTo: RGB[] = palette;
+    let palT = 1; // 0..1 fade progress
 
     const retint = () => {
       palFrom = palette.map((c) => [...c] as RGB);
@@ -281,7 +276,7 @@ export default function PCBBackground({ theme }: { theme: string }) {
     // Dynamic state
     const pulses: Pulse[] = [];
     const ripples: Ripple[] = [];
-    const pointer = { x: 0, y: 0, has: false };
+    const pointer = { x: 0, y: 0, has: false, movedAt: 0 };
     let energy = 0; // 0..1.5, scroll / burst excitement
     let progress = 0; // scroll progress 0..1 for parallax
     let spawnIn = 0.5; // seconds until next pulse spawn
@@ -294,9 +289,6 @@ export default function PCBBackground({ theme }: { theme: string }) {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
     resizeCanvas();
-    palTo = readPalette();
-    palFrom = palTo;
-    palette = palTo;
 
     const spawnPulse = (traceIdx?: number, atDist?: number) => {
       if (board.traces.length === 0) return;
@@ -362,6 +354,25 @@ export default function PCBBackground({ theme }: { theme: string }) {
     // by a radial gradient so the highlight fades out with no hard edge.
     const fl = document.createElement("canvas");
     const flCtx = fl.getContext("2d");
+    let flGrad: CanvasGradient | null = null;
+    let flGradX = NaN;
+    let flGradY = NaN;
+
+    const flashlightGradient = (g: CanvasRenderingContext2D) => {
+      if (!flGrad || flGradX !== pointer.x || flGradY !== pointer.y) {
+        const R = 210;
+        flGradX = pointer.x;
+        flGradY = pointer.y;
+        flGrad = g.createRadialGradient(
+          pointer.x, pointer.y, 0,
+          pointer.x, pointer.y, R,
+        );
+        flGrad.addColorStop(0, "rgba(0,0,0,0.7)");
+        flGrad.addColorStop(0.5, "rgba(0,0,0,0.32)");
+        flGrad.addColorStop(1, "rgba(0,0,0,0)");
+      }
+      return flGrad;
+    };
 
     const drawFlashlight = (t: number) => {
       if (!flCtx || !pointer.has || mobile) return;
@@ -378,16 +389,8 @@ export default function PCBBackground({ theme }: { theme: string }) {
         drawTraces(flCtx, layer, t, 2.2);
         flCtx.restore();
       }
-      const R = 210;
-      const grad = flCtx.createRadialGradient(
-        pointer.x, pointer.y, 0,
-        pointer.x, pointer.y, R,
-      );
-      grad.addColorStop(0, "rgba(0,0,0,0.7)");
-      grad.addColorStop(0.5, "rgba(0,0,0,0.32)");
-      grad.addColorStop(1, "rgba(0,0,0,0)");
       flCtx.globalCompositeOperation = "destination-in";
-      flCtx.fillStyle = grad;
+      flCtx.fillStyle = flashlightGradient(flCtx);
       flCtx.fillRect(0, 0, w, h);
       flCtx.globalCompositeOperation = "source-over";
       ctx.drawImage(fl, 0, 0, w, h);
@@ -547,6 +550,7 @@ export default function PCBBackground({ theme }: { theme: string }) {
       const dt = Math.min((now - last) / 1000, 0.05);
       last = now;
       const t = now / 1000;
+      if (pointer.has && now - pointer.movedAt > POINTER_IDLE_MS) pointer.has = false;
       step(dt);
       drawFrame(t, dt);
       raf = requestAnimationFrame(loop);
@@ -584,6 +588,7 @@ export default function PCBBackground({ theme }: { theme: string }) {
       pointer.x = e.clientX;
       pointer.y = e.clientY;
       pointer.has = true;
+      pointer.movedAt = performance.now();
     };
     const onPointerLeave = () => {
       pointer.has = false;
@@ -601,16 +606,27 @@ export default function PCBBackground({ theme }: { theme: string }) {
         excite(w / 2, h / 2, 1);
       } else if (type === "scan") {
         setScanActive(true);
-        setTimeout(() => setScanActive(false), 4000);
+        window.clearTimeout(scanTimer);
+        scanTimer = window.setTimeout(() => setScanActive(false), 4000);
       }
     };
 
+    let scanTimer = 0;
     let resizeTimer = 0;
     const onResize = () => {
       window.clearTimeout(resizeTimer);
       resizeTimer = window.setTimeout(() => {
-        w = window.innerWidth;
-        h = window.innerHeight;
+        const nextW = window.innerWidth;
+        const nextH = window.innerHeight;
+        // Mobile address bar show/hide: keep the board, just refit the canvas
+        if (nextW === w && Math.abs(nextH - h) < 150) {
+          h = nextH;
+          resizeCanvas();
+          if (reducedMotion) drawFrame(0, 0);
+          return;
+        }
+        w = nextW;
+        h = nextH;
         mobile = w < 768;
         board = buildBoard(w, h, mobile);
         pulses.length = 0;
@@ -636,6 +652,7 @@ export default function PCBBackground({ theme }: { theme: string }) {
     return () => {
       stop();
       window.clearTimeout(resizeTimer);
+      window.clearTimeout(scanTimer);
       window.removeEventListener("pcb-trigger", onTrigger);
       window.removeEventListener("resize", onResize);
       document.removeEventListener("visibilitychange", onVisibility);

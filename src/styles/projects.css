@@ -92,12 +92,11 @@
   text-decoration: none;
   letter-spacing: 0.5px;
   padding: 6px 0;
-  transition: opacity 0.2s, gap 0.2s;
+  transition: opacity 0.2s;
   opacity: 0.75;
 }
 .project-github-link:hover {
   opacity: 1;
-  gap: 12px;
 }
 .project-github-arrow {
   font-size: 14px;

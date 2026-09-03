@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "../styles/tech.css";
 import { COLORS } from "../constants/colors";
 import { techData } from "../data/techData";
-import GlassPanel from "./GlassPanel";
 import SectionTitle from "./SectionTitle";
 import { useReveal } from "../hooks/useReveal";
 import { useFeedback } from "../hooks/useFeedback";
@@ -12,10 +11,10 @@ export default function TechStack() {
   const ref = useReveal();
   const sectionRef = useSectionRef();
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
-  const { playGalacticHover } = useFeedback();
+  const { playChipClick } = useFeedback();
 
   const toggleCategory = (catName: string) => {
-    playGalacticHover();
+    playChipClick();
     setActiveCategory(prev => (prev === catName ? null : catName));
   };
 
@@ -45,9 +44,7 @@ export default function TechStack() {
                     className="tech-node"
                     style={{
                       background: cat.color,
-                      boxShadow: isSelected ? `0 0 16px ${cat.color}` : `0 0 8px ${cat.color}`,
-                      transform: isSelected ? "scale(1.3)" : "scale(1)",
-                      transition: "all 0.3s ease"
+                      boxShadow: isSelected ? `0 0 16px ${cat.color}` : `0 0 8px ${cat.color}`
                     }}
                   />
                   {cat.category}
@@ -56,26 +53,20 @@ export default function TechStack() {
 
               <div className="tech-grid">
                 {cat.items.map((item) => (
-                  <GlassPanel
+                  <div
                     key={item}
-                    className="tech-chip"
-                    style={{ 
-                      "--chip-color": cat.color,
-                      transform: isSelected ? "scale(1.05)" : "scale(1)",
-                      transition: "all 0.3s ease"
-                    } as React.CSSProperties}
+                    className={`tech-chip ${isSelected ? "tech-chip-active" : ""}`}
+                    style={{ "--chip-color": cat.color } as React.CSSProperties}
                   >
-                    <span 
-                      className="tech-chip-dot" 
-                      style={{ 
-                        background: cat.color, 
-                        boxShadow: `0 0 6px ${cat.color}`,
-                        transform: isSelected ? "scale(1.2)" : "scale(1)",
-                        transition: "all 0.3s ease"
-                      }} 
+                    <span
+                      className="tech-chip-dot"
+                      style={{
+                        background: cat.color,
+                        boxShadow: `0 0 6px ${cat.color}`
+                      }}
                     />
                     {item}
-                  </GlassPanel>
+                  </div>
                 ))}
               </div>
 

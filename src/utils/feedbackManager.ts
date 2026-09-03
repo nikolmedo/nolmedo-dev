@@ -146,7 +146,7 @@ let lastGalacticHoverTime = 0;
 
 // Galactic hover sound effect - Spaceship hum / Lightsaber whoosh (throttled to 150ms)
 // Synthesized using two detuned triangle wave oscillators to create a beating effect
-export function playGalacticHover() {
+export function playChipClick() {
   if (!soundEnabled && !vibrateEnabled) return;
 
   const now = Date.now();

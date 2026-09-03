@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import "../styles/hero.css";
 import { COLORS } from "../constants/colors";
 import GlassPanel from "./GlassPanel";
@@ -7,7 +6,6 @@ import { useSectionRef } from "../hooks/useSectionRef";
 import { scrollToId } from "../utils/scrollToId";
 
 export default function Hero() {
-  const [visible, setVisible] = useState(false);
   const { triggerClick } = useFeedback();
   const sectionRef = useSectionRef();
 
@@ -17,14 +15,9 @@ export default function Hero() {
     scrollToId(id);
   };
 
-  useEffect(() => {
-    const timer = setTimeout(() => setVisible(true), 200);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <section ref={sectionRef} id="hero" className="hero-section" aria-labelledby="hero-heading">
-      <div className={`hero-content ${visible ? "hero-visible" : ""}`}>
+      <div className="hero-content">
         <GlassPanel className="hero-panel">
 
           {/* Decorative corner traces */}

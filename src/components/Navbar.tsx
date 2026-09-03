@@ -4,6 +4,7 @@ import { COLORS } from "../constants/colors";
 import { navLinks } from "../data/navLinks";
 import { useFeedback } from "../hooks/useFeedback";
 import { scrollToId } from "../utils/scrollToId";
+import { useScrollProgress } from "../hooks/useScrollProgress";
 
 interface Props {
   activeSection: string;
@@ -13,13 +14,16 @@ export default function Navbar({ activeSection }: Props) {
   const [scrolled, setScrolled]     = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
+  const scrolledRef = useRef(false);
   const { soundEnabled, toggleSound, triggerClick } = useFeedback();
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  useScrollProgress((_, y) => {
+    const next = y > 40;
+    if (next !== scrolledRef.current) {
+      scrolledRef.current = next;
+      setScrolled(next);
+    }
+  });
 
   useEffect(() => {
     if (!mobileOpen) return;

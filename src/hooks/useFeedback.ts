@@ -4,7 +4,7 @@ import {
   setSoundEnabled,
   subscribeSoundEnabled,
   triggerClick,
-  playGalacticHover
+  playChipClick
 } from '../utils/feedbackManager';
 
 export function useFeedback() {
@@ -24,6 +24,6 @@ export function useFeedback() {
     soundEnabled,
     toggleSound,
     triggerClick,
-    playGalacticHover
+    playChipClick
   };
 }

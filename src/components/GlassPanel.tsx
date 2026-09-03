@@ -1,4 +1,4 @@
-import { type ReactNode, type CSSProperties, useRef, type HTMLAttributes } from "react";
+import { type ReactNode, type CSSProperties, useRef, useEffect, type HTMLAttributes } from "react";
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   children:   ReactNode;
@@ -9,16 +9,24 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 
 export default function GlassPanel({ children, className = "", style = {}, id, ...rest }: Props) {
   const panelRef = useRef<HTMLDivElement>(null);
+  const frameRef = useRef(0);
+  const pointRef = useRef({ x: 0, y: 0 });
+
+  useEffect(() => () => cancelAnimationFrame(frameRef.current), []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const el = panelRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    el.style.setProperty("--mouse-x", `${x}px`);
-    el.style.setProperty("--mouse-y", `${y}px`);
-    
+    pointRef.current = { x: e.clientX, y: e.clientY };
+    if (!frameRef.current) {
+      frameRef.current = requestAnimationFrame(() => {
+        frameRef.current = 0;
+        const el = panelRef.current;
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        el.style.setProperty("--mouse-x", `${pointRef.current.x - rect.left}px`);
+        el.style.setProperty("--mouse-y", `${pointRef.current.y - rect.top}px`);
+      });
+    }
+
     // Call parent onMouseMove if present
     if (rest.onMouseMove) {
       rest.onMouseMove(e);

@@ -1,7 +1,4 @@
 import { useEffect } from "react";
-import { techData } from "../data/techData";
-import { projectsData } from "../data/projectsData";
-import { experienceData, educationData } from "../data/experienceData";
 
 export function useWebMCP(
   changeTheme: (theme: string) => void
@@ -37,6 +34,7 @@ export function useWebMCP(
         description: "Returns Nicolas Olmedo's tech stack and skills grouped by category.",
         inputSchema: { type: "object", properties: {} },
         execute: async () => {
+          const { techData } = await import("../data/techData");
           return { success: true, techStack: techData };
         }
       },
@@ -45,6 +43,7 @@ export function useWebMCP(
         description: "Retrieves the list of featured projects developed by Nicolas, with descriptions and URLs.",
         inputSchema: { type: "object", properties: {} },
         execute: async () => {
+          const { projectsData } = await import("../data/projectsData");
           return { success: true, projects: projectsData };
         }
       },
@@ -53,6 +52,7 @@ export function useWebMCP(
         description: "Retrieves Nicolas's work experience and educational history.",
         inputSchema: { type: "object", properties: {} },
         execute: async () => {
+          const { experienceData, educationData } = await import("../data/experienceData");
           return { success: true, experience: experienceData, education: educationData };
         }
       },
@@ -93,50 +93,69 @@ export function useWebMCP(
       }
     ];
 
-    if (nav.modelContext && typeof nav.modelContext.registerTool === "function") {
-      try {
-        tools.forEach((tool) => {
-          nav.modelContext.registerTool(tool);
-        });
-        console.log("[WebMCP] Tools registered with navigator.modelContext");
-      } catch (err) {
-        console.warn("[WebMCP] Failed to register tools:", err);
+    const register = () => {
+      if (nav.modelContext && typeof nav.modelContext.registerTool === "function") {
+        try {
+          tools.forEach((tool) => {
+            nav.modelContext.registerTool(tool);
+          });
+          console.log("[WebMCP] Tools registered with navigator.modelContext");
+        } catch (err) {
+          console.warn("[WebMCP] Failed to register tools:", err);
+        }
       }
-    }
 
-    const webmcpHelper: Record<string, any> = {};
-    tools.forEach((tool) => {
-      webmcpHelper[tool.name] = async (args: any = {}) => {
-        console.log(`[WebMCP-Sim] Executing tool '${tool.name}' with args:`, args);
-        const result = await tool.execute(args);
-        console.log(`[WebMCP-Sim] Result of '${tool.name}':`, result);
-        return result;
+      const webmcpHelper: Record<string, any> = {};
+      tools.forEach((tool) => {
+        webmcpHelper[tool.name] = async (args: any = {}) => {
+          console.log(`[WebMCP-Sim] Executing tool '${tool.name}' with args:`, args);
+          const result = await tool.execute(args);
+          console.log(`[WebMCP-Sim] Result of '${tool.name}':`, result);
+          return result;
+        };
+      });
+
+      (window as any).webmcp = webmcpHelper;
+
+      console.log(
+        "%cWebMCP Interoperability Active %c\nYou can test it from the console using %cwindow.webmcp%c. Example:\n  %cawait window.webmcp.changeTheme({ theme: 'cyberpunk' })\n  %cawait window.webmcp.triggerPCBEvent({ type: 'burst' })",
+        "background: #00e5ff; color: #000; padding: 4px 8px; border-radius: 4px; font-weight: bold;",
+        "color: inherit;",
+        "color: #39ff14; font-family: monospace; font-weight: bold;",
+        "color: inherit;",
+        "color: #b44aff; font-family: monospace;",
+        "color: #b44aff; font-family: monospace;"
+      );
+
+      return () => {
+        if (nav.modelContext && typeof nav.modelContext.unregisterTool === "function") {
+          tools.forEach((tool) => {
+            try {
+              nav.modelContext.unregisterTool(tool.name);
+            } catch {
+              // best-effort cleanup: the tool may already be gone on unmount
+            }
+          });
+        }
+        delete (window as any).webmcp;
       };
-    });
-    
-    (window as any).webmcp = webmcpHelper;
-    
-    console.log(
-      "%cWebMCP Interoperability Active %c\nYou can test it from the console using %cwindow.webmcp%c. Example:\n  %cawait window.webmcp.changeTheme({ theme: 'cyberpunk' })\n  %cawait window.webmcp.triggerPCBEvent({ type: 'burst' })",
-      "background: #00e5ff; color: #000; padding: 4px 8px; border-radius: 4px; font-weight: bold;",
-      "color: inherit;",
-      "color: #39ff14; font-family: monospace; font-weight: bold;",
-      "color: inherit;",
-      "color: #b44aff; font-family: monospace;",
-      "color: #b44aff; font-family: monospace;"
-    );
+    };
+
+    // Registration is not needed for first paint; defer it until the browser is idle
+    let unregister: (() => void) | undefined;
+    const idle = typeof window.requestIdleCallback === "function";
+    const handle = idle
+      ? window.requestIdleCallback(() => { unregister = register(); })
+      : window.setTimeout(() => { unregister = register(); }, 1);
 
     return () => {
-      if (nav.modelContext && typeof nav.modelContext.unregisterTool === "function") {
-        tools.forEach((tool) => {
-          try {
-            nav.modelContext.unregisterTool(tool.name);
-          } catch {
-            // best-effort cleanup: the tool may already be gone on unmount
-          }
-        });
+      if (unregister) {
+        unregister();
+      } else if (idle) {
+        window.cancelIdleCallback(handle);
+      } else {
+        window.clearTimeout(handle);
       }
-      delete (window as any).webmcp;
     };
   }, [changeTheme]);
 }
