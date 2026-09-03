@@ -293,10 +293,11 @@ a {
 
 @media (prefers-reduced-motion: reduce) {
   .nolmedo-root .reveal { opacity: 1; transform: none; transition: none; }
-  .nolmedo-root .hero-content { animation: none; opacity: 1; transform: none; }
+  .nolmedo-root .hero-content { animation: none; transform: none; }
   .nolmedo-root .hero-title::after, .nolmedo-root .timeline-node, .nolmedo-root .cyber-grid::after { animation: none; }
   .nolmedo-root :is(.glass-panel, .project-card, .tech-chip, .timeline-card, .about-card, .education-card, .btn-primary, .btn-secondary) { transition: none; }
   .nolmedo-root :is(.project-card, .tech-chip, .timeline-card, .about-card, .education-card, .tech-category-label, .mute-toggle):hover { transform: none; }
+  .nolmedo-root .hero-corner-svg *, .nolmedo-root .bcard-svg * { transition: none; }
 }
 
 /* ═══ SCROLL REVEAL ═══ */

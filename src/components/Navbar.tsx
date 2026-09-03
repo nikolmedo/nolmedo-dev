@@ -7,6 +7,8 @@ import { useFeedback } from "../hooks/useFeedback";
 import { scrollToId } from "../utils/scrollToId";
 import { useScrollProgress } from "../hooks/useScrollProgress";
 
+const SCROLL_THRESHOLD = 40;
+
 interface Props {
   activeSection: string;
   theme: string;
@@ -65,14 +67,16 @@ function ThemeSwitcher({ theme, onThemeChange, className }: ThemeSwitcherProps) 
 }
 
 export default function Navbar({ activeSection, theme, onThemeChange }: Props) {
-  const [scrolled, setScrolled]     = useState(false);
+  const [scrolled, setScrolled]     = useState(
+    () => typeof window !== "undefined" && window.scrollY > SCROLL_THRESHOLD
+  );
   const [mobileOpen, setMobileOpen] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
-  const scrolledRef = useRef(false);
+  const scrolledRef = useRef(scrolled);
   const { soundEnabled, toggleSound, triggerClick } = useFeedback();
 
   useScrollProgress((_, y) => {
-    const next = y > 40;
+    const next = y > SCROLL_THRESHOLD;
     if (next !== scrolledRef.current) {
       scrolledRef.current = next;
       setScrolled(next);

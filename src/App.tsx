@@ -83,7 +83,11 @@ export default function NolmedoDev() {
     document.querySelector('meta[name="theme-color"]')?.setAttribute("content", bg);
   }, [theme]);
 
-  useWebMCP(setTheme);
+  const changeTheme = useCallback((id: string) => {
+    if (THEMES.some((t) => t.id === id)) setTheme(id);
+  }, []);
+
+  useWebMCP(changeTheme);
 
   return (
     <div ref={rootRef} className="nolmedo-root" data-theme={theme}>
@@ -95,7 +99,7 @@ export default function NolmedoDev() {
       <div className="scroll-progress-bar" />
       <PCBBackground theme={theme} />
       <header>
-        <Navbar activeSection={activeSection} theme={theme} onThemeChange={setTheme} />
+        <Navbar activeSection={activeSection} theme={theme} onThemeChange={changeTheme} />
       </header>
       <SectionObserverContext.Provider value={observe}>
         <main id="main">

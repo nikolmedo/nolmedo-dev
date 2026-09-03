@@ -38,6 +38,9 @@
   height: 100%;
   pointer-events: none;
 }
+.bcard-svg path, .bcard-svg circle {
+  transition: stroke 0.6s, fill 0.6s;
+}
 .bcard-content {
   position: relative;
   z-index: 1;

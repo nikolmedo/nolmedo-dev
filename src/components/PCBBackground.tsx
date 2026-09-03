@@ -60,6 +60,8 @@ const GRID = 8;
 const PARALLAX_EXTRA = 200; // board is taller than viewport by this much
 const LAYER_SHIFT = [100, 200]; // max parallax offset per layer
 const POINTER_IDLE_MS = 2500; // pointer counts as gone after this long without moving
+const RESIZE_DEBOUNCE_MS = 200;
+const REBUILD_HEIGHT_DELTA = 150; // smaller height changes refit the canvas without rebuilding the board
 
 const snap = (v: number) => Math.round(v / GRID) * GRID;
 const rand = (a: number, b: number) => a + Math.random() * (b - a);
@@ -619,7 +621,7 @@ export default function PCBBackground({ theme }: { theme: string }) {
         const nextW = window.innerWidth;
         const nextH = window.innerHeight;
         // Mobile address bar show/hide: keep the board, just refit the canvas
-        if (nextW === w && Math.abs(nextH - h) < 150) {
+        if (nextW === w && Math.abs(nextH - h) < REBUILD_HEIGHT_DELTA) {
           h = nextH;
           resizeCanvas();
           if (reducedMotion) drawFrame(0, 0);
@@ -633,7 +635,7 @@ export default function PCBBackground({ theme }: { theme: string }) {
         ripples.length = 0;
         resizeCanvas();
         if (reducedMotion) drawFrame(0, 0);
-      }, 200);
+      }, RESIZE_DEBOUNCE_MS);
     };
 
     window.addEventListener("pcb-trigger", onTrigger);

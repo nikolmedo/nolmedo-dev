@@ -34,8 +34,12 @@ export function useWebMCP(
         description: "Returns Nicolas Olmedo's tech stack and skills grouped by category.",
         inputSchema: { type: "object", properties: {} },
         execute: async () => {
-          const { techData } = await import("../data/techData");
-          return { success: true, techStack: techData };
+          try {
+            const { techData } = await import("../data/techData");
+            return { success: true, techStack: techData };
+          } catch (err) {
+            return { success: false, error: String(err) };
+          }
         }
       },
       {
@@ -43,8 +47,12 @@ export function useWebMCP(
         description: "Retrieves the list of featured projects developed by Nicolas, with descriptions and URLs.",
         inputSchema: { type: "object", properties: {} },
         execute: async () => {
-          const { projectsData } = await import("../data/projectsData");
-          return { success: true, projects: projectsData };
+          try {
+            const { projectsData } = await import("../data/projectsData");
+            return { success: true, projects: projectsData };
+          } catch (err) {
+            return { success: false, error: String(err) };
+          }
         }
       },
       {
@@ -52,8 +60,12 @@ export function useWebMCP(
         description: "Retrieves Nicolas's work experience and educational history.",
         inputSchema: { type: "object", properties: {} },
         execute: async () => {
-          const { experienceData, educationData } = await import("../data/experienceData");
-          return { success: true, experience: experienceData, education: educationData };
+          try {
+            const { experienceData, educationData } = await import("../data/experienceData");
+            return { success: true, experience: experienceData, education: educationData };
+          } catch (err) {
+            return { success: false, error: String(err) };
+          }
         }
       },
       {
@@ -95,23 +107,28 @@ export function useWebMCP(
 
     const register = () => {
       if (nav.modelContext && typeof nav.modelContext.registerTool === "function") {
-        try {
-          tools.forEach((tool) => {
+        tools.forEach((tool) => {
+          try {
             nav.modelContext.registerTool(tool);
-          });
-          console.log("[WebMCP] Tools registered with navigator.modelContext");
-        } catch (err) {
-          console.warn("[WebMCP] Failed to register tools:", err);
-        }
+          } catch (err) {
+            console.warn(`[WebMCP] Failed to register tool '${tool.name}':`, err);
+          }
+        });
+        console.log("[WebMCP] Tools registered with navigator.modelContext");
       }
 
       const webmcpHelper: Record<string, any> = {};
       tools.forEach((tool) => {
         webmcpHelper[tool.name] = async (args: any = {}) => {
           console.log(`[WebMCP-Sim] Executing tool '${tool.name}' with args:`, args);
-          const result = await tool.execute(args);
-          console.log(`[WebMCP-Sim] Result of '${tool.name}':`, result);
-          return result;
+          try {
+            const result = await tool.execute(args);
+            console.log(`[WebMCP-Sim] Result of '${tool.name}':`, result);
+            return result;
+          } catch (err) {
+            console.warn(`[WebMCP-Sim] Tool '${tool.name}' failed:`, err);
+            return { success: false, error: String(err) };
+          }
         };
       });
 

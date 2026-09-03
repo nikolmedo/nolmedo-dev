@@ -13,6 +13,8 @@ const measure = () => {
 
 const flush = () => {
   frame = 0;
+  // Without ResizeObserver, document growth is only noticed here
+  if (!sizeObserver) measure();
   const y = window.scrollY;
   const progress = maxScroll > 0 ? Math.min(y / maxScroll, 1) : 0;
   listeners.forEach((listener) => listener(progress, y));

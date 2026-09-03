@@ -142,16 +142,16 @@ export function triggerClick() {
   vibrate();
 }
 
-let lastGalacticHoverTime = 0;
+let lastChipClickTime = 0;
 
-// Galactic hover sound effect - Spaceship hum / Lightsaber whoosh (throttled to 150ms)
-// Synthesized using two detuned triangle wave oscillators to create a beating effect
+// Chip click sound: a short hum from two detuned triangle oscillators (beating effect),
+// throttled to 150ms so rapid clicks do not stack
 export function playChipClick() {
   if (!soundEnabled && !vibrateEnabled) return;
 
   const now = Date.now();
-  if (now - lastGalacticHoverTime < 150) return;
-  lastGalacticHoverTime = now;
+  if (now - lastChipClickTime < 150) return;
+  lastChipClickTime = now;
 
   vibrate();
 
@@ -197,6 +197,6 @@ export function playChipClick() {
       gainNode.disconnect();
     }, (duration + 0.1) * 1000);
   } catch (err) {
-    console.warn('Failed to play galactic hover sound feedback:', err);
+    console.warn('Failed to play chip click sound:', err);
   }
 }
