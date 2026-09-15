@@ -11,13 +11,13 @@ export interface Project {
 
 export const projectsData: Project[] = [
   {
-    name:  "GenderReveal",
-    icon:  "◐",
-    color: COLORS.amber,
+    name:  "ClaudePulse",
+    icon:  "%",
+    color: COLORS.cyan,
     description:
-      "A web app for synchronized gender reveal events. Guests open a shared countdown link and learn the answer at the exact same second, with the secret kept server-side until reveal time and clock drift corrected across devices. Includes anonymous voting, a custom two-color palette, and a bilingual English/Spanish interface.",
-    tags:   ["TypeScript", "Next.js", "React", "Turso", "SQLite", "Vercel"],
-    github: "https://github.com/nikolmedo/GenderReveal",
+      "Home Assistant custom integration that monitors Claude.ai usage metrics directly in a Home Assistant dashboard. Tracks session and weekly consumption with 10 sensor entities and automatic updates every two minutes.",
+    tags:   ["Python", "Home Assistant", "HACS", "YAML", "Anthropic"],
+    github: "https://github.com/nikolmedo/ClaudePulse",
   },
   {
     name:  "AIOversight",
@@ -38,12 +38,21 @@ export const projectsData: Project[] = [
     github: "https://github.com/nikolmedo/PixelPotion",
   },
   {
-    name:  "ClaudePulse",
-    icon:  "%",
+    name:  "GenderReveal",
+    icon:  "◐",
+    color: COLORS.amber,
+    description:
+      "A web app for synchronized gender reveal events. Guests open a shared countdown link and learn the answer at the exact same second, with the secret kept server-side until reveal time and clock drift corrected across devices. Includes anonymous voting, a custom two-color palette, and a bilingual English/Spanish interface.",
+    tags:   ["TypeScript", "Next.js", "React", "Turso", "SQLite", "Vercel"],
+    github: "https://github.com/nikolmedo/GenderReveal",
+  },
+  {
+    name:  "Cortex",
+    icon:  "◉",
     color: COLORS.cyan,
     description:
-      "Home Assistant custom integration that monitors Claude.ai usage metrics directly in a Home Assistant dashboard. Tracks session and weekly consumption with 10 sensor entities and automatic updates every two minutes.",
-    tags:   ["Python", "Home Assistant", "HACS", "YAML", "Anthropic"],
-    github: "https://github.com/nikolmedo/ClaudePulse",
+      "A generative knowledge graph visualizer. Any query — a person, place, film, company, concept — goes to a Gemini model with Google Search grounding, which returns both the facts and the presentation spec: layout archetype, mood, motif and palette. A fixed set of components renders that spec as an animated, pan-and-zoom node graph, so the same subject can come back looking different every run.",
+    tags:   ["TypeScript", "React", "Vite", "Node.js", "Gemini", "Genkit", "d3-force"],
+    github: "https://github.com/nikolmedo/cortex",
   },
 ];

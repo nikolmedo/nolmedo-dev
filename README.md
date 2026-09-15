@@ -145,10 +145,11 @@ degree in Developing with AI.
 
 | Project | Description | Tags |
 |---------|-------------|------|
-| [GenderReveal](https://github.com/nikolmedo/GenderReveal) | Web app for synchronized gender reveal events: everyone opens the same countdown link and learns the answer at the same second, with the secret kept server-side and clock drift corrected across devices. Anonymous voting and a bilingual interface. | `TypeScript` `Next.js` `Turso` `Vercel` |
+| [ClaudePulse](https://github.com/nikolmedo/ClaudePulse) | Home Assistant custom integration that monitors Claude.ai usage metrics in a Home Assistant dashboard. 10 sensor entities, automatic updates every 2 minutes. | `Python` `Home Assistant` `HACS` `Anthropic` |
 | [AIOversight](https://github.com/nikolmedo/AIOversight) | Desktop tray app that monitors AI coding agents in real time: instant notifications when an agent finishes or needs approval, plus quota and spend tracking across Anthropic, OpenAI, Copilot, and Cursor. Local-first, no cloud, no telemetry. | `TypeScript` `Electron` `Claude Code` `OpenAI` |
 | [PixelPotion](https://github.com/nikolmedo/PixelPotion) | Raspberry Pi camera that transforms photos into artistic styles (Pixar 3D, anime, watercolor, oil painting, cyberpunk) at the press of a physical button. Powered by Gemini, delivered via Telegram. | `Python` `Raspberry Pi` `Gemini` `IoT` |
-| [ClaudePulse](https://github.com/nikolmedo/ClaudePulse) | Home Assistant custom integration that monitors Claude.ai usage metrics in a Home Assistant dashboard. 10 sensor entities, automatic updates every 2 minutes. | `Python` `Home Assistant` `HACS` `Anthropic` |
+| [GenderReveal](https://github.com/nikolmedo/GenderReveal) | Web app for synchronized gender reveal events: everyone opens the same countdown link and learns the answer at the same second, with the secret kept server-side and clock drift corrected across devices. Anonymous voting and a bilingual interface. | `TypeScript` `Next.js` `Turso` `Vercel` |
+| [Cortex](https://github.com/nikolmedo/cortex) | Generative knowledge graph visualizer: any query goes to a Gemini model with Google Search grounding that returns the facts plus a presentation spec (layout archetype, mood, motif, palette), rendered as an animated, pan-and-zoom node graph. | `TypeScript` `React` `Gemini` `Genkit` `d3-force` |
 
 ## Contact
 
