@@ -14,6 +14,8 @@
 An interactive, AI-agent-friendly portfolio with a procedural PCB background rendered in
 real time, synthesized audio feedback, haptics, and five switchable neon themes.
 
+<img src="docs/screenshots/hero-default.png" width="100%" alt="Hero section with the procedural PCB background in the default green/cyan/purple theme">
+
 </div>
 
 ## Highlights
@@ -47,6 +49,17 @@ The background is a small physics-flavored simulation, not a static asset
   change.
 - It honors `prefers-reduced-motion` with a static render and pauses the loop when
   the tab is hidden.
+
+<table>
+<tr>
+<td width="50%"><img src="docs/screenshots/hero-cyberpunk.png" alt="The same hero section switched to the cyberpunk theme, PCB traces recolored to yellow, magenta and cyan"></td>
+<td width="50%"><img src="docs/screenshots/projects.png" alt="The projects grid: five cards over the PCB background, the odd fifth card centered and spanning both columns"></td>
+</tr>
+<tr>
+<td><b>Live theme switch</b> — the PCB background, text, and every accent cross-fade to <code>cyberpunk</code> without a reload.</td>
+<td><b>Projects grid</b> — each card's accent color comes from the active theme's CSS variables; the fifth, odd card spans both columns.</td>
+</tr>
+</table>
 
 ## Built for AI Agents
 
