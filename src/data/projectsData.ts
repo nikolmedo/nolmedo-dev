@@ -51,8 +51,8 @@ export const projectsData: Project[] = [
     icon:  "◉",
     color: COLORS.cyan,
     description:
-      "A generative knowledge graph visualizer. Any query — a person, place, film, company, concept — goes to a Gemini model with Google Search grounding, which returns both the facts and the presentation spec: layout archetype, mood, motif and palette. A fixed set of components renders that spec as an animated, pan-and-zoom node graph, so the same subject can come back looking different every run.",
-    tags:   ["TypeScript", "React", "Vite", "Node.js", "Gemini", "Genkit", "d3-force"],
+      "An answer engine that builds its own interface. Any question — a person, a worked physics problem, a comparison, today's news — goes to a Gemini model that returns the answer together with a presentation spec: intent, layout, mood, palette and module kinds that a fixed set of React components renders. The answer streams in over SSE, so a fast router themes the interface in about a second and a grounded research pass fills it in piece by piece instead of waiting behind a spinner.",
+    tags:   ["TypeScript", "React", "Vite", "Node.js", "Gemini", "Genkit", "SSE"],
     github: "https://github.com/nikolmedo/cortex",
   },
 ];
