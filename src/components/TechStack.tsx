@@ -22,8 +22,8 @@ export default function TechStack() {
     <section ref={sectionRef} id="tech" className="section" aria-labelledby="tech-title">
       <SectionTitle id="tech-title" label="Tech Stack" color={COLORS.cyan} />
 
-      <div ref={ref} className="tech-categories reveal">
-        {techData.map((cat) => {
+      <div ref={ref} className="tech-categories reveal-stagger">
+        {techData.map((cat, i) => {
           const isSelected = activeCategory === cat.category;
           const isDimmed = activeCategory !== null && !isSelected;
 
@@ -31,9 +31,10 @@ export default function TechStack() {
             <div 
               key={cat.category} 
               className={`tech-category ${isDimmed ? "tech-category-dimmed" : ""} ${isSelected ? "tech-category-selected" : ""}`}
+              style={{ "--i": i } as React.CSSProperties}
             >
 
-              <h3 style={{ color: cat.color }}>
+              <h3 className="accent-text" style={{ "--accent": cat.color } as React.CSSProperties}>
                 <button
                   type="button"
                   className="tech-category-label"

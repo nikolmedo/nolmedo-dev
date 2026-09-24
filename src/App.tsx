@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { flushSync } from "react-dom";
 import "./styles/global.css";
 
 import { lazy, Suspense } from "react";
@@ -32,10 +33,14 @@ const readStoredTheme = () => {
 export default function NolmedoDev() {
   const [activeSection, setActiveSection] = useState("hero");
   const [theme, setTheme] = useState(readStoredTheme);
+  const themeRef = useRef(theme);
+  themeRef.current = theme;
   const rootRef = useRef<HTMLDivElement>(null);
   const sectionsRef = useRef(new Set<Element>());
   const observerRef = useRef<IntersectionObserver | null>(null);
   const hashHandledRef = useRef(false);
+  const observedSectionRef = useRef("hero");
+  const atBottomRef = useRef(false);
 
   // Lazy sections mount late; the one matching the URL hash is scrolled into view once on cold load.
   const observe = useCallback((el: Element) => {
@@ -52,7 +57,9 @@ export default function NolmedoDev() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveSection(entry.target.id);
+          if (!entry.isIntersecting) return;
+          observedSectionRef.current = entry.target.id;
+          if (!atBottomRef.current) setActiveSection(entry.target.id);
         });
       },
       { rootMargin: "-40% 0px -55% 0px" },
@@ -67,8 +74,14 @@ export default function NolmedoDev() {
     };
   }, []);
 
+  // The observer strip never reaches the last section, so the page bottom claims "contact"
+  // and hands control back to the last observed section once the user scrolls up again.
   useScrollProgress((progress) => {
     document.documentElement.style.setProperty("--scroll-progress", String(progress));
+    const atBottom = progress >= 0.995;
+    if (atBottom === atBottomRef.current) return;
+    atBottomRef.current = atBottom;
+    setActiveSection(atBottom ? "contact" : observedSectionRef.current);
   });
 
   // Persist the theme and keep the browser chrome color in sync with --bg
@@ -83,8 +96,18 @@ export default function NolmedoDev() {
     document.querySelector('meta[name="theme-color"]')?.setAttribute("content", bg);
   }, [theme]);
 
+  // Cross-fades the whole page in one snapshot where View Transitions are supported
   const changeTheme = useCallback((id: string) => {
-    if (THEMES.some((t) => t.id === id)) setTheme(id);
+    if (!THEMES.some((t) => t.id === id)) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!document.startViewTransition || reduced || id === themeRef.current) {
+      setTheme(id);
+      return;
+    }
+    const html = document.documentElement;
+    html.classList.add("theme-transition");
+    const transition = document.startViewTransition(() => flushSync(() => setTheme(id)));
+    transition.finished.finally(() => html.classList.remove("theme-transition"));
   }, []);
 
   useWebMCP(changeTheme);

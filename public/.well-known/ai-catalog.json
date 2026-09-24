@@ -1,0 +1,23 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "Nicolas Olmedo",
+    "documentationUrl": "https://nolmedo.dev/llms.txt"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:nolmedo.dev:portfolio:llms-txt",
+      "displayName": "Nicolas Olmedo portfolio guide for LLMs",
+      "type": "text/markdown",
+      "url": "https://nolmedo.dev/llms.txt",
+      "description": "Machine-readable summary of the portfolio: experience, education, featured projects, tech stack, contact links, and the WebMCP tools the site registers in the browser (scrollToSection, getTechStack, getProjects, getExperience, changeTheme, triggerPCBEvent).",
+      "tags": ["portfolio", "frontend", "react", "typescript", "webmcp"],
+      "capabilities": ["scrollToSection", "getTechStack", "getProjects", "getExperience", "changeTheme", "triggerPCBEvent"],
+      "representativeQueries": [
+        "Who is Nicolas Olmedo?",
+        "What projects has Nicolas Olmedo built?",
+        "Which WebMCP tools does nolmedo.dev expose?"
+      ]
+    }
+  ]
+}

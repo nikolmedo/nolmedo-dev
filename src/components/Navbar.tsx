@@ -146,6 +146,7 @@ export default function Navbar({ activeSection, theme, onThemeChange }: Props) {
   );
   const [mobileOpen, setMobileOpen] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
   const scrolledRef = useRef(scrolled);
   const { soundEnabled, toggleSound, triggerClick } = useFeedback();
 
@@ -164,8 +165,18 @@ export default function Navbar({ activeSection, theme, onThemeChange }: Props) {
       setMobileOpen(false);
       toggleRef.current?.focus();
     };
+    // The toggle is excluded so its own click can close the menu without reopening it
+    const onPointerDown = (e: PointerEvent) => {
+      const target = e.target as Node;
+      if (menuRef.current?.contains(target) || toggleRef.current?.contains(target)) return;
+      setMobileOpen(false);
+    };
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      document.removeEventListener("pointerdown", onPointerDown);
+    };
   }, [mobileOpen]);
 
   const scrollTo = (id: string) => {
@@ -198,7 +209,7 @@ export default function Navbar({ activeSection, theme, onThemeChange }: Props) {
           <span style={{ color: COLORS.neonGreen }}>{"/>"}</span>
         </button>
 
-        <div id="nav-menu" className={`nav-links ${mobileOpen ? "nav-links-open" : ""}`}>
+        <div ref={menuRef} id="nav-menu" className={`nav-links ${mobileOpen ? "nav-links-open" : ""}`}>
           {navLinks.map((link) => {
             const active = activeSection === link.id;
             return (
@@ -206,7 +217,7 @@ export default function Navbar({ activeSection, theme, onThemeChange }: Props) {
                 key={link.id}
                 href={`#${link.id}`}
                 className={`nav-link ${active ? "nav-link-active" : ""}`}
-                aria-current={active ? "true" : undefined}
+                aria-current={active ? "location" : undefined}
                 onClick={(e) => handleNavLinkClick(e, link.id)}
               >
                 {link.label}

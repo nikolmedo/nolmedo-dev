@@ -35,7 +35,8 @@
   padding: 28px 32px;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.6s, border-color 0.6s, color 0.6s, box-shadow 0.6s;
 }
-.timeline-card:hover {
+.timeline-card:hover,
+.timeline-card:focus-within {
   transform: translateX(3px);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08),
               -3px 0 0 var(--cyan),
@@ -52,7 +53,7 @@
 .timeline-role {
   font-size: 17px;
   font-weight: 700;
-  color: #fff;
+  color: var(--heading);
 }
 .timeline-period {
   font-family: var(--font-mono);
@@ -76,7 +77,7 @@
   gap: 8px;
 }
 .timeline-highlights li {
-  font-size: 13.5px;
+  font-size: 14px;
   color: color-mix(in srgb, var(--text) 75%, transparent);
   padding-left: 16px;
   position: relative;
@@ -109,12 +110,13 @@
               border-color 0.3s,
               box-shadow 0.3s;
 }
-.education-card:hover {
+.education-card:hover,
+.education-card:focus-within {
   transform: translateY(-4px);
   border-top-color: var(--card-color, rgba(255, 255, 255, 0.15));
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1),
               0 12px 40px rgba(0, 0, 0, 0.4),
-              0 0 28px color-mix(in srgb, var(--card-color, #00e5ff) 14%, transparent);
+              0 0 28px color-mix(in srgb, var(--card-color, var(--cyan)) 14%, transparent);
 }
 .edu-node {
   position: absolute;
@@ -131,7 +133,7 @@
 .edu-degree {
   font-size: 15px;
   font-weight: 600;
-  color: #fff;
+  color: var(--heading);
   margin-bottom: 4px;
 }
 .edu-school {

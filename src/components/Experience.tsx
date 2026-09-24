@@ -14,11 +14,11 @@ export default function Experience() {
     <section ref={sectionRef} id="experience" className="section" aria-labelledby="experience-title">
       <SectionTitle id="experience-title" label="Experience" color={COLORS.purple} />
 
-      <div ref={timelineRef} className="timeline reveal">
+      <div ref={timelineRef} className="timeline reveal-stagger">
         <div className="timeline-line" />
 
         {experienceData.map((job, i) => (
-          <div key={i} className="timeline-item">
+          <div key={i} className="timeline-item" style={{ "--i": i } as React.CSSProperties}>
             <div
               className="timeline-node"
               style={{ background: COLORS.cyan, boxShadow: `0 0 12px ${COLORS.cyan}` }}
@@ -39,7 +39,7 @@ export default function Experience() {
 
       <SectionTitle label="Education" color={COLORS.neonGreen} />
 
-      <div ref={educationRef} className="education-grid reveal">
+      <div ref={educationRef} className="education-grid reveal-stagger">
         {educationData.map((ed, i) => {
           const colors = [COLORS.purple, COLORS.cyan, COLORS.neonGreen, COLORS.amber];
           const color = colors[i % colors.length];
@@ -47,7 +47,7 @@ export default function Experience() {
             <GlassPanel
               key={i}
               className="education-card"
-              style={{ "--card-color": color } as React.CSSProperties}
+              style={{ "--card-color": color, "--i": i } as React.CSSProperties}
             >
               <div
                 className="edu-node"

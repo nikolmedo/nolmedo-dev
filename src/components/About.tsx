@@ -47,15 +47,15 @@ export default function About() {
     <section ref={sectionRef} id="about" className="section" aria-labelledby="about-title">
       <SectionTitle id="about-title" label="About" color={COLORS.neonGreen} />
 
-      <div ref={ref} className="about-grid reveal">
-        {cards.map((card) => (
+      <div ref={ref} className="about-grid reveal-stagger">
+        {cards.map((card, i) => (
           <GlassPanel
             key={card.title}
             className="about-card"
-            style={{ "--card-color": card.color } as React.CSSProperties}
+            style={{ "--card-color": card.color, "--accent": card.color, "--i": i } as React.CSSProperties}
           >
             <div className="about-icon-row">
-              <span className="about-icon" style={{ color: card.color }} aria-hidden="true">{card.icon}</span>
+              <span className="about-icon accent-text" aria-hidden="true">{card.icon}</span>
               <h3 className="about-card-title">{card.title}</h3>
             </div>
             <p>{card.text}</p>

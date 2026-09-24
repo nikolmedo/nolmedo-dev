@@ -21,11 +21,12 @@
   border-top: 2px solid transparent;
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.6s, border-color 0.6s, color 0.6s, box-shadow 0.6s;
 }
-.project-card:hover {
+.project-card:hover,
+.project-card:focus-within {
   transform: translateY(-5px);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1),
               0 16px 48px rgba(0, 0, 0, 0.5),
-              0 0 32px color-mix(in srgb, var(--project-color, #00e5ff) 20%, transparent);
+              0 0 32px color-mix(in srgb, var(--project-color, var(--cyan)) 20%, transparent);
 }
 
 /* ── Header ── */
@@ -41,7 +42,7 @@
 .project-name {
   font-size: 20px;
   font-weight: 700;
-  color: #fff;
+  color: var(--heading);
   letter-spacing: 0.5px;
 }
 
@@ -61,7 +62,7 @@
 }
 .project-tag {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
   padding: 4px 10px;
   border-radius: 6px;
@@ -71,10 +72,12 @@
   letter-spacing: 0.3px;
   transition: color 0.2s, border-color 0.2s, background 0.2s;
 }
-.project-card:hover .project-tag {
-  color: color-mix(in srgb, var(--project-color, #00e5ff) 70%, var(--muted));
-  border-color: color-mix(in srgb, var(--project-color, #00e5ff) 25%, transparent);
-  background: color-mix(in srgb, var(--project-color, #00e5ff) 8%, rgba(255,255,255,0.03));
+.project-card:hover .project-tag,
+.project-card:focus-within .project-tag {
+  /* Tinted tag text is small, so it sits closer to --text than other accent text */
+  color: color-mix(in srgb, var(--project-color, var(--cyan)) calc(var(--accent-text-mix) - 15%), var(--text));
+  border-color: color-mix(in srgb, var(--project-color, var(--cyan)) 25%, transparent);
+  background: color-mix(in srgb, var(--project-color, var(--cyan)) 8%, rgba(255,255,255,0.03));
 }
 
 /* ── Footer link ── */
@@ -91,12 +94,11 @@
   font-weight: 500;
   text-decoration: none;
   letter-spacing: 0.5px;
-  padding: 6px 0;
-  transition: opacity 0.2s;
-  opacity: 0.75;
+  min-height: 44px;
+  text-underline-offset: 4px;
 }
 .project-github-link:hover {
-  opacity: 1;
+  text-decoration: underline;
 }
 .project-github-arrow {
   font-size: 14px;

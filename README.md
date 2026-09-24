@@ -7,7 +7,7 @@
 [![React](https://img.shields.io/badge/React-18.3-61DAFB?style=for-the-badge&logo=react&logoColor=white)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![Vite](https://img.shields.io/badge/Vite-6.3-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev)
-[![WebMCP](https://img.shields.io/badge/WebMCP-Enabled-00E5FF?style=for-the-badge)](public/llm.txt)
+[![WebMCP](https://img.shields.io/badge/WebMCP-Enabled-00E5FF?style=for-the-badge)](public/llms.txt)
 
 **Live → [nolmedo.dev](https://nolmedo.dev)**
 
@@ -24,7 +24,7 @@ real time, synthesized audio feedback, haptics, and five switchable neon themes.
 |------|--------------|
 | ⚡ **Procedural PCB background** | Canvas-rendered circuit board generated per viewport: traces with 45° routing, pads, and vias. Pulses flow along traces, clicks send ripples through the network, and scrolling feeds energy into the board. |
 | 🤖 **WebMCP interoperability** | Implements the Web Model Context Protocol so AI agents can scroll the page, read tech/projects/experience data, switch themes, and trigger animations programmatically. |
-| 📄 **llm.txt** | Machine-readable site description at [`/llm.txt`](public/llm.txt) for LLM and agent discovery. |
+| 📄 **llms.txt** | Machine-readable site description at [`/llms.txt`](public/llms.txt) for LLM and agent discovery. |
 | 🎨 **Five live themes** | `default`, `cyberpunk`, `matrix`, `synthwave`, `glacier`, all driven by CSS variables and cross-faded in real time (background included). The navbar picker is a dropdown whose trigger shows the active palette, and the choice persists in `localStorage`. |
 | 🔊 **Synthesized audio feedback** | Web Audio API tones with calibrated attack/decay envelopes for clicks and category filters, plus a persistent mute toggle (`localStorage`). |
 | 📳 **Haptic feedback** | 10 ms micro-vibrations via the Vibration API on mobile. |

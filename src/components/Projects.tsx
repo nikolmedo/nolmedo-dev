@@ -16,15 +16,15 @@ export default function Projects() {
     <section ref={sectionRef} id="projects" className="section" aria-labelledby="projects-title">
       <SectionTitle id="projects-title" label="Projects" color={COLORS.neonGreen} />
 
-      <div ref={ref} className="projects-grid reveal">
-        {projectsData.map((project) => (
+      <div ref={ref} className="projects-grid reveal-stagger">
+        {projectsData.map((project, i) => (
           <GlassPanel
             key={project.name}
             className="project-card"
-            style={{ borderTopColor: project.color, "--project-color": project.color } as React.CSSProperties}
+            style={{ borderTopColor: project.color, "--project-color": project.color, "--accent": project.color, "--i": i } as React.CSSProperties}
           >
             <div className="project-header">
-              <span className="project-icon" style={{ color: project.color }} aria-hidden="true">
+              <span className="project-icon accent-text" aria-hidden="true">
                 {project.icon}
               </span>
               <h3 className="project-name">{project.name}</h3>
@@ -43,8 +43,7 @@ export default function Projects() {
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="project-github-link"
-                style={{ color: project.color }}
+                className="project-github-link accent-text"
                 onClick={(e) => {
                   e.stopPropagation();
                   triggerClick();

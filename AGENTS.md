@@ -66,14 +66,20 @@ Canvas-based procedural simulation. Key facts before modifying:
   dispatched by the WebMCP tool `triggerPCBEvent`. Keep this contract stable.
 - Honors `prefers-reduced-motion` (static render) and pauses on `document.hidden`.
 
-## WebMCP / llm.txt Contract
+## WebMCP / llms.txt Contract
 
 - Tools registered in `useWebMCP.ts`: `scrollToSection`, `getTechStack`, `getProjects`,
   `getExperience`, `changeTheme`, `triggerPCBEvent`.
 - If you add/rename a tool, theme, or section ID, update **all** of:
-  `useWebMCP.ts`, `public/llm.txt`, root `llm.txt` (kept in sync), and `README.md`.
+  `useWebMCP.ts`, `public/llms.txt`, root `llms.txt` (kept in sync), and `README.md`.
 - Section IDs (`hero`, `about`, `tech`, `projects`, `experience`, `contact`) are shared
   by `App.tsx`, `navLinks.ts`, and the `scrollToSection` tool enum.
+- `public/.well-known/ai-catalog.json` is the Agentic Resource Discovery manifest checked by
+  Lighthouse. Its `capabilities` list mirrors the tool names, so update it with them. It must
+  pass the ARD 1.0 schema (no extra root keys, `urn:air:` identifiers, exactly one of
+  `url`/`data` per entry, 2-5 `representativeQueries`).
+- `llms.txt` must keep an H1 and use `[text](url)` links; Lighthouse fails bare URLs.
+  `/llm.txt` 301-redirects to it via `public/_redirects`.
 
 ## SEO
 

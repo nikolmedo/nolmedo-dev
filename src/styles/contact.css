@@ -25,7 +25,8 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
   transition: border-color 0.4s, box-shadow 0.4s;
 }
-.bcard:hover {
+.bcard:hover,
+.bcard:focus-within {
   border-color: color-mix(in srgb, var(--cyan) 25%, transparent);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1),
               0 0 48px color-mix(in srgb, var(--cyan) 8%, transparent),
@@ -50,7 +51,7 @@
   font-size: 22px;
   font-weight: 800;
   letter-spacing: 3px;
-  color: #fff;
+  color: var(--heading);
   margin-bottom: 4px;
 }
 .bcard-role {
@@ -85,11 +86,20 @@
   transition: color 0.25s, text-shadow 0.25s;
 }
 .bcard-link:hover {
-  color: #fff;
+  color: var(--heading);
   text-shadow: 0 0 12px var(--cyan);
 }
 
 /* ── Responsive ── */
+/* Touch screens get 44px link rows; on desktop they would stretch the 5:3 card */
+@media (pointer: coarse) {
+  .bcard-info { gap: 0; }
+  .bcard-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+}
 @media (min-width: 600px) {
   .bcard { aspect-ratio: 5 / 3; }
 }
