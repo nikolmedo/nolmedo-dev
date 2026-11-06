@@ -3,8 +3,8 @@
 > Portfolio of Nicolas Olmedo, a Senior Frontend Engineer (React, TypeScript) at Medallia, with AI integration, home automation, and IoT side projects. The live site at [nolmedo.dev](https://nolmedo.dev) exposes WebMCP tools for AI agents.
 
 Nicolas Olmedo is a Senior Frontend Engineer with 13+ years of experience building
-high-performance web applications with React and TypeScript, currently at Medallia and
-pursuing a Master's degree in Developing with AI. He also works on AI integrations,
+high-performance web applications with React and TypeScript, currently at Medallia. He
+holds a Master's degree in Developing with AI. He also works on AI integrations,
 home automation, and hardware/IoT projects.
 
 This portfolio is fully interactive and features WebMCP (Web Model Context Protocol)
@@ -17,7 +17,7 @@ AI agents can interact with this website using the following WebMCP tools (expos
 
 - `scrollToSection({ section })`: Smooth scrolls the page to a given section (`hero`, `about`, `tech`, `projects`, `experience`, `contact`).
 - `getTechStack()`: Returns the full list of technologies grouped by category (Core, Backend, Tools & AI, Cloud & DevOps, Hardware / IoT).
-- `getProjects()`: Returns the list of featured projects with descriptions, links, and tags.
+- `getProjects()`: Returns the list of featured projects with descriptions, links (GitHub repository or live website), and tags.
 - `getExperience()`: Returns the work experience history and educational background.
 - `changeTheme({ theme })`: Changes the site's color scheme in real time (`default`, `cyberpunk`, `matrix`, `synthwave`, `glacier`).
 - `triggerPCBEvent({ type })`: Dispatches an animation event to the background PCB board (`burst` = pulse storm, `scan` = sweep).
@@ -30,6 +30,7 @@ AI agents can interact with this website using the following WebMCP tools (expos
 - Hardware / IoT: Home Assistant, ESP32, Raspberry Pi, ESPHome, 3D Printing.
 
 ## Featured Projects
+- [Socialtrix](https://socialtrix.ai/) (lead project, built as his Master's project; private source, live product site): Honest Instagram and YouTube analytics for creators and teams. Dashboards for reach, engagement, follower growth and audience built only from official platform data, AI review of individual Reels, shareable brand dashboards, and team access with per-account permissions. Tags: Analytics, Instagram API, YouTube API, Generative AI, SaaS.
 - [ClaudePulse](https://github.com/nikolmedo/ClaudePulse): Home Assistant custom integration that monitors Claude.ai usage metrics directly in a Home Assistant dashboard. Tracks session and weekly consumption with 10 sensor entities and automatic updates every two minutes. Tags: Python, Home Assistant, HACS, YAML, Anthropic.
 - [AIOversight](https://github.com/nikolmedo/AIOversight): Desktop tray app that acts as a control tower for AI coding agents. Notifies the instant an agent finishes or needs approval, and tracks quota and spend across Anthropic, OpenAI, Copilot, and Cursor. Local-first: encrypted credentials, no cloud, no telemetry. Tags: TypeScript, Electron, Claude Code, Anthropic, OpenAI.
 - [PixelPotion](https://github.com/nikolmedo/PixelPotion): Raspberry Pi camera system that transforms photos into artistic styles (Pixar 3D, anime, watercolor, oil painting, cyberpunk) at the press of a physical button. Powered by Google Gemini AI and delivered instantly via Telegram. Tags: Python, Raspberry Pi, Gemini, Telegram API, IoT.
@@ -42,7 +43,7 @@ AI agents can interact with this website using the following WebMCP tools (expos
 - Java & Mobile Developer, FactorIT, Buenos Aires, Argentina (June 2013 - June 2016).
 
 ## Education
-- Master's Degree in Developing with AI, Universidad Isabel I, Spain (2026, in progress).
+- Master's Degree in Developing with AI, Universidad Isabel I, Spain (2026).
 - Diploma - React, Coderhouse, Argentina (2020).
 - Higher Technical Degree in Programming, Universidad Tecnológica Nacional, Argentina (2015 - 2017).
 - Diploma - Android Advanced Programming, Universidad Tecnológica Nacional, Argentina (2015).
@@ -51,6 +52,6 @@ AI agents can interact with this website using the following WebMCP tools (expos
 ## Contact & Links
 - [Email](mailto:nikolmedo@gmail.com): nikolmedo@gmail.com
 - [LinkedIn](https://www.linkedin.com/in/nolmedo): Professional profile and work history.
-- [GitHub](https://github.com/nikolmedo): Source code for all featured projects.
+- [GitHub](https://github.com/nikolmedo): Source code for the open-source featured projects.
 - [Website](https://nolmedo.dev): Interactive portfolio with WebMCP tools.
 - [AI catalog](https://nolmedo.dev/.well-known/ai-catalog.json): Agentic Resource Discovery manifest for this site.

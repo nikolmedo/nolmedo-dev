@@ -57,7 +57,7 @@ export const educationData: EducationEntry[] = [
   {
     degree: "Master's Degree in Developing with AI",
     school: "Universidad Isabel I, Spain",
-    period: "2026 (in progress)",
+    period: "2026",
     detail: "AI architecture, LLMs, RAG systems, LangChain, advanced TypeScript & Python",
   },
   {

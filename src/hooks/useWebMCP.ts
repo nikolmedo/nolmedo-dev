@@ -44,7 +44,7 @@ export function useWebMCP(
       },
       {
         name: "getProjects",
-        description: "Retrieves the list of featured projects developed by Nicolas, with descriptions and URLs.",
+        description: "Retrieves the list of featured projects developed by Nicolas, with descriptions, tags, and URLs (GitHub repository or live website).",
         inputSchema: { type: "object", properties: {} },
         execute: async () => {
           try {

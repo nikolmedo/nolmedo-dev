@@ -117,7 +117,7 @@ never requires touching components.
 ## About Me
 
 Senior Frontend Engineer with 13+ years of experience building high-performance web
-applications with React & TypeScript. Currently at Medallia, pursuing a Master's
+applications with React & TypeScript. Currently at Medallia, with a Master's
 degree in Developing with AI.
 
 ### Experience
@@ -158,6 +158,7 @@ degree in Developing with AI.
 
 | Project | Description | Tags |
 |---------|-------------|------|
+| [Socialtrix](https://socialtrix.ai/) ⭐ | **Lead project, built as my Master's project.** Honest Instagram and YouTube analytics for creators and teams: reach, engagement, growth and audience dashboards built only from official platform data, AI review of individual Reels, shareable brand dashboards, and team access with per-account permissions. | `Analytics` `Instagram API` `YouTube API` `Generative AI` |
 | [ClaudePulse](https://github.com/nikolmedo/ClaudePulse) | Home Assistant custom integration that monitors Claude.ai usage metrics in a Home Assistant dashboard. 10 sensor entities, automatic updates every 2 minutes. | `Python` `Home Assistant` `HACS` `Anthropic` |
 | [AIOversight](https://github.com/nikolmedo/AIOversight) | Desktop tray app that monitors AI coding agents in real time: instant notifications when an agent finishes or needs approval, plus quota and spend tracking across Anthropic, OpenAI, Copilot, and Cursor. Local-first, no cloud, no telemetry. | `TypeScript` `Electron` `Claude Code` `OpenAI` |
 | [PixelPotion](https://github.com/nikolmedo/PixelPotion) | Raspberry Pi camera that transforms photos into artistic styles (Pixar 3D, anime, watercolor, oil painting, cyberpunk) at the press of a physical button. Powered by Gemini, delivered via Telegram. | `Python` `Raspberry Pi` `Gemini` `IoT` |
