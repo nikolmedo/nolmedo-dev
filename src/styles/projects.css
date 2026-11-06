@@ -24,7 +24,7 @@
 
 /* An odd card left alone in the last row spans both columns, centered
    and sized like a single column (50% minus half the gap). */
-.projects-grid > .project-card:last-child:nth-child(odd) {
+.projects-grid:not(:has(> .project-card--featured:first-child)) > .project-card:last-child:nth-child(odd) {
   grid-column: 1 / -1;
   width: calc(50% - 12px);
   justify-self: center;
@@ -141,7 +141,7 @@
 /* ── Responsive ── */
 @media (max-width: 768px) {
   .projects-grid { grid-template-columns: 1fr; }
-  .projects-grid > .project-card:last-child:nth-child(odd),
+  .projects-grid:not(:has(> .project-card--featured:first-child)) > .project-card:last-child:nth-child(odd),
   .projects-grid:has(> .project-card--featured:first-child) > .project-card:last-child:nth-child(even) { width: 100%; }
   .project-card--featured { padding: 32px 28px; }
   .project-header { flex-wrap: wrap; }
