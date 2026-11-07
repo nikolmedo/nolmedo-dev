@@ -26,7 +26,7 @@ const cards: AboutCard[] = [
     icon:  ">_",
     color: COLORS.neonGreen,
     title: "AI-Enhanced Workflow",
-    text:  `Currently pursuing a Master's Degree in Developing with AI, I fold generative tools
+    text:  `With a Master's Degree in Developing with AI, I fold generative tools
       (Copilot, LLMs, RAG systems) into my daily development workflow. I measure them the way
       I measure any tool: by whether they help ship better software faster.`,
   },

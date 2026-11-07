@@ -5,11 +5,29 @@ export interface Project {
   description: string;
   tags:        string[];
   color:       string;
-  github:      string;
   icon:        string;
+  /** Public source repository. Omitted for private projects. */
+  github?:     string;
+  /** Live product site, used instead of GitHub when present. */
+  website?:    string;
+  /** Highlighted as the lead project, spanning the full grid width. */
+  featured?:   boolean;
+  /** Short context label shown next to the name, e.g. "Master's project". */
+  badge?:      string;
 }
 
 export const projectsData: Project[] = [
+  {
+    name:     "Socialtrix",
+    icon:     "◆",
+    color:    COLORS.purple,
+    featured: true,
+    badge:    "Master's project",
+    description:
+      "Honest Instagram and YouTube analytics for creators and teams. Dashboards for reach, engagement, follower growth and audience built only from official platform data, AI review of individual Reels, shareable brand dashboards, and team access with per-account permissions.",
+    tags:    ["Analytics", "Instagram API", "YouTube API", "Generative AI", "SaaS"],
+    website: "https://socialtrix.ai/",
+  },
   {
     name:  "ClaudePulse",
     icon:  "%",

@@ -5,9 +5,26 @@
   gap: 24px;
 }
 
+/* The featured project leads the grid across both columns. */
+.projects-grid > .project-card--featured {
+  grid-column: 1 / -1;
+  padding: 40px 36px;
+  border-top-width: 3px;
+}
+.project-card--featured .project-name { font-size: 24px; }
+.project-card--featured .project-description { font-size: 15px; }
+
+/* With a featured card first, a regular card left alone in the last row
+   is the even child; center it the same way as below. */
+.projects-grid:has(> .project-card--featured:first-child) > .project-card:last-child:nth-child(even) {
+  grid-column: 1 / -1;
+  width: calc(50% - 12px);
+  justify-self: center;
+}
+
 /* An odd card left alone in the last row spans both columns, centered
    and sized like a single column (50% minus half the gap). */
-.projects-grid > .project-card:last-child:nth-child(odd) {
+.projects-grid:not(:has(> .project-card--featured:first-child)) > .project-card:last-child:nth-child(odd) {
   grid-column: 1 / -1;
   width: calc(50% - 12px);
   justify-self: center;
@@ -44,6 +61,19 @@
   font-weight: 700;
   color: var(--heading);
   letter-spacing: 0.5px;
+}
+.project-badge {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--project-color, var(--cyan)) 35%, transparent);
+  background: color-mix(in srgb, var(--project-color, var(--cyan)) 10%, transparent);
+  white-space: nowrap;
 }
 
 /* ── Description ── */
@@ -111,5 +141,8 @@
 /* ── Responsive ── */
 @media (max-width: 768px) {
   .projects-grid { grid-template-columns: 1fr; }
-  .projects-grid > .project-card:last-child:nth-child(odd) { width: 100%; }
+  .projects-grid:not(:has(> .project-card--featured:first-child)) > .project-card:last-child:nth-child(odd),
+  .projects-grid:has(> .project-card--featured:first-child) > .project-card:last-child:nth-child(even) { width: 100%; }
+  .project-card--featured { padding: 32px 28px; }
+  .project-header { flex-wrap: wrap; }
 }

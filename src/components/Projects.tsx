@@ -17,10 +17,13 @@ export default function Projects() {
       <SectionTitle id="projects-title" label="Projects" color={COLORS.neonGreen} />
 
       <div ref={ref} className="projects-grid reveal-stagger">
-        {projectsData.map((project, i) => (
+        {projectsData.map((project, i) => {
+          const href  = project.website ?? project.github;
+          const label = project.website ? "Visit website" : "View on GitHub";
+          return (
           <GlassPanel
             key={project.name}
-            className="project-card"
+            className={`project-card${project.featured ? " project-card--featured" : ""}`}
             style={{ borderTopColor: project.color, "--project-color": project.color, "--accent": project.color, "--i": i } as React.CSSProperties}
           >
             <div className="project-header">
@@ -28,6 +31,9 @@ export default function Projects() {
                 {project.icon}
               </span>
               <h3 className="project-name">{project.name}</h3>
+              {project.badge && (
+                <span className="project-badge accent-text">{project.badge}</span>
+              )}
             </div>
 
             <p className="project-description">{project.description}</p>
@@ -38,9 +44,10 @@ export default function Projects() {
               ))}
             </div>
 
+            {href && (
             <div className="project-footer">
               <a
-                href={project.github}
+                href={href}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="project-github-link accent-text"
@@ -49,12 +56,14 @@ export default function Projects() {
                   triggerClick();
                 }}
               >
-                <span>View on GitHub</span>
+                <span>{label}</span>
                 <span className="project-github-arrow">→</span>
               </a>
             </div>
+            )}
           </GlassPanel>
-        ))}
+          );
+        })}
       </div>
     </section>
   );
