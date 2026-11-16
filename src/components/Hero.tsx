@@ -1,9 +1,74 @@
+import { useId } from "react";
 import "../styles/hero.css";
 import { COLORS } from "../constants/colors";
 import GlassPanel from "./GlassPanel";
 import { useFeedback } from "../hooks/useFeedback";
 import { useSectionRef } from "../hooks/useSectionRef";
 import { scrollToId } from "../utils/scrollToId";
+
+type Accent = (typeof COLORS)[keyof typeof COLORS];
+
+const PIN_PITCH = [68, 104, 140, 176, 212];
+
+/* Escape routing for one side of the card, drawn from the board toward the pin
+   so the load animation reads as signals arriving. Mirrored in CSS for the right side. */
+const FANOUT_PATHS = [
+  "M-240 -40 H240 L300 20 H452 L500 68 H552",
+  "M-240 32 H140 L180 72 H438 L470 104 H552",
+  "M120 140 H552",
+  "M-240 248 H180 L220 208 H438 L470 176 H552",
+  "M-240 320 H270 L330 260 H452 L500 212 H552",
+];
+
+function Fanout({ side, colors }: { side: "left" | "right"; colors: Accent[] }) {
+  // Colon-free id keeps url(#id) references unambiguous
+  const id = useId().replace(/:/g, "");
+  return (
+    <svg
+      className={`hero-fanout hero-fanout-${side}`}
+      viewBox="0 0 560 280"
+      width="560"
+      height="280"
+      fill="none"
+      aria-hidden="true"
+    >
+      <defs>
+        {colors.map((color, i) => (
+          <linearGradient key={i} id={`${id}-${i}`} gradientUnits="userSpaceOnUse" x1="-240" y1="0" x2="200" y2="0">
+            <stop offset="0" style={{ stopColor: color }} stopOpacity="0" />
+            <stop offset="1" style={{ stopColor: color }} />
+          </linearGradient>
+        ))}
+      </defs>
+      {FANOUT_PATHS.map((d, i) => (
+        <path
+          key={d}
+          className="hero-trace"
+          d={d}
+          pathLength={1}
+          stroke={`url(#${id}-${i})`}
+          strokeWidth="1.5"
+          style={{ "--i": i } as React.CSSProperties}
+        />
+      ))}
+      <circle className="hero-via" cx="120" cy="140" r="3.5" style={{ fill: colors[2] }} />
+      <circle className="hero-via" cx="120" cy="140" r="8" style={{ stroke: colors[2] }} strokeWidth="1" opacity="0.5" />
+      {PIN_PITCH.map((y, i) => (
+        <circle key={y} className="hero-pin" cx="556.5" cy={y} r="3" style={{ fill: colors[i] }} />
+      ))}
+    </svg>
+  );
+}
+
+function Corner({ corner, color, rail = false }: { corner: "tl" | "tr" | "bl" | "br"; color: Accent; rail?: boolean }) {
+  return (
+    <svg className={`hero-corner hero-corner-${corner}`} viewBox="0 0 110 90" width="110" height="90" fill="none" aria-hidden="true">
+      <path d="M0 0 H80 L100 20" style={{ stroke: color }} strokeWidth="1.5" opacity="0.6" />
+      {rail && <path d="M0 20 V80" style={{ stroke: color }} strokeWidth="1.5" opacity="0.4" />}
+      <circle cx="100" cy="20" r="3" style={{ fill: color }} opacity="0.8" />
+    </svg>
+  );
+}
 
 export default function Hero() {
   const { triggerClick } = useFeedback();
@@ -18,24 +83,15 @@ export default function Hero() {
   return (
     <section ref={sectionRef} id="hero" className="hero-section" aria-labelledby="hero-heading">
       <div className="hero-content">
-        <GlassPanel className="hero-panel">
+        <div className="hero-chip">
+          <Fanout side="left" colors={[COLORS.cyan, COLORS.cyan, COLORS.neonGreen, COLORS.purple, COLORS.purple]} />
+          <Fanout side="right" colors={[COLORS.purple, COLORS.purple, COLORS.neonGreen, COLORS.cyan, COLORS.cyan]} />
+          <GlassPanel className="hero-panel">
 
-          {/* Decorative corner traces */}
-          <svg className="hero-corner-svg" viewBox="0 0 600 400" fill="none">
-            <path d="M0 0 H80 L100 20"    style={{ stroke: COLORS.cyan }}      strokeWidth="1.5" opacity="0.6" />
-            <path d="M0 20 V80"            style={{ stroke: COLORS.cyan }}      strokeWidth="1.5" opacity="0.4" />
-            <circle cx="100" cy="20" r="3" style={{ fill: COLORS.cyan }}        opacity="0.8" />
-
-            <path d="M600 0 H520 L500 20"  style={{ stroke: COLORS.purple }}    strokeWidth="1.5" opacity="0.6" />
-            <path d="M600 20 V80"           style={{ stroke: COLORS.purple }}    strokeWidth="1.5" opacity="0.4" />
-            <circle cx="500" cy="20" r="3" style={{ fill: COLORS.purple }}      opacity="0.8" />
-
-            <path d="M0 400 H80 L100 380"   style={{ stroke: COLORS.neonGreen }} strokeWidth="1.5" opacity="0.5" />
-            <circle cx="100" cy="380" r="3"  style={{ fill: COLORS.neonGreen }}  opacity="0.7" />
-
-            <path d="M600 400 H520 L500 380" style={{ stroke: COLORS.cyan }}    strokeWidth="1.5" opacity="0.5" />
-            <circle cx="500" cy="380" r="3"  style={{ fill: COLORS.cyan }}      opacity="0.7" />
-          </svg>
+          <Corner corner="tl" color={COLORS.cyan} rail />
+          <Corner corner="tr" color={COLORS.purple} rail />
+          <Corner corner="bl" color={COLORS.neonGreen} />
+          <Corner corner="br" color={COLORS.cyan} />
 
           <p className="hero-greeting">Hello, I'm</p>
           <h1 id="hero-heading" className="hero-name">NICOLAS OLMEDO</h1>
@@ -70,7 +126,8 @@ export default function Hero() {
             </a>
           </div>
 
-        </GlassPanel>
+          </GlassPanel>
+        </div>
       </div>
     </section>
   );

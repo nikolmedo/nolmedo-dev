@@ -13,6 +13,35 @@
   background: linear-gradient(180deg, var(--cyan), var(--purple), color-mix(in srgb, var(--cyan) 27%, transparent));
   border-radius: 2px;
 }
+
+/* Where scroll-driven animations exist, the line starts as a dim track and a lit
+   segment grows as the reading position (60% down the viewport) moves through it. */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .timeline {
+      view-timeline: --career block;
+      view-timeline-inset: 60% 40%;
+    }
+    .timeline-line {
+      background: color-mix(in srgb, var(--cyan) 24%, transparent);
+    }
+    .timeline-line::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: linear-gradient(180deg, var(--cyan), var(--purple));
+      box-shadow: 0 0 10px color-mix(in srgb, var(--cyan) 40%, transparent); /* unslop-ignore: neon glow is the PCB design language */
+      transform-origin: 50% 0;
+      animation: timelineFill auto linear both;
+      animation-timeline: --career;
+    }
+  }
+}
+@keyframes timelineFill {
+  from { transform: scaleY(0); }
+  to   { transform: scaleY(1); }
+}
 .timeline-item {
   position: relative;
   margin-bottom: 28px;
@@ -82,6 +111,11 @@
   padding-left: 16px;
   position: relative;
   line-height: 1.65;
+}
+.timeline-metric {
+  color: var(--heading);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
 }
 .timeline-highlights li::before {
   content: '';

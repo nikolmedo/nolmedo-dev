@@ -123,6 +123,8 @@ html.theme-transition .nolmedo-root * {
   min-height: 100vh;
   min-height: 100svh;
   overflow-x: hidden;
+  /* clip keeps the root from becoming a scroll container, so view timelines track the document */
+  overflow-x: clip;
   position: relative;
   line-height: 1.6;
 }

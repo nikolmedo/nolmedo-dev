@@ -13,6 +13,10 @@ interface Props {
   activeSection: string;
   theme: string;
   onThemeChange: (theme: string) => void;
+  blueprint: boolean;
+  onBlueprintToggle: () => void;
+  /** Fired on hover/focus so the overlay chunk is ready before the click */
+  onBlueprintIntent: () => void;
 }
 
 interface ThemePickerProps {
@@ -140,7 +144,14 @@ function ThemePicker({ theme, onThemeChange, className }: ThemePickerProps) {
   );
 }
 
-export default function Navbar({ activeSection, theme, onThemeChange }: Props) {
+export default function Navbar({
+  activeSection,
+  theme,
+  onThemeChange,
+  blueprint,
+  onBlueprintToggle,
+  onBlueprintIntent,
+}: Props) {
   const [scrolled, setScrolled]     = useState(
     () => typeof window !== "undefined" && window.scrollY > SCROLL_THRESHOLD
   );
@@ -229,6 +240,24 @@ export default function Navbar({ activeSection, theme, onThemeChange }: Props) {
 
         <div className="nav-right">
           <ThemePicker theme={theme} onThemeChange={onThemeChange} className="theme-picker-desktop" />
+          <button
+            type="button"
+            className="mute-toggle blueprint-toggle"
+            aria-pressed={blueprint}
+            aria-label="Blueprint view"
+            title="Blueprint view"
+            onPointerEnter={onBlueprintIntent}
+            onFocus={onBlueprintIntent}
+            onClick={() => {
+              triggerClick();
+              onBlueprintToggle();
+            }}
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mute-icon" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="18" rx="1" strokeDasharray="3 3" />
+              <path d="M3 9h18M9 9v12" />
+            </svg>
+          </button>
           <button 
             className={`mute-toggle ${soundEnabled ? "sound-active" : "sound-muted"}`}
             onClick={toggleSound}

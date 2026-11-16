@@ -6,6 +6,15 @@ import { useSectionRef } from "../hooks/useSectionRef";
 import GlassPanel from "./GlassPanel";
 import SectionTitle from "./SectionTitle";
 
+const METRIC = /(\b\d[\d,]*(?:%|\+)?)/;
+
+/** Figures inside a highlight are the scannable proof, so they get their own weight. */
+function withMetrics(text: string) {
+  return text.split(METRIC).map((part, i) =>
+    i % 2 ? <strong key={i} className="timeline-metric">{part}</strong> : part,
+  );
+}
+
 export default function Experience() {
   const timelineRef = useReveal();
   const educationRef = useReveal();
@@ -30,7 +39,7 @@ export default function Experience() {
               </div>
               <p className="timeline-company">{job.company} · {job.location}</p>
               <ul className="timeline-highlights">
-                {job.highlights.map((h, j) => <li key={j}>{h}</li>)}
+                {job.highlights.map((h, j) => <li key={j}>{withMetrics(h)}</li>)}
               </ul>
             </GlassPanel>
           </div>
