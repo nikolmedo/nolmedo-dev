@@ -23,6 +23,7 @@ Single-page app, all sections rendered in [`src/App.tsx`](src/App.tsx):
 | `src/App.tsx` | Theme state (`data-theme` attr) + `localStorage` persistence, hosts the section IntersectionObserver via `SectionObserverContext`, scroll progress CSS var |
 | `src/components/` | One component per page section + shared UI (`GlassPanel`, `SectionTitle`) |
 | `src/components/PCBBackground.tsx` | Procedural canvas circuit-board background (see below) |
+| `src/components/BlueprintOverlay.tsx` + `src/styles/blueprint.css` | Blueprint view (see below) |
 | `src/data/*.ts` | All content (experience, projects, tech, nav links) as typed data. Edit content here, never in components |
 | `src/hooks/useWebMCP.ts` | WebMCP tool registration (`navigator.modelContext` + `window.webmcp` console helper) |
 | `src/hooks/useFeedback.ts` + `src/utils/feedbackManager.ts` | Web Audio synthesized click sounds + Vibration API haptics, mute state in `localStorage` |
@@ -65,6 +66,22 @@ Canvas-based procedural simulation. Key facts before modifying:
 - Listens for the `pcb-trigger` CustomEvent (`detail.type`: `"burst" | "scan"`),
   dispatched by the WebMCP tool `triggerPCBEvent`. Keep this contract stable.
 - Honors `prefers-reduced-motion` (static render) and pauses on `document.hidden`.
+
+## Blueprint View
+
+Navbar toggle that sets `data-blueprint` on `.nolmedo-root` (state lives in `App.tsx`, not
+persisted). Key facts before modifying:
+
+- The skin in `blueprint.css` must not change layout: the overlay labels real sizes, and the
+  wipe transition compares the same geometry before and after.
+- Accent variables are overridden on `header`, `main` and `footer`, never on the root. The
+  canvas reads the root's theme variables as hex, and a `color-mix()` value there breaks it.
+- `BlueprintOverlay` is lazy and measures with `offsetLeft/offsetTop` (not
+  `getBoundingClientRect`) so hover and entrance transforms do not skew the labels. New
+  sections and `GlassPanel`s are picked up automatically.
+- The transition is a view transition: `html.blueprint-in` / `html.blueprint-out` select the
+  wipe direction, and `.bp-scanline` gets a `view-transition-name` only while it runs. With
+  reduced motion or no View Transitions support the state swaps instantly.
 
 ## WebMCP / llms.txt Contract
 

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { flushSync } from "react-dom";
 import "./styles/global.css";
+import "./styles/blueprint.css";
 
 import { lazy, Suspense } from "react";
 import PCBBackground from "./components/PCBBackground";
@@ -16,6 +17,9 @@ const TechStack  = lazy(() => import("./components/TechStack"));
 const Projects   = lazy(() => import("./components/Projects"));
 const Experience = lazy(() => import("./components/Experience"));
 const Contact    = lazy(() => import("./components/Contact"));
+
+const loadBlueprint = () => import("./components/BlueprintOverlay");
+const BlueprintOverlay = lazy(loadBlueprint);
 
 const sectionFallback = (
   <div className="section-fallback" role="status" aria-label="Loading section" />
@@ -33,6 +37,9 @@ const readStoredTheme = () => {
 export default function NolmedoDev() {
   const [activeSection, setActiveSection] = useState("hero");
   const [theme, setTheme] = useState(readStoredTheme);
+  const [blueprint, setBlueprint] = useState(false);
+  const blueprintRef = useRef(false);
+  const blueprintBusyRef = useRef(false);
   const themeRef = useRef(theme);
   themeRef.current = theme;
   const rootRef = useRef<HTMLDivElement>(null);
@@ -110,19 +117,49 @@ export default function NolmedoDev() {
     transition.finished.finally(() => html.classList.remove("theme-transition"));
   }, []);
 
+  // Blueprint mode is swept in by a scan line: the new state is revealed behind it (see blueprint.css)
+  const toggleBlueprint = useCallback(() => {
+    if (blueprintBusyRef.current) return;
+    const next = !blueprintRef.current;
+    blueprintRef.current = next;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!document.startViewTransition || reduced) {
+      setBlueprint(next);
+      return;
+    }
+    const html = document.documentElement;
+    const direction = next ? "blueprint-in" : "blueprint-out";
+    blueprintBusyRef.current = true;
+    html.classList.add("theme-transition", direction);
+    const transition = document.startViewTransition(() => flushSync(() => setBlueprint(next)));
+    // A skipped or aborted transition still applies the new state, so its rejection is not an error here
+    transition.finished.catch(() => {}).finally(() => {
+      html.classList.remove("theme-transition", direction);
+      blueprintBusyRef.current = false;
+    });
+  }, []);
+
   useWebMCP(changeTheme);
 
   return (
-    <div ref={rootRef} className="nolmedo-root" data-theme={theme}>
+    <div ref={rootRef} className="nolmedo-root" data-theme={theme} data-blueprint={blueprint ? "" : undefined}>
       <a className="skip-link sr-only" href="#main">Skip to content</a>
 
       {/* Cyber-Grid background container */}
       <div className="cyber-grid" />
 
       <div className="scroll-progress-bar" />
+      <div className="bp-scanline" aria-hidden="true" />
       <PCBBackground theme={theme} />
       <header>
-        <Navbar activeSection={activeSection} theme={theme} onThemeChange={changeTheme} />
+        <Navbar
+          activeSection={activeSection}
+          theme={theme}
+          onThemeChange={changeTheme}
+          blueprint={blueprint}
+          onBlueprintToggle={toggleBlueprint}
+          onBlueprintIntent={loadBlueprint}
+        />
       </header>
       <SectionObserverContext.Provider value={observe}>
         <main id="main">
@@ -144,6 +181,11 @@ export default function NolmedoDev() {
           </Suspense>
         </main>
       </SectionObserverContext.Provider>
+      {blueprint && (
+        <Suspense fallback={null}>
+          <BlueprintOverlay rootRef={rootRef} theme={theme} />
+        </Suspense>
+      )}
       <footer className="footer">
         <p>© {new Date().getFullYear()} Nicolas Olmedo · Built with React & TypeScript</p>
       </footer>

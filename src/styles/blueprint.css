@@ -1,0 +1,247 @@
+/* ═══ BLUEPRINT MODE ═══
+   The same page drawn as its own plan: one ink derived from the active theme,
+   outlined components, and a measured annotation layer (BlueprintOverlay). */
+
+.nolmedo-root[data-blueprint] {
+  --bp-ink: color-mix(in srgb, var(--cyan) 62%, var(--text));
+  --bp-line: color-mix(in srgb, var(--bp-ink) 46%, transparent);
+  --bp-faint: color-mix(in srgb, var(--bp-ink) 8%, transparent);
+  --bp-paper: color-mix(in srgb, var(--cyan) 9%, var(--bg));
+  background-color: var(--bp-paper);
+  background-image:
+    linear-gradient(var(--bp-faint) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bp-faint) 1px, transparent 1px),
+    linear-gradient(var(--bp-faint) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bp-faint) 1px, transparent 1px);
+  background-size: 24px 24px, 24px 24px, 120px 120px, 120px 120px;
+}
+
+/* Accents collapse to the ink below the root, so the canvas (which reads the
+   root's theme variables) and the theme picker swatches keep the real palette */
+.nolmedo-root[data-blueprint] :is(header, main, footer) {
+  --green: var(--bp-ink);
+  --cyan: var(--bp-ink);
+  --purple: var(--bp-ink);
+  --amber: var(--bp-ink);
+}
+
+.nolmedo-root[data-blueprint] .pcb-bg { opacity: 0.22; }
+.nolmedo-root[data-blueprint] :is(.cyber-grid, .scan-line) { display: none; }
+.nolmedo-root[data-blueprint] .hero-section::before { display: none; }
+.nolmedo-root[data-blueprint] .navbar-scrolled {
+  background: color-mix(in srgb, var(--bp-paper) 82%, transparent);
+  border-bottom-color: var(--bp-line);
+}
+
+/* Components become outlines. Only paint changes: border widths stay, so nothing shifts under the wipe */
+.nolmedo-root[data-blueprint] .glass-panel {
+  background: color-mix(in srgb, var(--bp-ink) 3%, transparent);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-color: var(--bp-line);
+  border-radius: 3px;
+  box-shadow: none;
+}
+.nolmedo-root[data-blueprint] .glass-panel::before { display: none; }
+.nolmedo-root[data-blueprint] :is(.btn-primary, .btn-secondary) {
+  background: transparent;
+  border-color: var(--bp-line);
+  border-radius: 3px;
+  box-shadow: none;
+  color: var(--text);
+}
+.nolmedo-root[data-blueprint] .btn-primary {
+  border-color: var(--bp-ink);
+  color: var(--bp-ink);
+}
+.nolmedo-root[data-blueprint] .hero-name {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--bp-ink);
+  text-shadow: none;
+}
+.nolmedo-root[data-blueprint] .hero-fanout { opacity: 1; }
+
+/* ── Annotation layer ── */
+.bp-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: clip;
+  pointer-events: none;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1;
+  color: var(--bp-ink);
+}
+.bp-box {
+  position: absolute;
+}
+.bp-box-section {
+  outline: 1px dashed var(--bp-line);
+  outline-offset: -1px;
+}
+.bp-tag {
+  position: absolute;
+  white-space: nowrap;
+  padding: 2px 5px;
+  background: var(--bp-paper);
+  letter-spacing: 0.3px;
+}
+/* Panel tags sit on the border and interrupt it, the way dimensions are lettered on a drawing */
+.bp-box-panel .bp-tag-name { top: 0; left: 10px; translate: 0 -50%; }
+.bp-box-panel .bp-tag-size { bottom: 0; right: 10px; translate: 0 50%; }
+.bp-box-section .bp-tag-name { top: 6px; left: 6px; }
+.bp-box-section .bp-tag-size { top: 6px; right: 6px; }
+/* The hero section starts under the fixed navbar */
+.bp-box-section[data-id="hero"] .bp-tag { top: 78px; }
+.bp-tag-heading {
+  translate: 0 -100%;
+  padding: 1px 4px;
+  border: 1px solid var(--bp-line);
+  font-size: 9px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .bp-tag {
+    animation: bpTagIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation-delay: var(--d, 0ms);
+  }
+  .bp-box-section {
+    animation: bpFadeIn 0.4s ease-out both;
+    animation-delay: var(--d, 0ms);
+  }
+  .bp-sheet {
+    animation: bpSheetIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) 0.7s both;
+  }
+}
+@keyframes bpTagIn {
+  from { opacity: 0; clip-path: inset(0 100% 0 0); }
+  to   { opacity: 1; clip-path: inset(0); }
+}
+@keyframes bpFadeIn {
+  from { opacity: 0; }
+}
+@keyframes bpSheetIn {
+  from { opacity: 0; transform: translateY(12px); }
+}
+
+/* ── Spec sheet: the drawing's title block, bottom right ── */
+.bp-sheet {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 90;
+  width: 264px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--bp-paper);
+  border: 1px solid var(--bp-ink);
+}
+.bp-sheet-title {
+  padding: 7px 10px;
+  color: var(--bp-ink);
+  cursor: pointer;
+  letter-spacing: 0.5px;
+}
+.nolmedo-root .bp-sheet-title:focus-visible {
+  outline: 2px solid var(--bp-ink);
+  outline-offset: -2px;
+}
+.bp-sheet[open] .bp-sheet-title { border-bottom: 1px solid var(--bp-line); }
+.bp-sheet-rows > div {
+  display: grid;
+  grid-template-columns: 68px 1fr;
+  gap: 8px;
+  padding: 5px 10px;
+  border-bottom: 1px solid var(--bp-faint);
+}
+.bp-sheet-rows dt { color: var(--muted); }
+.bp-sheet-tokens {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+.bp-sheet-tokens caption {
+  padding: 6px 10px 2px;
+  text-align: left;
+  color: var(--muted);
+}
+.bp-sheet-tokens :is(th, td) {
+  padding: 3px 10px;
+  text-align: left;
+  font-weight: 400;
+}
+.bp-sheet-tokens td:last-child { color: var(--muted); }
+.bp-sheet-tokens tr:last-child :is(th, td) { padding-bottom: 8px; }
+.bp-swatch {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  margin-right: 7px;
+  border: 1px solid var(--bp-line);
+}
+
+@media (max-width: 768px) {
+  .bp-sheet { left: 12px; right: 12px; bottom: 12px; width: auto; }
+  .bp-tag-size { display: none; }
+  .bp-box-section .bp-tag-size { display: block; }
+}
+
+/* ── Toggle ── */
+.blueprint-toggle[aria-pressed="true"] {
+  color: var(--cyan);
+  border-color: color-mix(in srgb, var(--cyan) 45%, transparent);
+  background: color-mix(in srgb, var(--cyan) 10%, transparent);
+}
+
+/* ── Transition: a scan line sweeps the viewport and redraws the page behind it ── */
+.bp-scanline {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 2px;
+  z-index: 1002;
+  visibility: hidden;
+  pointer-events: none;
+  background: var(--cyan);
+  box-shadow: 0 0 14px 2px color-mix(in srgb, var(--cyan) 55%, transparent); /* unslop-ignore: neon glow is the PCB design language */
+}
+.nolmedo-root[data-blueprint] .bp-scanline { top: calc(100% - 2px); }
+/* Named only while a blueprint transition runs, so the line's move from one edge
+   to the other becomes its own view-transition group, in step with the wipe */
+html:is(.blueprint-in, .blueprint-out) .bp-scanline {
+  visibility: visible;
+  view-transition-name: bp-scan;
+}
+
+html:is(.blueprint-in, .blueprint-out)::view-transition-old(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+html:is(.blueprint-in, .blueprint-out)::view-transition-new(root) {
+  animation: bpWipeDown 0.85s cubic-bezier(0.65, 0, 0.35, 1) both;
+  mix-blend-mode: normal;
+}
+html.blueprint-out::view-transition-new(root) {
+  animation-name: bpWipeUp;
+}
+html:is(.blueprint-in, .blueprint-out)::view-transition-group(bp-scan) {
+  animation-duration: 0.85s;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+}
+html:is(.blueprint-in, .blueprint-out)::view-transition-old(bp-scan) { display: none; }
+html:is(.blueprint-in, .blueprint-out)::view-transition-new(bp-scan) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+@keyframes bpWipeDown {
+  from { clip-path: inset(0 0 100% 0); }
+  to   { clip-path: inset(0); }
+}
+@keyframes bpWipeUp {
+  from { clip-path: inset(100% 0 0 0); }
+  to   { clip-path: inset(0); }
+}

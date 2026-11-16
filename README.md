@@ -26,6 +26,7 @@ real time, synthesized audio feedback, haptics, and five switchable neon themes.
 | 🤖 **WebMCP interoperability** | Implements the Web Model Context Protocol so AI agents can scroll the page, read tech/projects/experience data, switch themes, and trigger animations programmatically. |
 | 📄 **llms.txt** | Machine-readable site description at [`/llms.txt`](public/llms.txt) for LLM and agent discovery. |
 | 🎨 **Five live themes** | `default`, `cyberpunk`, `matrix`, `synthwave`, `glacier`, all driven by CSS variables and cross-faded in real time (background included). The navbar picker is a dropdown whose trigger shows the active palette, and the choice persists in `localStorage`. |
+| 📐 **Blueprint view** | A navbar toggle redraws the page as its own plan: one ink derived from the active theme, outlined components, and a measured annotation layer that labels every section and panel with its real size and every heading with its level. A spec sheet lists the theme tokens with their WCAG contrast on `--bg`. A scan line sweeps the viewport and reveals the new state behind it (View Transitions API). |
 | 🔊 **Synthesized audio feedback** | Web Audio API tones with calibrated attack/decay envelopes for clicks and category filters, plus a persistent mute toggle (`localStorage`). |
 | 📳 **Haptic feedback** | 10 ms micro-vibrations via the Vibration API on mobile. |
 | 📱 **Mobile-first background** | Board density, pulse count, and effects adapt to viewport size; touch ripples replace hover physics; ambient glow keeps small screens rich. |
@@ -103,7 +104,8 @@ src/
 ├── App.tsx                  # Root: theme state, section observer, scroll progress
 ├── components/              # One component per section + shared UI
 │   ├── PCBBackground.tsx    # Procedural canvas circuit board
-│   ├── Navbar.tsx           # Navigation, theme & mute controls
+│   ├── Navbar.tsx           # Navigation, theme, blueprint & mute controls
+│   ├── BlueprintOverlay.tsx # Lazy annotation layer and spec sheet for blueprint view
 │   └── ...                  # Hero, About, TechStack, Projects, Experience, Contact
 ├── data/                    # Content as typed data (experience, projects, tech, nav)
 ├── hooks/                   # useWebMCP, useReveal, useFeedback
