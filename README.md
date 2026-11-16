@@ -14,7 +14,7 @@
 An interactive, AI-agent-friendly portfolio with a procedural PCB background rendered in
 real time, synthesized audio feedback, haptics, and five switchable neon themes.
 
-<img src="docs/screenshots/hero-default.png" width="100%" alt="Hero section with the procedural PCB background in the default green/cyan/purple theme">
+<img src="docs/screenshots/hero-default.png" width="100%" alt="Hero section in the default green/cyan/purple theme: the hero card is wired into the procedural PCB background through pins and fan-out traces">
 
 </div>
 
@@ -54,13 +54,17 @@ The background is a small physics-flavored simulation, not a static asset
 <table>
 <tr>
 <td width="50%"><img src="docs/screenshots/hero-cyberpunk.png" alt="The same hero section switched to the cyberpunk theme, PCB traces recolored to yellow, magenta and cyan"></td>
-<td width="50%"><img src="docs/screenshots/projects.png" alt="The projects grid: five cards over the PCB background, the odd fifth card centered and spanning both columns"></td>
+<td width="50%"><img src="docs/screenshots/projects.png" alt="The projects grid over the PCB background: a full-width featured card, two rows of two cards, and a centered last card"></td>
 </tr>
 <tr>
 <td><b>Live theme switch</b> — the PCB background, text, and every accent cross-fade to <code>cyberpunk</code> without a reload.</td>
-<td><b>Projects grid</b> — each card's accent color comes from the active theme's CSS variables; the fifth, odd card spans both columns.</td>
+<td><b>Projects grid</b> — each card's accent color comes from the active theme's CSS variables; the featured project spans the full width and a lone last card is centered.</td>
 </tr>
 </table>
+
+<img src="docs/screenshots/hero-blueprint.png" width="100%" alt="The hero section in blueprint view: components drawn as outlines on a drafting grid, labeled with their selector and measured size, with a design spec panel listing theme tokens and contrast ratios">
+
+**Blueprint view** — the same page drawn as its own plan, with every section and panel labeled from the live DOM.
 
 ## Built for AI Agents
 
