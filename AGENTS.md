@@ -25,7 +25,7 @@ Single-page app, all sections rendered in [`src/App.tsx`](src/App.tsx):
 | `src/components/PCBBackground.tsx` | Procedural canvas circuit-board background (see below) |
 | `src/components/BlueprintOverlay.tsx` + `src/styles/blueprint.css` | Blueprint view (see below) |
 | `src/data/*.ts` | All content (experience, projects, tech, nav links) as typed data. Edit content here, never in components |
-| `src/hooks/useWebMCP.ts` | WebMCP tool registration (`navigator.modelContext` + `window.webmcp` console helper) |
+| `src/hooks/useWebMCP.ts` | WebMCP tool registration (`document.modelContext`, falling back to `navigator.modelContext`, + `window.webmcp` console helper) |
 | `src/hooks/useFeedback.ts` + `src/utils/feedbackManager.ts` | Web Audio synthesized click sounds + Vibration API haptics, mute state in `localStorage` |
 | `src/hooks/useReveal.ts` | Scroll-reveal via IntersectionObserver (`.reveal` / `.revealed` classes) |
 | `src/hooks/useSectionRef.ts` | Registers a section element with the nav observer owned by `App.tsx` |
@@ -97,6 +97,9 @@ persisted). Key facts before modifying:
   `url`/`data` per entry, 2-5 `representativeQueries`).
 - `llms.txt` must keep an H1 and use `[text](url)` links; Lighthouse fails bare URLs.
   `/llm.txt` 301-redirects to it via `public/_redirects`.
+- `public/_headers` advertises `llms.txt`, the AI catalog, and the sitemap through `Link`
+  headers on `/` (RFC 8288), and sets cache rules (Cloudflare ignores `.htaccess`).
+- `public/robots.txt` declares Content Signals (`search=yes, ai-input=yes, ai-train=no`).
 
 ## SEO
 

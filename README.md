@@ -68,7 +68,8 @@ The background is a small physics-flavored simulation, not a static asset
 
 ## Built for AI Agents
 
-The site registers WebMCP tools on `navigator.modelContext` and exposes a console
+The site registers WebMCP tools on `document.modelContext` (falling back to
+`navigator.modelContext` in older Chrome builds) and exposes a console
 helper at `window.webmcp`. Try it in the browser DevTools on [nolmedo.dev](https://nolmedo.dev):
 
 ```js

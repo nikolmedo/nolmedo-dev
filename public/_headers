@@ -1,0 +1,14 @@
+/
+  Link: </llms.txt>; rel="describedby"; type="text/markdown"
+  Link: </.well-known/ai-catalog.json>; rel="ai-catalog"; type="application/json"
+  Link: </sitemap.xml>; rel="sitemap"; type="application/xml"
+  Cache-Control: no-cache
+
+/index.html
+  Cache-Control: no-cache
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/.well-known/ai-catalog.json
+  Content-Type: application/json

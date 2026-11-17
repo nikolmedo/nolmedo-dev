@@ -105,16 +105,26 @@ export function useWebMCP(
       }
     ];
 
+    // The current spec exposes the API on document.modelContext; older Chrome
+    // builds used navigator.modelContext, so fall back to it.
+    const modelContext = (document as any).modelContext ?? nav.modelContext;
+    const registrations = new AbortController();
+
     const register = () => {
-      if (nav.modelContext && typeof nav.modelContext.registerTool === "function") {
+      if (modelContext && typeof modelContext.registerTool === "function") {
         tools.forEach((tool) => {
           try {
-            nav.modelContext.registerTool(tool);
+            // registerTool() returns a Promise in the current spec and void in older builds
+            Promise.resolve(
+              modelContext.registerTool(tool, { signal: registrations.signal })
+            ).catch((err: unknown) => {
+              console.warn(`[WebMCP] Failed to register tool '${tool.name}':`, err);
+            });
           } catch (err) {
             console.warn(`[WebMCP] Failed to register tool '${tool.name}':`, err);
           }
         });
-        console.log("[WebMCP] Tools registered with navigator.modelContext");
+        console.log("[WebMCP] Tools registered with modelContext");
       }
 
       const webmcpHelper: Record<string, any> = {};
@@ -145,10 +155,11 @@ export function useWebMCP(
       );
 
       return () => {
-        if (nav.modelContext && typeof nav.modelContext.unregisterTool === "function") {
+        registrations.abort();
+        if (modelContext && typeof modelContext.unregisterTool === "function") {
           tools.forEach((tool) => {
             try {
-              nav.modelContext.unregisterTool(tool.name);
+              modelContext.unregisterTool(tool.name);
             } catch {
               // best-effort cleanup: the tool may already be gone on unmount
             }
@@ -158,11 +169,12 @@ export function useWebMCP(
       };
     };
 
-    // Registration is not needed for first paint; defer it until the browser is idle
+    // Registration is not needed for first paint; defer it until the browser is idle,
+    // but cap the wait so agents that inspect the page shortly after load still see the tools
     let unregister: (() => void) | undefined;
     const idle = typeof window.requestIdleCallback === "function";
     const handle = idle
-      ? window.requestIdleCallback(() => { unregister = register(); })
+      ? window.requestIdleCallback(() => { unregister = register(); }, { timeout: 1500 })
       : window.setTimeout(() => { unregister = register(); }, 1);
 
     return () => {
